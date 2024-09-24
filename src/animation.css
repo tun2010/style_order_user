@@ -1,0 +1,56 @@
+.fade-enter-to  {
+    transition: 0.001s;
+    animation-name: fader;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-out;
+}
+
+.fade-enter /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+.fade-leave-to{
+    opacity: 0;
+    
+}
+ .fade-leave-active{
+    transition: 0.1s;
+}
+@keyframes fader {
+    0% {
+        opacity: 0;
+        transform: translateX(10px)
+    }
+    30% {
+        opacity: 1;
+        transform: translateX(0px)
+    }
+    100%{}
+}
+.slide-enter-to  {
+    transition: 0.001s;
+    animation-name: slider;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-out;
+}
+
+.slide-enter /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+.slide-leave-to{
+    opacity: 0;
+    
+}
+ .slide-leave-active{
+    transition: 0.1s;
+}
+@keyframes slider {
+    0% {
+        /* opacity: 0; */
+        transform: translateX(500px)
+    }
+    30% {
+        /* opacity: 1; */
+        transform: translateX(0px)
+    }
+    100%{}
+}

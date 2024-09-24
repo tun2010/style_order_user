@@ -1,0 +1,2187 @@
+$accentColor: rgb(0, 189, 187)
+$kirikawari: 895px
+$kirikawari2: 500px
+
+html,
+body
+	margin: 0
+	padding: 0
+	background: #d9d9d9
+	font-size: 16px
+	line-height: 1.2
+	width: 100%
+	height: 100%
+	max-height: 100%
+	overflow: hidden
+*
+	box-sizing: border-box
+ul,li
+	list-style: none
+figure
+	margin: 0
+#container
+	background: none
+	padding: 0!important
+
+#main_column.colnum1
+	margin: 0!important
+	padding: 0!important
+	width: 100%!important
+	height: 100%!important
+
+body > div,
+#container,
+#app
+	width: 100%
+	height: 100%
+
+.title_container
+	display: flex
+	justify-content: center
+	align-items: center
+	gap: 5vw
+	margin-top: 20px
+	padding: 10px 0
+
+.title_container::before,
+.title_container:after
+	content: ""
+	display: block
+	flex: 1
+	height: 6px
+	border-top: 2px solid #777
+	border-bottom: 2px solid #777
+
+.custom_select
+	position: relative
+	--size: 32px
+	--width: 180px
+	--max-height: 300px
+
+	.custom_select__input
+		width: var(--width)
+		height: var(--size)
+		display: grid
+		grid-template-columns: 1fr calc(var(--size) + 6px)
+		border: 1px solid #777
+		align-items: center
+		background-color: #fff
+
+		.selected_value
+			display: flex
+			justify-content: flex-start
+			align-items: baseline
+			padding: 0 10px
+			span
+				font-size: 1rem
+				font-weight: 600
+			small
+				font-size: .8rem
+
+		.arrow
+			height: 100%
+			border: none
+			outline: none
+			background-color: rgb(0, 189, 187)
+			cursor: pointer
+
+			display: flex
+			justify-content: center
+			align-items: center
+			padding: 0
+
+			&::before
+				content: ''
+				display: block
+				width: 16px
+				height: 16px
+				background-repeat: no-repeat
+				background-position: center
+				background-size: contain
+				background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-down.png)
+
+	.custom_select__layer
+		position: fixed
+		z-index: 8
+		inset: 0
+		background-color: #00000033
+		opacity: 0
+		visibility: hidden
+		pointer-events: none
+		transition: opacity .3s ease
+
+
+	.custom_select__options
+		position: absolute
+		z-index: 9
+		top: calc(var(--size) + 1px)
+		left: 0
+		width: var(--width)
+		background-color: #fff
+		border: 1px solid #777
+		max-height: var(--max-height)
+		overflow-y: auto
+		opacity: 0
+		visibility: hidden
+		pointer-events: none
+		transition: opacity .3s ease
+		height: 0
+
+		.custom_select__option
+			padding: 8px 10px
+			font-size: .9rem
+			cursor: pointer
+			border-bottom: 1px solid #aaa
+			&:last-child
+				border-bottom: none
+			& > *
+				pointer-events: none
+			&.active
+				background-color: rgb(0, 189, 187)
+				color: #fff
+			small
+				font-size: .8rem
+
+	&.active
+		.custom_select__options,
+		.custom_select__layer
+			opacity: 1
+			visibility: visible
+			pointer-events: auto
+
+		.custom_select__options
+			height: initial
+
+		.custom_select__input
+			.arrow::before
+				transform: rotateX(180deg)
+	&.position_top
+		.custom_select__options
+			top: initial
+			bottom: calc(var(--size) + 1px)
+
+
+
+.option--option_items__item
+	&.active
+		outline: 6px solid $accentColor
+		outline-offset: -6px
+		&:after
+			content: " "
+			position: absolute
+			top: 11px
+			left: 12px
+			width: 20px
+			height: 20px
+			background-repeat: no-repeat
+			background-position: center
+			background-size: contain
+			background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/check-circle.png)
+.delivery_date
+	position: absolute
+	top: 0
+	right: 0
+	background: $accentColor
+	color: #fff
+	padding: 0.2em 1em
+.simulator
+	width: 100%
+	height: 100%
+	display: flex
+	justify-content: center
+	align-items: center
+	overflow: hidden
+	scroll-behavior: unset
+	.simulator__frame
+		position: relative
+		width: 100%
+		height: 100%
+		max-width: 1400px
+		max-height: 1366px
+		background: #f4f4f4
+		padding: 0
+
+		.clicknot.active
+			outline: 6px solid $accentColor
+			outline-offset: -6px
+
+		.top_placehilder
+			width: 100%
+			height: 60px
+			background-color: #cfcfcf
+
+		.selector__gender_selector
+			width: 100%
+			height: 100%
+			display: flex
+			flex-direction: column
+			justify-content: center
+			align-items: center
+			gap: 5vh
+			padding: 5vw
+
+			.simulator__title
+				width: 100%;
+				max-width: 700px
+				font-size: clamp(2rem, 4vw, 3rem)
+				border-top: 2px solid #555
+				border-bottom: 2px solid #555
+				text-align: center
+				text-transform: uppercase
+				padding: 2vh 0
+				color: #000
+
+			.simulator__choose_message
+				text-align: center
+				font-size: 1.25rem
+				color: #000
+
+				.break
+					display: none
+					@media screen and (max-width: $kirikawari2)
+						display: block
+
+			.gender_select_list
+				width: 100%
+				max-width: 700px
+				display: flex;
+				flex-direction: row
+				justify-content: center
+				align-items: center
+				gap: 40px
+
+				li
+					flex: 1
+					border: 6px solid #000
+					border-radius: 20px
+					display: flex;
+					flex-direction: column
+					justify-content: center
+					align-items: center
+					gap: 32px
+					padding: 50px 40px 40px
+					background: #ffffff
+
+					&.active-temp-remove
+						border-color: $accentColor
+						position: relative
+						&:after
+							content: " "
+							position: absolute
+							top: 11px
+							left: 12px
+							width: 20px
+							height: 20px
+							background-repeat: no-repeat
+							background-position: center
+							background-size: contain
+							background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/check-circle.png)
+
+					& img
+						width: calc(100% - 40px)
+						aspect-ratio: 1
+						object-fit: contain
+
+					.button
+						cursor: pointer
+						width: 100%
+						height: 58px
+						border-radius: 50px
+						display: flex;
+						justify-content: flex-end
+						align-items: center
+						color: #fff;
+						font-size: 1.5rem
+						font-weight: 900
+						gap: 30px
+						padding: 0 20px
+
+						&::after
+							content: ''
+							display: block
+							width: 24px
+							height: 24px
+							background-size: contain
+							background-repeat: norepeat
+							background-position: center
+					.men
+						background: rgb(0, 68, 88)
+						&::after
+							background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-men.png)
+					.women
+						background: rgb(151, 28, 59)
+						gap: 25px
+						&::after
+							background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-lady.png)
+
+	.simulator__flexer,
+	.simulator__start_flexer
+		height: calc(100% - 130px);
+		display: flex
+		align-items: stretch
+		margin: 0
+
+	.simulator__start_flexer
+		height: calc(100% - 70px);
+
+	.steper
+		width: 100%
+		height: 60px
+		margin: 0 auto
+		display: flex
+		justify-content: space-between
+		align-items: center
+		gap: 20px
+
+		overflow-x: auto
+		// overflow-y: hidden
+		webkit-overflow-scrolling: touch
+		overflow-scrolling: touch
+		position: relative
+		background: #fff
+		padding: 0 40px
+
+		.steper_child
+			display: flex
+			justify-content: flex-start
+			align-items: center
+			cursor: pointer
+			opacity: 0.2
+			transition: 0.5s
+			&.active
+				opacity: 1
+
+			.step_num
+				width: 32px
+				height: 32px
+				border-radius: 32px
+				display: flex;
+				justify-content: center
+				align-items: center
+				font-size: 1.2rem
+				background-color: #000000
+				color: #ffffff
+
+			.stem_name
+				flex: 1
+				font-size: 1.2rem
+				padding-inline: 10px
+				white-space: nowrap
+				small
+					font-size: .9rem
+
+			.step_arrow
+				width: 28px
+				height: 28px
+				background-repeat: no-repeat
+				background-position: center
+				background-size: contain
+				background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-right.png)
+
+			&:last-child
+				.step_arrow
+					display: none
+
+
+		dl
+			display: flex
+			cursor: pointer
+			opacity: 0.2
+			transition: 0.5s
+			&.active
+				opacity: 1
+			dt
+				color: $accentColor
+				font-size: 10px
+				text-align: center
+			dd
+				color: #000
+				text-align: center
+			.steper_child
+				min-width: 30vw
+	.stepper_wrap
+		position: relative
+		overflow-x: auto
+
+		scroll-snap-type: x mandatory
+		scroll-behavior: smooth
+		display: flex
+		scrollbar-width: none
+
+		-webkit-overflow-scrolling: touch
+
+		&::-webkit-scrollbar
+			display: none
+	.simulator__left
+		display: flex
+		flex-direction: column
+		// max-height: 790px
+		width: 100%
+		position: relative
+
+		.simulator__selector
+			width: 100%
+			height: 100%
+			display: grid
+			grid-template-columns: 1fr
+			grid-template-rows: 60px 1fr
+
+		.simulator__confirm2,.simulator__confirm2__wrap
+			height: 97%
+			box-sizing: border-box
+		.simulator__confirm2__wrap
+			overflow: auto
+		@media screen and (max-width: $kirikawari)
+			margin: 0 auto
+			order: 2
+	.simulator__right
+		width: 50%
+		@media screen and (max-width: $kirikawari)
+			width: 100%
+			order: 1
+		background: #fff
+		position: relative
+	.simulator__image_view
+		position: relative
+		background: #fff
+		height: 780px
+		@media screen and (max-width: $kirikawari)
+			transform: scale(0.95)
+			height: auto
+			min-height: 300px
+			padding-bottom: 30px
+		overflow: hidden
+		img
+			width: 100%
+			// height: 100%
+			position: absolute
+			right: 0
+			top: -100px
+			@media screen and (max-width: 1500px)
+				top: -50px
+			@media screen and (max-width: 1200px)
+				top: 0%
+			@media screen and (max-width: 1025px)
+				top: 0%
+			@media screen and (max-width: $kirikawari)
+				top: 0%
+				transform: translateY(-40px)
+
+
+				&.torso
+					position: static
+		object
+			width: 100%
+			// height: 100%
+			position: absolute
+			right: 0
+			top: -100px
+			@media screen and (max-width: 1500px)
+				top: -50px
+			@media screen and (max-width: 1200px)
+				top: 0%
+			@media screen and (max-width: 1025px)
+				top: 0%
+			@media screen and (max-width: $kirikawari)
+				top: 0%
+				transform: translateY(-40px)
+	.selector__gender_selector
+		padding: 1em
+		padding-bottom: 0
+		background: #f0f0f0
+		ul
+			display: flex
+			justify-content: space-between
+			flex-wrap: wrap
+			li
+				width: 48%
+				text-align: center
+				margin-bottom: 1em
+	.product__list_selectparts
+		flex1
+		background: #e3e3e3
+		overflow: hidden
+		overflow-y: auto
+		-webkit-overflow-scrolling: touch
+		overflow-scrolling: touch
+
+		&::-webkit-scrollbar
+			width: 24px
+
+		&::-webkit-scrollbar-track
+			background: #fff
+			padding: 4px
+
+		&::-webkit-scrollbar-thumb
+			background: #999
+			border-radius: 24px
+			border: 4px solid #fff
+
+		.info
+			padding: 15px 40px
+			font-size: 1rem
+
+		ul
+			width: 100%
+			max-width: 1100px
+			margin: 0 auto
+			display: grid
+			grid-template-columns: 1fr 1fr
+			gap: 20px
+			padding: 20px 40px
+
+	.product__list_select_parts
+		flex1
+		background: #e3e3e3
+		overflow: hidden
+		overflow-y: auto
+		-webkit-overflow-scrolling: touch
+		overflow-scrolling: touch
+
+		&::-webkit-scrollbar
+			width: 24px
+
+		&::-webkit-scrollbar-track
+			background: #fff
+			padding: 4px
+
+		&::-webkit-scrollbar-thumb
+			background: #999
+			border-radius: 24px
+			border: 4px solid #fff
+
+		.info
+			padding: 15px 40px
+			font-size: 1rem
+
+		.part_list
+			ul
+				width: 100%
+				max-width: 1000px
+				margin: 0 auto
+				display: grid
+				grid-template-columns: 1fr 1fr 1fr 1fr
+				gap: 20px
+				padding: 20px
+
+	.product__list
+		background: #e3e3e3
+		padding: 0
+		overflow: hidden
+		overflow-y: auto
+		-webkit-overflow-scrolling: touch
+		overflow-scrolling: touch
+
+		&::-webkit-scrollbar
+			width: 24px
+
+		&::-webkit-scrollbar-track
+			background: #fff
+			padding: 4px
+
+		&::-webkit-scrollbar-thumb
+			background: #999
+			border-radius: 24px
+			border: 4px solid #fff
+
+		.title_container
+			padding: 20px 40px
+
+		.info
+			padding: 15px 40px
+			font-size: 1rem
+
+		.product__textinput
+			margin: 1em 0
+			input
+				width: 100%
+				padding: 0.2em 0.5em
+				border: none
+				box-sizing: border-box
+		.kakuho
+			background: $accentColor
+			color: #fff
+			text-align: center
+			padding: 0.2em 0
+			position: relative
+			&:after
+				content: " "
+				display: block
+				position: absolute
+				right: 10px
+				top: calc(50% - 3px)
+				width: 5px
+				height: 6px
+				background: url(/images/white_arrow.png) no-repeat center
+		.kakuho
+			background: #a5a5a5
+			margin-top: 0.2em
+		.product__list__data
+			width: 100%
+			padding: 1em
+			font-size: 1.1rem
+			text-align: center
+			display: flex
+			min-height: 110px
+			justify-content: center
+			align-items: center
+			flex-direction: column
+			height: 100%
+			line-height: 1.4
+			background: #fff
+			position: relative
+			cursor: pointer
+
+			.product_flex
+				padding: 10px 0 0
+
+			.product__list__data__maker
+				font-size: 1.2rem
+				@media(max-width: 1024px)
+					font-size: 1rem
+
+			.product__list__data__price
+				display: flex
+				justify-content: center
+				align-items: center
+				margin-block-start: 10px
+
+				.price_name
+					strong
+						font-size: 1.25rem
+						@media(max-width: 1024px)
+							font-size: 1.1rem
+					small
+						font-size: .8rem
+				.wishable,
+				.pleats
+					width: 28px
+					height: 28px
+					background-repeat: no-repeat
+					background-position: center
+					background-size: contain
+
+				.wishable
+					background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/wishable.png)
+					margin-inline-start: 10px
+				.pleats
+					background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/pleats.png)
+					margin-inline-start: 5px
+		ul
+			display: grid
+			grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
+			grid-gap: 30px 15px
+			justify-content: flex-start
+			padding: 0 40px 40px
+			li
+				display: flex
+				flex-direction: column
+				justify-content: center
+				align-items: center
+				gap: 15px
+				cursor: pointer
+				transition: 0.5s
+				box-sizing: border-box
+
+				&.active
+					.product__list__data
+						outline: 6px solid $accentColor
+						outline-offset: -6px
+						&:after
+							content: " "
+							position: absolute
+							top: 12px
+							left: 12px
+							width: 20px
+							height: 20px
+							background-repeat: no-repeat
+							background-position: center
+							background-size: contain
+							background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/check-circle.png)
+
+				img
+					display: none
+					width: 100%
+					&.product__list__preload_image
+						position: absolute
+						width: auto
+						top: -1000000px
+						left: 0
+
+				.product_actions
+					width: 100%
+					display: flex
+					justify-content: center
+					align-items: center
+					gap: 10px
+
+					.buttons
+						flex: 1
+						font-size: .9rem
+						font-weight: 400
+						height: 32px
+						white-space: nowrap
+						@media(max-width: 1024px)
+							font-size: .8rem
+							padding-inline: 5px
+
+						&.button_white
+							background-color: #fff
+							color: $accentColor
+
+	.product__list_selectparts
+		ul
+			li
+				width: 100%
+				background: #fff
+				border: 2px solid #fff
+				box-sizing: border-box
+				position: relative
+				cursor: pointer
+				&.active
+					outline: 6px solid $accentColor
+					outline-offset: -6px
+					&:after
+						content: " "
+						position: absolute
+						top: 12px
+						left: 12px
+						width: 20px
+						height: 20px
+						background-repeat: no-repeat
+						background-position: center
+						background-size: contain
+						background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/check-circle.png)
+				&>div
+					display: grid
+					grid-template-columns: 1fr .8fr
+					grid-template-rows: 180px
+					overflow: hidden
+					gap: 20px
+					figure
+						text-align: center
+						img
+							line-height: 0
+							font-size: 0
+							width: 100%
+							height: 100%
+							object-fit: cover
+					&>div
+						display: flex;
+						justify-content: center
+						align-items: center
+						padding-inline-end: 20px
+						.selectparts__ja
+							font-size: 20px
+							font-weight: 600
+							text-align: center
+							@media screen and(max-width: $kirikawari)
+								font-size: 18px
+				.selectparts__buttons
+					margin-top: 1.5em
+					display: flex
+					justify-content: space-between
+					width: 100%
+					.buttons
+						width: 48%
+						display: block
+	.sorter_flexer
+		height: 60px
+		display: flex
+		justify-content: flex-start
+		align-items: center
+		padding-inline: 20px
+		gap: 20px
+		background: rgb(207, 207, 207)
+
+		.placeholder
+			flex: 1
+			min-width: 35%
+
+		.sorter2__flexer
+			display: flex
+			height: 100%
+			position: relative
+			> input
+				width: 100%
+				box-sizing: border-box
+				height: 36px
+				border-radius: 36px
+				padding-inline: 20px
+				border: 1px solid #000
+				font-size: 1rem
+			.search_icon
+				position: absolute
+				top: 50%
+				right: 20px
+				translate: 0 -50%
+				width: 1rem
+				height: 1rem
+				background-repeat: no-repeat
+				background-position: center
+				background-size: contain
+				background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/search.png)
+
+
+	.product__list__sorter2
+		min-width: 120px
+	.product__list__sorter
+		display: flex
+		justify-content: center
+		align-items: center
+		gap: 20px
+
+		.button_filter
+			cursor: pointer
+			height: 36px
+			border-radius: 36px
+			padding: 0 1rem
+			background: $accentColor
+			display: flex
+			justify-content: center
+			align-items: center
+			gap: 10px
+			color: #fff
+			font-size: 1rem
+			font-weight: 600
+			white-space: nowrap
+			box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px
+
+			@media(max-width: 768px)
+				font-size: .8rem
+
+			&::before
+				content: ''
+				display: block
+				width: 1rem
+				height: 1rem
+				background-repeat: no-repeat
+				background-position: center
+				background-size: contain
+				background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/filter.png)
+
+		.button_white
+			cursor: pointer
+			height: 36px
+			border-radius: 36px
+			padding: 0 1rem
+			background: #fff
+			display: flex
+			justify-content: center
+			align-items: center
+			gap: 10px
+			color: $accentColor
+			font-size: 1rem
+			font-weight: 600
+			white-space: nowrap
+			box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px
+
+			@media(max-width: 768px)
+				font-size: .8rem
+
+.button-loading
+	font-size: 1rem
+.buttons
+	height: 42px
+	border-radius: 42px
+	padding-inline: 10px
+	transition: 0.2s
+	background: rgb(0, 189, 187)
+	color: #fff
+	display: inline-flex
+	justify-content: center
+	align-items: center
+	text-align: center
+	gap: 10px
+	cursor: pointer
+	border: none
+	box-sizing: border-box
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px
+	font-size: 1rem
+	font-weight: 600
+
+	span
+		flex: 1
+		text-align: center
+
+	&.buttons-white
+		color: #000
+		background: #fff
+	&.buttons-nonactive
+		background: #e3e3e3 !important
+		color: white !important
+		border: none !important
+	&.buttons-brown
+		background: $accentColor
+	&.buttons-gray
+		background: #a5a5a5
+	&.buttons-line
+		background: rgba(0,0,0,0)
+		border: 1px solid #000
+		color: #000
+	&.buttons-small
+		display: inline-block
+		width: auto
+		padding: 0.2em 1em
+		height: auto
+	&.buttons-tatesmall
+		width: auto
+		padding: 0.2em 1em
+		height: auto
+	&.buttons-prev
+		min-width: 140px
+		position: relative
+		background: rgb(234, 234, 234)
+		color: #000
+		&:before
+			content: " "
+			display: block
+			position: absolute
+			left: 10px
+			top: 50%
+			width: 1em
+			height: 1em
+			translate: 0 -50%
+			background-repeat: no-repeat
+			background-position: center
+			background-size: contain
+			background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-left-circle.png)
+	&.buttons-next,
+	&.icon-end
+		min-width: 140px
+		position: relative
+		&:after
+			content: " "
+			display: block
+			position: absolute
+			right: 10px
+			top: 50%
+			width: 1em
+			height: 1em
+			translate: 0 -50%
+			background-repeat: no-repeat
+			background-position: center
+			background-size: contain
+			background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-right-circle.png)
+
+	&.icon-end
+		padding-inline-end: 30px
+		span
+			disabled: block
+			padding-inline: 10px
+
+	&.long_text
+		white-space: nowrap
+
+		@media (max-width: 768px)
+			padding-inline-end: 35px
+			span
+				padding-inline: 0px
+
+
+.simulator__controller
+	width: 100%
+	height: 70px
+	background: #fff
+	display: flex
+	justify-content: space-between
+	align-items: center
+	padding-inline: 20px
+	position: relative
+	z-index: 1
+
+	&.simulator__controller--center
+		justify-content: center
+
+	&.simulator__controller--end
+		justify-content: flex-end
+
+	.flex_container
+		display: flex
+		gap: 20px
+
+	ul
+		display: flex
+		justify-content: flex-end
+		align-items: center
+		gap: 20px
+	.cartin
+
+
+.simulator__total_price
+	background: rgb(24, 54, 67)
+	color: #fff
+	font-weight: 600
+	width: 35%
+	height: 60px
+	padding: 0 1em
+	position: absolute
+	z-index: 1
+	top: 0
+	left: 0
+	display: flex
+	align-items: center
+	justify-content: center
+
+	&.add_width
+		width: 60%
+
+	.total_price__disp
+		font-size: 1.5rem
+		padding-left: 0.2em
+	.simulator__total_price_flexer
+		flex: 1
+		display: flex
+		justify-content: space-between
+		align-items: center
+		font-size: 1rem
+		padding-inline: 20px
+
+		@media(max-width: 992px)
+			padding-inline: 0
+			flex-direction: column
+			align-items: flex-start
+
+		.flex_center
+			display: flex
+			gap: 20px
+
+.simulator__modal
+
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	display: flex
+	align-items: center
+	justify-content: center
+	z-index: 10
+
+	.title_container
+		margin-bottom: 20px
+
+	.simulator__modal__back
+		position: fixed
+		width: 100%
+		height: 100%
+		top: 0
+		left: 0
+		background: #000
+		background: rgba(0,0,0,0.7)
+	.simulator__modal__wrap
+		max-height: 80vh
+		overflow: auto
+		background: #fff
+		padding: 40px
+		position: relative
+
+	figure
+		img
+			width: 100%
+	.simulator__modal__title
+		border-bottom: 1px solid #777
+		padding-bottom: 0.3em
+		margin-bottom: 1em
+
+	p:not(.reservation_modal_submiter):not(.buttons)
+		padding-bottom: 0.5em
+.simulator__reservation_modal
+	.simulator__modal__wrap
+		padding-block-start: 60px
+		.modal_flex_center
+			display: flex
+			justify-content: center
+			align-items: center
+			flex-direction: column
+
+			.simulator__reservation__select
+				display: flex
+				justify-content: center
+				align-items: center
+				input
+					width: 120px
+					height: 32px
+					text-align: center
+
+			.reservation_modal_submiter
+				height: 32px
+				font-size: .9rem
+				padding-inline: 20px
+
+
+.simulator__email_modal
+	input
+		width: 100%
+	.buttons
+		width: 70%
+		margin: 0 auto
+		padding: 0.5em 2em
+.simulator__productinfo_modal
+	@media screen and(max-width: $kirikawari)
+		.info__flexer
+			flex-direction: column
+			gap: 40px
+			&>*
+				width: 100% !important
+				padding: 0 !important
+	.simulator__modal__wrap
+		width: calc(100vw - 60px)
+		max-width: 1000px
+	figure
+		width: 40%
+		aspect-ratio: 1 / 1
+		background: #eee
+		img
+			width: 100%
+			height: 100%
+			object-fit: cover
+	.productinfo__info
+		width: 60%
+		box-sizing: border-box
+		padding-left: 40px
+
+		.productinfo__info__maker,
+		.productinfo__info__name
+			font-size: 1.25rem
+
+		.productinfo__info__maker
+			span
+				padding-inline-start: 6px
+
+		.productinfo__info__price
+			font-size: 1.5rem
+			font-weight: 600
+			margin-block-start: 10px
+
+			.name
+				font-weight: 400
+
+			small
+				font-size: .8rem
+				font-weight: 400
+
+		.productinfo__info__content
+			font-size: 1rem
+			line-height: 1.6
+
+		.prodcut__list__iconset
+			margin-block: 1rem
+			position: static
+			justify-content: flex-start
+			top: 0
+			left: 0
+			p
+				display: flex
+				justify-content: flex-start
+				align-items: center
+.simulator__sort_modal
+	.simulator__modal__wrap
+		width: 100%
+		max-width: 1000px
+		max-height: 100%;
+		display: grid
+		grid-template-columns: minmax(0, 1fr)
+		grid-template-rows: 0 minmax(0, 1fr) 80px
+		overflow: hidden
+		padding: 0
+
+		@media(orientation: portrait)
+			max-width: initial
+			max-height: initial
+			height: 100%
+
+		.modal_close_container
+			width: 100%
+			display: flex
+			justify-content: flex-end
+
+			.modal_closer
+				position: relative
+				z-index: 2
+				top: 15px
+				right: 15px
+				background-color: #fff
+				transform: translateZ(0)
+
+		.modal_scroll_container
+			width: 100%
+			overflow-y: auto
+			-webkit-overflow-scrolling: touch
+			overflow-scrolling: touch
+			padding: 60px 40px 0
+
+			&::-webkit-scrollbar
+				width: 24px
+
+			&::-webkit-scrollbar-track
+				background: #fff
+				padding: 4px
+
+			&::-webkit-scrollbar-thumb
+				background: #999
+				border-radius: 24px
+				border: 4px solid #fff
+
+		.flex_top
+			display: flex
+			justify-content: center
+			align-items: flex-start
+			padding-block-start: 10px
+
+	.sort_modal-button
+		min-width: 320px
+		padding-inline-end: 0
+	.sort_set
+		margin-bottom: 2rem
+		.sort_set__title
+			margin-bottom: 1.2em
+			padding-left: .5rem
+			padding-bottom: 0 !important
+			span
+				font-size: 18px
+				font-weight: 600
+			span.small
+				font-size: 14px
+				color: #777
+		ul
+			display: grid
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))
+			grid-gap: 5px
+			justify-content: flex-start
+			padding: 0
+			li
+				border: 1px solid #777
+				cursor: pointer
+				min-height: 32px
+				display: flex
+				align-items: center
+				justify-content: flex-start
+				padding-inline: 10px
+				.checkboxDisp
+					border: 1px solid #777
+					width: 1rem
+					height: 1rem
+					display: flex
+					background: #fff
+					justify-content: center
+					align-items: center
+					flex-shrink: 0
+				span:last-child
+					padding-left: 1em
+
+				&.checked
+					background: rgb(83, 83, 83)
+					span:last-child
+						color: #fff
+
+					.checkboxDisp
+						&::after
+							content: ''
+							display: block
+							width: 10px
+							height: 4px
+							border-bottom: 1px solid #333
+							border-left: 1px solid #333
+							rotate: -45deg
+							translate: 0 -1px
+
+.centers
+	text-align: center
+.flex_centers
+	display: flex !important
+	justify-content: center !important
+	align-items: center !important
+.modal_closer
+	cursor: pointer
+	position: absolute
+	top: 15px
+	right: 15px
+	font-size: 0px
+	width: 42px
+	height: 42px
+	border: 2px solid #000
+	border-radius: 50%
+	display: flex
+	justify-content: center
+	align-items: center
+
+	&::before,&::after
+		content: ''
+		display: block
+		width: 28px
+		border-top: 1px solid #333
+		position: absolute
+	&::before
+		rotate: 45deg
+	&::after
+		rotate: -45deg
+
+.simulator__right_util
+	.optionOpener
+		top: 10px
+		left: 10px
+		position: absolute
+		z-index: 5
+		@media screen and(max-width: $kirikawari)
+			font-size: 10px
+	.viewZentai
+		top: 10px
+		left: 160px
+		position: absolute
+		z-index: 5
+		@media screen and(max-width: $kirikawari)
+			font-size: 10px
+	.mailSender
+		bottom: 10px
+		left: 10px
+		position: absolute
+		z-index: 5
+		justify-content: center
+		align-items: center
+		display: flex
+		@media screen and(max-width: $kirikawari)
+			width: 100%
+		&:before
+			content: ''
+			display: block
+			width: 10px
+			height: 10px
+			background: url(/images/icon_email_normal.png) no-repeat center
+			background-size: contain
+
+		@media screen and(max-width: $kirikawari)
+			width: calc(100vw - 20px)
+			padding: 0.8em 0
+	.parts_selector
+		display: flex
+		position: absolute
+		top: 10px
+		right: 10px
+		z-index: 5
+		li
+			@media screen and(max-width: $kirikawari)
+				font-size: 10px
+			span
+				opacity: 0.2
+				cursor: pointer
+			&:not(:last-child):after
+				content: "/"
+				opacity: 0.2
+				padding: 0 1em
+			&.active
+				span
+					opacity: 1
+.simulator__size,
+.simulator__selector_option
+	.simulator__size__wrap,
+	.simulator__option__wrap
+		background: #e3e3e3
+		overflow: hidden
+		overflow-y: auto
+		-webkit-overflow-scrolling: touch
+		overflow-scrolling: touch
+		padding: 20px
+		scroll-behavior: auto
+
+		&::-webkit-scrollbar
+			width: 24px
+
+		&::-webkit-scrollbar-track
+			background: #fff
+			padding: 4px
+
+		&::-webkit-scrollbar-thumb
+			background: #999
+			border-radius: 24px
+			border: 4px solid #fff
+
+		.simulator__size__group
+			padding: 20px 0;
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active
+	background: #333 !important
+	height: 25px !important
+	width: 8px !important
+	border-radius: 0
+	border: none
+.ui-slider-horizontal .ui-slider-handle
+	top: -12px !important
+.ui-slider-horizontal
+	height: 1px !important
+	border: none
+.ui-widget.ui-widget-content
+	border: none !important
+	background: #777
+.ui-slider-handle
+	position: relative
+	span
+		position: absolute
+		top: calc(100% + 5px)
+		left: -1.8em
+		text-align: center
+		width: 4.2em
+		color: #333 !important
+
+.simulator__confirm
+	background: #fff
+	padding: 7em 0
+	margin: 2em
+	.simulator__confirm__wrap
+		display: flex
+		justify-content: center
+		align-items: center
+		width: 60%
+		margin: 0 auto
+		padding: 2em
+		box-sizing: border-box
+		border: 1px solid #777
+		.simulator__confirm__image
+			width: 33%
+			padding-right: 2%
+			img
+				width: 100%
+		.simulator__confirm__info
+			width: 65%
+	.simulator__confirm__info__buttons
+		margin-top: 2em
+		display: flex
+		justify-content: space-between
+		align-items: center
+		width: 70%
+		p
+			width: 48%
+			box-sizing: border-box
+			span
+				padding: 0.4em 0
+				height: auto
+				font-size: 10px
+				position: relative
+				&:after
+					content: " "
+					display: block
+					position: absolute
+					right: 10px
+					top: calc(50% - 3px)
+					width: 5px
+					height: 6px
+					background: url(/images/white_arrow.png) no-repeat center
+.nonactive
+	opacity: 0.2
+.simulator__preloader
+	position: absolute
+	top: -100000px
+	left: -100000px
+
+.custom-icons
+	&.email
+		&:after
+			content: " "
+			width: 13px
+			height: 11px
+			padding: 0 5px
+			display: block
+			background: url(/images/email.png) no-repeat center
+
+.flexer
+	display: flex
+	justify-content: center
+	padding-block: 40px
+
+.simulator__loadinger
+	display: flex
+	justify-content: center
+	align-items: center
+	height: 500px
+	font-size: 200%
+
+.selector_design__category
+	padding: 2em
+	ul
+		display: flex
+		align-items: center
+		justify-content: flex-start
+		&:not(:last-child)
+			margin-bottom: 5px
+		li
+			box-sizing: border-box
+			width: 32%
+			margin: 0 0.5%
+.selector_design_search
+	margin-bottom: 2em
+	p
+		display: flex
+		.design_search__inputbox
+			width: 85%
+			box-sizing: border-box
+			border: 1px solid #000
+			display: flex
+			justify-content: space-between
+			align-items: stretch
+			input
+				background: rgba(255,255,255,0)
+				border: none
+				box-sizing: border-box
+				width: 90%
+			input,i
+				padding: 0.2em
+		&>.buttons
+			width: 15%
+.katagami_selector_info
+	box-sizing: border-box
+.product__list_selectparts_katagami
+	@media screen and (max-width: $kirikawari)
+		&:before
+			content: ''
+			display: block
+			height: 19px
+			width: 19px
+			background: url(/images/arrow_maru_left.png) no-repeat center
+			background-size: contain
+			position: absolute
+			left: 0px
+			top: calc(55% - 10px) !important
+		&:after
+			content: ''
+			display: block
+			height: 19px
+			width: 19px
+			background: url(/images/arrow_maru_right.png) no-repeat center
+			background-size: contain
+			position: absolute
+			right: 0px
+			top: calc(55% - 10px) !important
+	ul
+		height: 500px
+		@media screen and(max-width: $kirikawari)
+			max-height: 140px !important
+.product__list_selectparts__backer
+	text-align: right
+	margin-top: 1em
+	.buttons
+		padding: 0.5em 2em
+.katagami_list
+	li
+		background: rgba(255,255,255,0) !important
+		border: 1px solid rgba(255,255,255,0) !important
+		border-bottom: 1px solid #aaa !important
+		&.active
+			background: rgba(78,21,13,0.1) !important
+		.katagami_num
+			font-size: 1.2rem
+		.katagami_detail
+			color: #777
+
+.product__list__icon
+	width: 1.4rem
+	height: 1.4rem
+	background-repeat: no-repeat
+	background-position: center
+	background-size: contain
+	&.icon_mizuiro
+		background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/wishable.png)
+	&.icon_gray
+		background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/pleats.png)
+.prodcut__list__iconset
+	position: absolute
+	display: flex
+	justify-content: center
+	align-items: center
+	top: 5px
+	right: 5px
+	span
+		margin-left: 5px
+.product__list__nokori
+	margin-block-start: 5px
+
+	.select_container
+		padding-block: 10px
+
+		.custom_select
+			--size: 28px
+			--width: 84px
+			--max-height: 200px
+
+			.custom_select__input
+				.selected_value
+					justify-content: center
+					text-align: center
+
+.simulator__confirm2,.simulator__option_modal
+	background: #e3e3e3
+	.simulator__confirm2__wrap,.simulator__modal__wrap
+		padding: 2em
+		.confirm__title
+			display: flex
+			align-items: center
+			justify-content: flex-start
+			margin-bottom: 2em
+			p:not(.buttons)
+				background: url(/images/brown_arrow.png) no-repeat center left
+				padding-left: 2em
+				padding-bottom: 0 !important
+				width: 80%
+			.buttons
+				width: 20%
+				height: auto
+				padding: 0.5em 0
+		dl
+			display: flex
+			width: 100%
+			margin-bottom: 1.5em
+			dt
+				width: 15%
+		table
+			width: 100%
+			margin-bottom: 2em
+			tr
+				th,td
+					padding: 0.5em
+					text-align: center
+.simulator__option_modal,
+.simulator__optionset_modal,
+.simulator__productinfo_modal
+	.simulator__modal__wrap
+		width: 100%
+		max-width: 1000px
+		max-height: 100%
+		padding: 0
+		overflow: none
+		display: grid
+		grid-template-rows: 0 minmax(0, 1fr)
+
+		@media(orientation: portrait)
+			max-width: initial
+			max-height: initial
+			height: 100%
+
+
+		.modal_close_container
+			display: flex
+			justify-content: flex-end
+
+			.modal_closer
+				position: relative
+				z-index: 2
+				top: 15px
+				right: 15px
+				background-color: #fff
+				transform: translateZ(0)
+
+.simulator__modal__wrap,
+.simulator__page_confirm,
+.simulator_order__detail
+	.modal_scroll_container,
+	.confirm_scroll_container
+		width: 100%
+		overflow-y: auto
+		-webkit-overflow-scrolling: touch
+		overflow-scrolling: touch
+		padding: 40px
+
+		&::-webkit-scrollbar
+			width: 24px
+
+		&::-webkit-scrollbar-track
+			background: #fff
+			padding: 4px
+
+		&::-webkit-scrollbar-thumb
+			background: #999
+			border-radius: 24px
+			border: 4px solid #fff
+
+		.title_container
+			gap: 5vw
+			padding-inline: 0
+			font-weight: 600
+
+			&.margin_block_start
+				margin-block-start: 20px
+
+		.optionset_message
+			font-size: 1rem
+
+		.simulator__confirm__box
+			width: 100%
+			min-height: 100px
+			padding: 20px
+			background-color: #183643
+			color: #fff
+			display: flex
+			flex-direction: column
+			justify-content: center
+			align-items: center
+			text-align: center
+			margin-block-end: 40px
+
+			.confirm__title
+				font-size: 1.5rem
+				.price
+					font-weight: 600
+
+		.simulator__confirm__option_group
+			margin-block: 20px
+
+			.optionset_header
+				display: flex
+				justify-content: flex-start
+				align-items: center
+				gap: 20px
+				border-bottom: 1px solid #999
+				font-size: 1.2rem
+				font-weight: 600
+				margin-block-end: 15px
+
+				.current_selected
+					padding: 5px 15px
+					background-color: $accentColor
+					color: #fff
+
+				.optionset_titles
+				.optionset_price
+					padding-block: 6px
+					small
+						font-size: .85rem
+
+			.optionset_list
+				display: grid
+				grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))
+				gap: 10px
+
+				.optionset_item
+					border: 2px solid #183643
+					display: flex
+					flex-direction: column
+					justify-content: center
+					align-items: center
+					text-align: center
+					gap: 5px
+					padding: 0 10px
+					height: 72px
+					position: relative
+					overflow: hidden
+
+					&.selected
+						outline: 4px solid $accentColor
+						outline-offset: -4px
+
+					&:not(.option)
+						opacity: .3
+
+						&::before,
+						&::after
+							content: ''
+							display: block
+							position: absolute
+							z-index: 1
+							width: 200px
+							height: 0
+							border-top: 2px solid #183643
+						&::before
+							rotate: 22deg
+						&::after
+							rotate: -22deg
+
+					.selected_message
+						color: $accentColor
+
+		.option_modal__group
+			margin-block-end: 40px
+
+			.option_modal__header_group
+				display: flex
+				justify-content: space-between
+				align-items: center
+				padding-block: 5px
+
+				h4
+					font-size: 1rem
+
+			.label_value_group
+				display: grid
+				grid-template-columns: 280px minmax(0, 1fr)
+
+				@media(max-width: 768px)
+					grid-template-columns: 220px minmax(0, 1fr)
+
+				&:nth-child(2)
+					.data_value
+						border-top: 1px solid #ccc
+					.label_name
+						border-top: 1px solid #777
+
+				&:nth-child(odd)
+					background-color: #fff
+
+				.label_name,
+				.data_value
+					padding: 10px
+					font-size: .9rem
+
+				.label_name
+					border-right: 1px solid #777
+					border-bottom: 1px solid #777
+				.data_value
+					border-bottom: 1px solid #ccc
+					font-weight: 600
+					padding-inline-start: 60px
+
+			.size_table_group
+				width: 100%
+				margin-bottom: 40px
+
+				.size_table_row
+					display: grid
+					grid-template-columns: 280px minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr)
+
+					@media(max-width: 768px)
+						grid-template-columns: 220px minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr)
+
+					&:nth-child(even)
+						background-color: #fff
+
+					.table_header,
+					.table_data
+						padding: 10px
+						font-size: .9rem
+						border-bottom: 1px solid #ccc
+						font-weight: 600
+						padding-inline-start: 60px
+
+					.table_header__start,
+					.table_data__start
+						padding-inline-start: 8px
+					.table_data__start
+						font-weight: 400
+						border-right: 1px solid #777
+						border-bottom: 1px solid #777
+					.data_value__center
+						padding-inline-start: 8px
+						text-align: center
+						border-right: 1px solid #ccc
+					.table_header__start
+						border-right: none
+						border-bottom: 1px solid #777
+
+		.flex_center
+			display: flex
+			justify-content: center
+			align-items: center
+
+			.footer_delivery_date
+				font-size: 1.3rem
+				font-weight: 600
+
+
+
+.simulator__finalstaff
+	margin-top: 2em
+	background: #fff
+	.simulator__finalstaff__wrap
+		width: 80%
+		padding: 2em
+		margin: 0 auto
+	table
+		border: 1px solid #333
+		margin-bottom: 4em
+		th,td
+			text-align: center
+			padding: 1em
+		th
+			background: #f2f2f2
+		td
+			div
+				span
+					display: block
+.title_style1
+	background: url(/images/brown_arrow.png) no-repeat center left
+	padding-left: 2em
+	padding-bottom: 0 !important
+	width: 80%
+	font-weight: bold
+	font-size: 110%
+	margin-bottom: 1em
+	margin-top: 1em
+.title_style2
+	background: url(/images/brown_arrow.png) no-repeat center left
+	padding-left: 2em
+	padding-bottom: 0 !important
+	width: 100%
+	font-weight: bold
+	font-size: 110%
+	margin-bottom: 2em
+	margin-top: 1em
+	text-transform: uppercase
+.simulator__confirm__block
+	padding-bottom: 1em
+	margin-bottom: 2em
+	border-bottom: 1px solid #eee
+	min-width: 300px
+.simulator__confirm__block__option
+
+	dt
+		width: 40% !important
+		font-weight: bold
+	dd
+		width: 60% !important
+
+.simulator__sizeselect_modal
+	.simulator__modal__wrap
+		max-width: calc(100% - 60px)
+		max-height: 100%
+		padding: 0
+		display: grid
+		grid-template-columns: minmax(0, 1fr)
+		grid-template-rows: 0 minmax(0, 1fr)
+
+		.modal_close_container
+			width: 100%
+			display: flex
+			justify-content: flex-end
+
+			.modal_closer
+				pointer-events: auto
+				position: relative
+				z-index: 2
+				top: 15px
+				right: 15px
+				background-color: #fff
+				transform: translateZ(0)
+
+		.modal_scroll_container
+			width: 100%
+			height: 100%
+			overflow: auto
+			padding: 80px 40px
+
+			-webkit-overflow-scrolling: touch
+			overflow-scrolling: touch
+			box-sizing: border-box
+			-webkit-box-sizing: border-box
+
+			&::-webkit-scrollbar
+				width: 24px
+				height: 24px
+
+			&::-webkit-scrollbar-track
+				background: #fff
+				padding: 4px
+
+			&::-webkit-scrollbar-thumb
+				background: #999
+				border-radius: 24px
+				border: 4px solid #fff
+
+
+
+			> p
+				min-width: 50vw
+				min-height: 50vh
+				display: flex
+				justify-content: center
+				align-items: center
+
+
+		.sizeTableLoading
+			min-width: 60vw
+			min-height: 50vh
+			display: flex
+			justify-content: center
+			align-items: center
+
+		.sizeselectButton
+			span
+				background: $accentColor
+				display: block
+				color: #fff
+				padding: 0.5em 1em
+				cursor: pointer
+				white-space: nowrap
+			&.active
+				span
+					background: #808080
+					pointer-events: none
+			&.disabled
+				pointer-events: none
+				span
+					opacity: .3
+		table
+			background: #333
+			border-collapse: separate
+			border-spacing: 1px
+			th,td
+				background: #fff
+				padding: 1em
+				text-align: center
+				&.notAdj
+					background: #f2f2f2
+			th
+				background: #f2f2f2
+				font-weight: bold
+.simulator__info
+	display: none
+	@media screen and(max-width: $kirikawari)
+		display: block
+	position: absolute
+	bottom: 50px
+	left: 0
+	z-index: 2
+	width: 100%
+	.simulator__info__box
+		display: flex
+		justify-content: space-around
+		align-items: center
+		width: 100%
+		p
+			width: 55%
+			color: #e11818
+			text-align: center
+
+		hr
+			height: 1px
+			background: #e11818
+			border: none
+			width: 20%
+.scroller
+	display: none
+	@media screen and(max-width: $kirikawari)
+		display: block
+	width: 32px
+	height: 32px
+	position: absolute
+	bottom: 75px
+	right: 5px
+	z-index: 2
+	cursor: pointer
+	img
+		width: 100%
+
+@media screen and (max-width: $kirikawari)
+	.simulator__confirm2 .simulator__confirm2__wrap dl dt
+		width: 30%
+
+.option_infostring
+	font-weight: bold
+	margin-bottom: 1em
+	margin-top: 2em
+
+.size_sp_tani
+	display: none
+	@media screen and (max-width: $kirikawari)
+		display: block
+
+.image_loading
+	opacity: 0.2
+
+.itemlistInfo
+	display: none
+	margin-top: 1em
+	.itemlistInfo__flexer
+		justify-content: flex-start
+		align-items: center
+		p
+			display: flex
+			align-items: center
+			margin-right: 1em
+			.product__list__icon
+				margin-right: 0.3em
+			.itemlistInfo__btn
+				margin-left: 0.5em
+				background: #000
+				padding: 0.2em 0.5em
+				color: #fff
+				cursor: pointer
+
+.optionmodal_sizes
+	.namescol
+		width: 35% !important
+		text-align: left !important
+
+.optionset_box
+	padding: 1em
+	margin-bottom: 1em
+	&.current
+		background: #Fdd
+.firstcontactor
+	&.simulator__confirm2
+		background: rgba(255,255,255,0)
+	dl
+		dt
+			width: 40% !important
+	.simulator__confirm2
+		background: #fff
+	.simulator__left
+		table
+			tr
+				td
+					&:first-child
+						width: 40%
+						text-align: left
+		.simulator__confirm2__wrap
+			height: 100%
+			padding: 0
+			display: flex
+			flex-direction: column
+			justify-content: flex-end
+			@media screen and (max-width: 895px)
+				max-height: inherit
+		.image__block
+			height: 70%
+			padding: 2em
+			display: flex
+			align-items: center
+			justify-content: center
+			img
+				max-width: 100%
+		.simulator__confirm__block
+			box-sizing: border-box
+			height: 30%
+			overflow: auto
+			margin-bottom: 0
+			padding: 2em
+			@media screen and (max-width: 895px)
+				padding: 2em 1em
+				height: auto
+				overflow: visible
+			background: #e3e3e3
+	.simulator__right
+		.simulator__confirm2__wrap
+			max-height: 780px
+			overflow: auto
+			@media screen and (max-width: 895px)
+				background: #e3e3e3
+				width: 96%
+				margin: 0 auto
+				box-sizing: border-box
+				max-height: inherit
+	*[data-target]
+		text-decoration: underline
+		cursor: pointer
+		&.notuse
+			text-decoration: none
+			cursor: default
+		&.active
+			color: #4f150c
+			text-decoration: none
+			font-weight: bold
+	@media screen and (max-width: 895px)
+		.simulator__left
+			order: 1
+		.simulator__right
+			order: 2
+	.firstcontactor__switcher
+		display: none
+		@media screen and (max-width: 895px)
+			display: flex
+		align-items: center
+		justify-content: space-between
+		margin: 2em 0
+		li
+			width: 49%
+			.buttons
+				width: 100%
+	@media screen and (max-width: 895px)
+		.sp_switcher
+			&:not(.active_sp)
+				display: none

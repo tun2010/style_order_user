@@ -58,16 +58,22 @@
 </template>
 
 <style>
-.simulator__image_view img,
+.simulator__image_view .zentai img,
+.simulator__image_view .sample img,
+.simulator__image_view .options img,
 .simulator__image_view object {
 	opacity: 0;
+	scale: .95;
 	transition: 0s;
 }
 
-.simulator__image_view img.loaded,
+.simulator__image_view .zentai img.loaded,
+.simulator__image_view .sample img.loaded,
+.simulator__image_view .options img.loaded,
 .simulator__image_view object.loaded {
 	opacity: 1;
-	transition: 0.2s;
+	scale: 1;
+	transition: 0.2s ease;
 }
 </style>
 <script>
@@ -81,6 +87,8 @@ module.exports = {
 			svg: '',
 			shadow: '',
 			imageDirUrl: '/sandbox/images/simulator/svg_shadow2/',
+			imageDirMain: '/sandbox/images/simulator/svg_shadow2/',
+			imageDirFallback: '/sandbox/images/simulator/svg_shadow/',
 			optionDirUrl: '/sandbox/images/simulator/options/',
 			optionTargetResult: '',
 			designList: [

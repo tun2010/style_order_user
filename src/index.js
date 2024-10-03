@@ -3161,13 +3161,9 @@ var app = new Vue({
             const fabrigImg = $(".simulator__preloader").find("img");
             const suitModal = document.querySelector(".suitmodel");
 
-            // console.log('ON_FABRIC_LOADED', fabrigImg, suitModal);
-
             if (fabrigImg && suitModal) {
                 const target = suitModal.contentDocument;
                 const [src, width, height] = [fabrigImg.attr("src"), fabrigImg.width(), fabrigImg.height()];
-
-                console.log(src, width, height);
 
                 $(target).find("pattern").not("#buttons").find("image").attr("xlink:href", src).attr("width", width).attr("height", height);
                 $(target).find("pattern").not("#buttons").attr("width", width).attr("height", height);

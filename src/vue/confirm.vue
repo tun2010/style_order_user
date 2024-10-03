@@ -31,7 +31,7 @@
 		<div class="confirm-scroll vertical-scroll">
 			<div class="main-message-container">
 				<div class="persona"></div>
-				<p>以下の内容で承っております。来店 予約を行う場合は、来店予約ボタン より、シミュレーション内容を保存する 場合は、メールで送信をクリックしてく ださい。</p>
+				<p>以下の内容で承っております。来店予約を行う場合は、来店予約ボタンより、シミュレーション内容を保存する場合は、メールで送信をクリックしてください。</p>
 			</div>
 
 			<div class="actions-group" v-if="$parent.katagamiNaiUser">
@@ -595,8 +595,8 @@ module.exports = {
 			}
 			window.open("", 'shinki');
 			this.finalSheetCheck();
-			var url = "https://online.taka-q.jp/stg/shop/orderreserve/orderreserve.aspx?url=";
-			// var url="https://online.taka-q.jp/shop/orderreserve/orderreserve.aspx?url=";
+			// var url = "https://online.taka-q.jp/stg/shop/orderreserve/orderreserve.aspx?url=";
+			var url="https://online.taka-q.jp/shop/orderreserve/orderreserve.aspx?url=";
 
 			let formdata = new URLSearchParams();
 			this.kyouseiOptionChecker();

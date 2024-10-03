@@ -2196,7 +2196,7 @@ body {
                     right: 0;
                     z-index: 1;
                     align-self: center;
-                    font-size: clamp(1.2fr, 6vw, 1.8fr);
+                    font-size: clamp(0.9rem, 3vw, 1.1rem);
                     font-weight: 600;
                     text-align: center;
                     padding-inline-end: 20px
@@ -2278,7 +2278,8 @@ body {
                         pointer-events: none;
 
                         .name {
-                            font-size: clamp(1rem, 3vw, 1.2rem);
+                            font-size: clamp(0.9rem, 3vw, 1.1rem);
+                            font-weight: 600;
                             padding-inline: 10px;
                         }
 

@@ -3165,10 +3165,11 @@ var app = new Vue({
                 const target = suitModal.contentDocument;
                 const [src, width, height] = [fabrigImg.attr("src"), fabrigImg.width(), fabrigImg.height()];
 
-                console.log(src, width, height);
-
                 $(target).find("pattern").not("#buttons").find("image").attr("xlink:href", src).attr("width", width).attr("height", height);
                 $(target).find("pattern").not("#buttons").attr("width", width).attr("height", height);
+
+                $('.simulator__image_view img,.simulator__image_view object').addClass('loaded');
+                $('.simulator__image_view img,.simulator__image_view object').addClass('loaded');
             }
         },
         texChanger: function (firstflg = false) {

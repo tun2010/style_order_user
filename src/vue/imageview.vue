@@ -22,21 +22,30 @@
 		<p style="display:none;">{{ targetCourser }}</p>
 		<p style="display:none;">{{ targetSrc }}</p>
 		<div class="zentai" v-if='courseNo != ""'>
-			<img :src="targetSrc + 'torso.png'" alt="Troso" class="torso" v-on:load="imageloaded($event)">
-			<object :onload='$parent.texChanger()' v-on:load="imageloaded($event)" @load="$parent.onFabricLoad" class="suitmodel model1" type="image/svg+xml" v-bind:data="targetSrc+'svg.svg'" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated;"></object>
-			<img class="shadow" :src="targetSrc+'shadow.png'" v-on:load="imageloaded($event)">
+			<img :src="targetSrc + 'torso.png'" alt="Troso" class="torso">
+			<object class="suitmodel model1" type="image/svg+xml"
+				@load="$parent.onFabricLoad"
+				@error="handleError"
+				:data="targetSrc+'svg.svg'"
+				style="-ms-interpolation-mode: bicubic;image-rendering: pixelated;"
+			></object>
+			<img class="shadow" :src="targetSrc+'shadow.png'">
 		</div>
 		<div class="sample" v-else>
-			<img class="torso" :src="sampletorsosrc" v-on:load="imageloaded($event)">
-			<object :onload='$parent.texChanger()' v-on:load="imageloaded($event)" @load="$parent.onFabricLoad" class="suitmodel model2" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated;"></object>
-			<img class="shadow" :src="sampleshadowsrc" v-on:load="imageloaded($event)">
+			<img class="torso" :src="sampletorsosrc">
+			<object class="suitmodel model2" type="image/svg+xml"
+				@load="$parent.onFabricLoad"
+				:data="modelsrc"
+				style="-ms-interpolation-mode: bicubic;image-rendering: pixelated;"
+			></object>
+			<img class="shadow" :src="sampleshadowsrc">
 		</div>
 		<div class="options">
-			<img data-id="1" v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/button/"+buttons+".png"' :data-image-url='optionSrcer+optionTargetResult+"/button/"+buttons+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
-			<img data-id="2" v-else :src='optionSrcer+optionTarget+"/button/"+buttons+".png"' :data-iamge-url='optionSrcer+optionTarget+"/button/"+buttons+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
+			<img data-id="1" v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/button/"+buttons+".png"' :data-image-url='optionSrcer+optionTargetResult+"/button/"+buttons+".png"' v-on:error='notfounder'>
+			<img data-id="2" v-else :src='optionSrcer+optionTarget+"/button/"+buttons+".png"' :data-iamge-url='optionSrcer+optionTarget+"/button/"+buttons+".png"' v-on:error='notfounder'>
 
-			<img data-id="3" v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/flower/"+flowerF+".png"' :data-image-url='optionSrcer+optionTargetResult+"/flower/"+flowerF+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
-			<img data-id="4" v-else :src='optionSrcer+optionTarget+"/flower/"+flowerF+".png"' :data-image-url='optionSrcer+optionTarget+"/flower/"+flowerF+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
+			<img data-id="3" v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/flower/"+flowerF+".png"' :data-image-url='optionSrcer+optionTargetResult+"/flower/"+flowerF+".png"' v-on:error='notfounder'>
+			<img data-id="4" v-else :src='optionSrcer+optionTarget+"/flower/"+flowerF+".png"' :data-image-url='optionSrcer+optionTarget+"/flower/"+flowerF+".png"' v-on:error='notfounder'>
 		</div>
 
 		<!-- <div class="actions-group" v-if="$parent.step > 4">
@@ -49,16 +58,22 @@
 </template>
 
 <style>
-.simulator__image_view img,
+.simulator__image_view .zentai img,
+.simulator__image_view .sample img,
+.simulator__image_view .options img,
 .simulator__image_view object {
 	opacity: 0;
+	scale: .95;
 	transition: 0s;
 }
 
-.simulator__image_view img.loaded,
+.simulator__image_view .zentai img.loaded,
+.simulator__image_view .sample img.loaded,
+.simulator__image_view .options img.loaded,
 .simulator__image_view object.loaded {
 	opacity: 1;
-	transition: 0.5s;
+	scale: 1;
+	transition: 0.2s ease;
 }
 </style>
 <script>
@@ -71,7 +86,9 @@ module.exports = {
 		return {
 			svg: '',
 			shadow: '',
-			imageDirUrl: '/images/simulator/svg_shadow/',
+			imageDirUrl: '/images/simulator/svg_shadow2/',
+			imageDirMain: '/images/simulator/svg_shadow2/',
+			imageDirFallback: '/images/simulator/svg_shadow/',
 			optionDirUrl: '/images/simulator/options/',
 			optionTargetResult: '',
 			designList: [
@@ -187,8 +204,12 @@ module.exports = {
 		}
 	},
 	methods: {
-		objectLoaded() {
-			console.log('OBJECT_LOADED');
+		handleError() {
+			if (this.imageDirUrl == this.imageDirMain) {
+				this.imageDirUrl = this.imageDirFallback;
+			} else {
+				this.imageDirUrl = this.imageDirMain;
+			}
 		},
 		optionsetModalOpen: function () {
 			Vue.set(this.$parent, 'optionsetModalFlg', true);
@@ -231,14 +252,14 @@ module.exports = {
 					)
 				);
 			});
-			// // console.log('targetCourseData', JSON.parse(JSON.stringify(this.$parent.selected.targetCourseData)));
-			// // console.log('DESIGN_LIST', JSON.parse(JSON.stringify(_.orderBy(list, 'rank', 'desc'))));
 			return _.orderBy(list, 'rank', 'desc');
 		},
 	},
 	watch: {
-		targetSrc: function (v) {
-			$('.simulator__image_view .zentai img,.simulator__image_view .zentai object').removeClass('loaded');
+		targetSrc: function (newData) {
+			if (newData.includes('svg_shadow')) {
+				$('.simulator__image_view img,.simulator__image_view object').removeClass('loaded');
+			}
 		},
 		optionTarget: function (v, ov) {
 			// // console.log(this.optionSrcer+v+"/button/"+this.buttons+".png");
@@ -246,8 +267,10 @@ module.exports = {
 			// $('.simulator__image_view .options img,.simulator__image_view .options object').removeClass('loaded');
 			// // console.log('option chang3e');
 		},
-		sampletorsosrc: function (v) {
-			$('.simulator__image_view .sample img,.simulator__image_view  .sample object').removeClass('loaded');
+		sampletorsosrc: function (newData) {
+			if (newData.includes('svg_shadow')) {
+				$('.simulator__image_view img,.simulator__image_view object').removeClass('loaded');
+			}
 		},
 	},
 	computed: {
@@ -518,7 +541,7 @@ module.exports = {
 		// this.$parent.view = this.$parent.checkSkPt;
 		Vue.nextTick(function () {
 			setTimeout(function () {
-				thista.$parent.texChanger();
+				// thista.$parent.texChanger();
 			}, 100);
 		});
 	}

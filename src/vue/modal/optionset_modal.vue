@@ -351,7 +351,7 @@ module.exports = {
 				}
 			};
 			var thista = this;
-			axios.get("/sandbox/ajaxTool/checkSentaku.php", query).then(res => {
+			axios.get("/ajaxTool/checkSentaku.php", query).then(res => {
 				// // console.log(res.data);
 				if (res.data == true) {
 					// // console.log(item);

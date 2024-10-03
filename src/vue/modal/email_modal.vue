@@ -70,7 +70,7 @@ module.exports = {
 				formdata.append('stylenoid', '');
 			}
 			formdata.append('sessions', sessionJson);
-			axios.post("/sandbox/ajaxTool/simuMailSend.php", formdata).then(res => {
+			axios.post("/ajaxTool/simuMailSend.php", formdata).then(res => {
 				// console.log(res.data);
 				if (res.data == "mail sended") {
 					alert("メールを送信しました");

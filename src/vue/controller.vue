@@ -338,7 +338,7 @@ module.exports = {
 			}
 			formdata.append('url', url);
 
-			axios.post("/sandbox/ajaxTool/simuRaitenYoyakuSend.php", formdata).then(res => {
+			axios.post("/ajaxTool/simuRaitenYoyakuSend.php", formdata).then(res => {
 				//// console.log(res.data);
 				window.open(res.data, 'shinki');
 				location.reload();
@@ -370,7 +370,7 @@ module.exports = {
 			}
 			//// console.log("同時購入："+this.$parent.douziChecker);
 
-			axios.post("/sandbox/ajaxTool/okyaku_final_order_update.php", formdata).then(res => {
+			axios.post("/ajaxTool/okyaku_final_order_update.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {
@@ -412,7 +412,7 @@ module.exports = {
 			formdata.append('deliveryDate', this.$parent.deliveryDate);
 			//// console.log("同時購入："+this.$parent.douziChecker);
 
-			axios.post("/sandbox/ajaxTool/staff_final_order_update.php", formdata).then(res => {
+			axios.post("/ajaxTool/staff_final_order_update.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {
@@ -537,7 +537,7 @@ module.exports = {
 			formdata.append('ordersheet', sessionJson);
 			formdata.append('deliveryDate', this.deliveryDate);
 			//// console.log("deliv:"+this.deliveryDate);
-			axios.post("/sandbox/ajaxTool/normal_order_regist.php", formdata).then(res => {
+			axios.post("/ajaxTool/normal_order_regist.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {
@@ -566,7 +566,7 @@ module.exports = {
 			formdata.append('tantou_id', this.$parent.selected.sessions.base.customize_employee);
 			formdata.append('deliveryDate', this.$parent.deliveryDate);
 			//// console.log("deliv:"+this.$parent.deliveryDate);
-			axios.post("/sandbox/ajaxTool/stepper_order_update.php", formdata).then(res => {
+			axios.post("/ajaxTool/stepper_order_update.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {

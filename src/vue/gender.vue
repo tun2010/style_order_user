@@ -8,13 +8,13 @@
 		<ul class="gender-list">
 			<li class="gender">
 				<button class="gender-card" @click="genderChanger('men',1)">
-					<img src="/sandbox/user_data/packages/default/img/style_order_icons/men.png" alt="Men">
+					<img src="/user_data/packages/default/img/style_order_icons/men.png" alt="Men">
 					<div class="button men">MEN's</div>
 				</button>
 			</li>
 			<li class="gender">
 				<button class="gender-card" @click="genderChanger('women',2)">
-					<img src="/sandbox/user_data/packages/default/img/style_order_icons/lady.png" alt="Men">
+					<img src="/user_data/packages/default/img/style_order_icons/lady.png" alt="Men">
 					<div class="button women">LADIES'</div>
 				</button>
 			</li>

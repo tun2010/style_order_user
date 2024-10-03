@@ -348,7 +348,7 @@ module.exports = {
 			}
 			//console.log("同時購入："+this.$parent.douziChecker);
 
-			axios.post("/sandbox/ajaxTool/okyaku_final_order_update.php", formdata).then(res => {
+			axios.post("/ajaxTool/okyaku_final_order_update.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {

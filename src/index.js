@@ -71,7 +71,7 @@ function getParam(key) {
     return params.get(key) || null;
 }
 
-axios.get("/sandbox/ajaxTool/getMasters.php", query).then(res => {
+axios.get("/ajaxTool/getMasters.php", query).then(res => {
     var data = res.data;
     app.masters = data;
     sessionGetter();
@@ -81,7 +81,7 @@ axios.get("/sandbox/ajaxTool/getMasters.php", query).then(res => {
     // // console.log(data);
 });
 function sessionGetter() {
-    axios.get("/sandbox/ajaxTool/getItems.php", query).then(res => {
+    axios.get("/ajaxTool/getItems.php", query).then(res => {
         var data = res.data;
         itemdatas = res.data;
         //ステータスっぽいのいらんので削除
@@ -114,7 +114,7 @@ function sessionGetter() {
                 gets: paramser,
             }
         };
-        axios.get("/sandbox/ajaxTool/getSession.php", query).then(res => {
+        axios.get("/ajaxTool/getSession.php", query).then(res => {
             if (res.data.ordersheet.cloth_no == null || res.data.ordersheet.cloth_no == '') {
                 app.optionInit();
             }
@@ -854,8 +854,8 @@ var app = new Vue({
         //非同期でプロダクトデータ取ってくるの終わったか
         dataload: false,
         masters: {},
-        uploadPass: "/sandbox/upload/save_image/",
-        uploadPDFPass: '/sandbox/upload/',
+        uploadPass: "/upload/save_image/",
+        uploadPDFPass: '/upload/',
         //セッション情報 初期状態　変更されるのはselectedの中
         sessions: {},
         defaultSelected: {},
@@ -1025,8 +1025,8 @@ var app = new Vue({
                     masterNo: 11,
                     gbPrice: 10000,
                     masterValue: "上下",
-                    img: "/sandbox/images/simulator/parts/parts_suit.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_suit.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket", "pants"]
                 },
@@ -1039,8 +1039,8 @@ var app = new Vue({
                     masterNo: 12,
                     gbPrice: 14000,
                     masterValue: "上下下",
-                    img: "/sandbox/images/simulator/parts/parts_2pants_suit.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_2pants_suit.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket", "pants", "pants2"]
                 },
@@ -1053,8 +1053,8 @@ var app = new Vue({
                     masterNo: 13,
                     gbPrice: 12000,
                     masterValue: "上中下",
-                    img: "/sandbox/images/simulator/parts/parts_3pants_suit.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_3pants_suit.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket", "vest", "pants"]
                 },
@@ -1067,8 +1067,8 @@ var app = new Vue({
                     masterNo: 14,
                     gbPrice: 6000,
                     masterValue: "上",
-                    img: "/sandbox/images/simulator/parts/parts_jacket.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_jacket.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket"]
                 },
@@ -1081,8 +1081,8 @@ var app = new Vue({
                     masterNo: 16,
                     gbPrice: 4000,
                     masterValue: "下",
-                    img: "/sandbox/images/simulator/parts/parts_pants.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_pants.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["pants"]
                 },
@@ -1095,8 +1095,8 @@ var app = new Vue({
                     masterNo: 15,
                     gbPrice: 2000,
                     masterValue: "中",
-                    img: "/sandbox/images/simulator/parts/parts_vest.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_vest.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["vest"]
                 },
@@ -1111,8 +1111,8 @@ var app = new Vue({
                     masterNo: 35,
                     gbPrice: 0,
                     masterValue: "JKSK",
-                    img: "/sandbox/images/simulator/parts/parts_women_jacket_skirt.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_jacket_skirt.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket", "skirt"]
                 },
@@ -1125,8 +1125,8 @@ var app = new Vue({
                     masterNo: 34,
                     gbPrice: 0,
                     masterValue: "JKPT",
-                    img: "/sandbox/images/simulator/parts/parts_women_jacket_pants.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_jacket_pants.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket", "pants"]
                 },
@@ -1139,8 +1139,8 @@ var app = new Vue({
                     masterNo: 39,
                     gbPrice: 0,
                     masterValue: "JKPTSK",
-                    img: "/sandbox/images/simulator/parts/parts_women_jacket_slacks_skirt.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_jacket_slacks_skirt.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket", "pants", "skirt"]
                 },
@@ -1153,8 +1153,8 @@ var app = new Vue({
                     masterNo: 41,
                     gbPrice: 0,
                     masterValue: "JKSKSK",
-                    img: "/sandbox/images/simulator/parts/parts_women_jacket_2skirt.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_jacket_2skirt.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket", "skirt", "skirt2"]
                 },
@@ -1167,8 +1167,8 @@ var app = new Vue({
                     masterNo: 40,
                     gbPrice: 0,
                     masterValue: "JKPTPT",
-                    img: "/sandbox/images/simulator/parts/parts_women_jacket_2pants.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_jacket_2pants.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket", "pants", "pants2"]
                 },
@@ -1181,8 +1181,8 @@ var app = new Vue({
                     masterNo: 36,
                     gbPrice: 0,
                     masterValue: "PTSK",
-                    img: "/sandbox/images/simulator/parts/parts_women_slacks_skirt.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_slacks_skirt.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["pants", "skirt"]
                 },
@@ -1195,8 +1195,8 @@ var app = new Vue({
                     masterNo: 38,
                     gbPrice: 0,
                     masterValue: "SKSK",
-                    img: "/sandbox/images/simulator/parts/parts_women_2skirt.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_2skirt.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["skirt", "skirt2"]
                 },
@@ -1209,8 +1209,8 @@ var app = new Vue({
                     masterNo: 37,
                     gbPrice: 0,
                     masterValue: "PTPT",
-                    img: "/sandbox/images/simulator/parts/parts_women_2pants.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_2pants.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["pants", "pants2"]
                 },
@@ -1223,8 +1223,8 @@ var app = new Vue({
                     masterNo: 31,
                     gbPrice: 0,
                     masterValue: "JK",
-                    img: "/sandbox/images/simulator/parts/parts_women_jacket.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_jacket.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["jacket"]
                 },
@@ -1237,8 +1237,8 @@ var app = new Vue({
                     masterNo: 33,
                     gbPrice: 0,
                     masterValue: "SK",
-                    img: "/sandbox/images/simulator/parts/parts_women_skirt.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_skirt.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["skirt"]
                 },
@@ -1251,8 +1251,8 @@ var app = new Vue({
                     masterNo: 32,
                     gbPrice: 0,
                     masterValue: "PT",
-                    img: "/sandbox/images/simulator/parts/parts_women_slacks.png",
-                    modalImage: "/sandbox/images/simulator/parts/parts_suit.png",
+                    img: "/images/simulator/parts/parts_women_slacks.png",
+                    modalImage: "/images/simulator/parts/parts_suit.png",
                     modalMovie: '<iframe width="560" height="315" src="https://www.youtube.com/embed/wgOZ5WrcFHo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     designParts: ["pants"]
                 },
@@ -2179,7 +2179,7 @@ var app = new Vue({
                 }
             };
             var thista = this;
-            axios.get("/sandbox/ajaxTool/getKatagami.php", query).then(res => {
+            axios.get("/ajaxTool/getKatagami.php", query).then(res => {
                 // //// console.log('初期の型紙の情報');
                 //   //// console.log(res.data);
             })
@@ -2197,7 +2197,7 @@ var app = new Vue({
                 }
             };
             var thista = this;
-            axios.get("/sandbox/ajaxTool/isGB.php", query).then(res => {
+            axios.get("/ajaxTool/isGB.php", query).then(res => {
                 // //// console.log('GBなのか');
                 //   //// console.log(res.data);
                 if (res.data == true) {
@@ -2221,7 +2221,7 @@ var app = new Vue({
             };
             // // console.log('isKataFacChecker', query)
             var thista = this;
-            axios.get("/sandbox/ajaxTool/getKataFac.php", query).then(res => {
+            axios.get("/ajaxTool/getKataFac.php", query).then(res => {
                 // //// console.log('型紙ふぁくとり');
                 // //// console.log(res.data);
 
@@ -2259,7 +2259,7 @@ var app = new Vue({
                             }
                         };
                         var thista = this;
-                        axios.get("/sandbox/ajaxTool/getKatagami.php", query).then(res => {
+                        axios.get("/ajaxTool/getKatagami.php", query).then(res => {
                             ////// console.log('後継機の型紙');
                             ////// console.log(res.data);
                             if (app.katagamiLimitChecker(res.data)) {
@@ -2279,7 +2279,7 @@ var app = new Vue({
                                         }
                                     };
                                     var thista = this;
-                                    axios.get("/sandbox/ajaxTool/getKatagami.php", query).then(res => {
+                                    axios.get("/ajaxTool/getKatagami.php", query).then(res => {
                                         ////// console.log('後継機の型紙');
                                         ////// console.log(res.data);
                                         if (this.katagamiLimitChecker(res.data)) {
@@ -2333,7 +2333,7 @@ var app = new Vue({
                     cloth_no: cloth_no
                 }
             };
-            axios.get("/sandbox/ajaxTool/getOptionSyokiti.php", query).then(res => {
+            axios.get("/ajaxTool/getOptionSyokiti.php", query).then(res => {
                 // //// console.log("オプション初期値取得。セットします");
                 // //// console.log(res.data);
                 // //// console.log(app.selected.sessions.ordersheet);
@@ -2604,7 +2604,7 @@ var app = new Vue({
             formdata.append('sessions', sessionJson);
             var resdata = "";
             var thista = this;
-            axios.post("/sandbox/ajaxTool/getSelectedOption.php", formdata).then(res => {
+            axios.post("/ajaxTool/getSelectedOption.php", formdata).then(res => {
                 // //// console.log('selectedoption');
                 // //// console.log(res.data);
                 resdata = res.data;
@@ -2735,7 +2735,7 @@ var app = new Vue({
                 }
             };
             var thista = this;
-            axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query).then(res => {
+            axios.get("/ajaxTool/getOptionKumiawase.php", query).then(res => {
                 // ////// console.log(res.data);
                 thista.optionData = res.data;
                 // //// console.log("暫定のオプション組み合わせ：");
@@ -2776,7 +2776,7 @@ var app = new Vue({
             };
             var thista = this;
             return new Promise(function (resolve, reject) {
-                axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query).then(res => {
+                axios.get("/ajaxTool/getOptionKumiawase.php", query).then(res => {
                     // ////// console.log(res.data);
                     thista.optionData = res.data;
                     thista.optionLoad = true;
@@ -2815,7 +2815,7 @@ var app = new Vue({
                     }
                 };
                 var thista = thista;
-                axios.get("/sandbox/ajaxTool/getOptionCourse.php", query).then(res => {
+                axios.get("/ajaxTool/getOptionCourse.php", query).then(res => {
                     ////// console.log(res.data);
                     // //// console.log('工場は：'+thista.selectedProductData.factory);
                     // //// console.log(thista.selected.gender);
@@ -2846,7 +2846,7 @@ var app = new Vue({
                     gb: this.selected.gb,
                 }
             };
-            axios.get("/sandbox/ajaxTool/getOptionCourseDetail.php", query).then(res => {
+            axios.get("/ajaxTool/getOptionCourseDetail.php", query).then(res => {
                 var data = res.data;
                 // //// console.log('オプションコース詳細');
                 // //// console.log(id);
@@ -3041,7 +3041,7 @@ var app = new Vue({
                     "content-Type": "application/json;charset=UTF-8"
                 }
             };
-            axios.get("/sandbox/ajaxTool/getSession.php", query).then(res => {
+            axios.get("/ajaxTool/getSession.php", query).then(res => {
                 var data = res.data;
 
                 Vue.set(thista.selected, "sessions", data);
@@ -3075,7 +3075,7 @@ var app = new Vue({
                     }
                 };
                 var thista = this;
-                axios.get("/sandbox/ajaxTool/getKihonSize.php", query).then(res => {
+                axios.get("/ajaxTool/getKihonSize.php", query).then(res => {
                     // ////// console.log(res.data);
                     Vue.set(this.selected.size, targetParts, res.data);
                     ////// console.log("対象基本データ("+targetParts+")を取得しselectedに格納");
@@ -3132,7 +3132,7 @@ var app = new Vue({
                     }
                 };
                 var thista = this;
-                axios.get("/sandbox/ajaxTool/getJan.php", query).then(res => {
+                axios.get("/ajaxTool/getJan.php", query).then(res => {
                     // ////// console.log(res.data);
 
                     //ここ変更した　1001 コメントアウト
@@ -3200,7 +3200,7 @@ var app = new Vue({
             }, 500);
         },
         productDataInit: function () {
-            axios.get("/sandbox/ajaxTool/getItems.php", query).then(res => {
+            axios.get("/ajaxTool/getItems.php", query).then(res => {
                 var data = res.data;
 
                 //ステータスっぽいのいらんので削除

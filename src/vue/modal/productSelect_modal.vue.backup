@@ -328,7 +328,7 @@ if(this.$parent.guest === false && this.$parent.katagamiNaiUser == false){
 				formdata.append("token",this.$parent.token);
 				formdata.append('ordersheet',sessionJson);
 				formdata.append('kakuhokizi',this.$parent.selected.kakuhokizi);
-			axios.post("/sandbox/ajaxTool/stepper_order_regist.php",formdata).then(res => {
+			axios.post("/ajaxTool/stepper_order_regist.php",formdata).then(res => {
 				//// console.log(res.data);
 			if(res.data == "no stock"){
 				//// console.log("在庫確保失敗");

@@ -171,7 +171,7 @@ module.exports = {
 				formdata.append('sa',sa);
 
 			//// console.log('sa '+ sa);
-			axios.post("/sandbox/ajaxTool/kazuHerasuKakuhoItems.php",formdata).then(res => {
+			axios.post("/ajaxTool/kazuHerasuKakuhoItems.php",formdata).then(res => {
 				//// console.log(res.data);
 				if(res.data == 'ok'){
 					alert('対象生地の確保数を変更しました。画面をリロードします。');
@@ -287,7 +287,7 @@ module.exports = {
           }
         };
         var thista = this;
-        axios.get("/sandbox/ajaxTool/getKakuhoItems.php", query).then(res => {
+        axios.get("/ajaxTool/getKakuhoItems.php", query).then(res => {
 			//// console.log("kakuhokizi↓");
 			//// console.log(res.data);
 			this.kakuhoProduct = res.data;
@@ -371,7 +371,7 @@ module.exports = {
       formdata.append("token",this.$parent.token);
       formdata.append('ordersheet',sessionJson);
       formdata.append('kakuhokizi',this.$parent.selected.kakuhokizi);
-    axios.post("/sandbox/ajaxTool/stepper_order_regist.php",formdata).then(res => {
+    axios.post("/ajaxTool/stepper_order_regist.php",formdata).then(res => {
       //// console.log(res.data);
     if(res.data == "no stock"){
       //// console.log("在庫確保失敗");

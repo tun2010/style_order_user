@@ -226,7 +226,7 @@ module.exports = {
 			};
 
 			try {
-				const result = await axios.get("/sandbox/ajaxTool/checkKatagamiOption.php", query);
+				const result = await axios.get("/ajaxTool/checkKatagamiOption.php", query);
 
 				if (!result.data) throw new Error('Error');
 				return result.data;
@@ -257,7 +257,7 @@ module.exports = {
 				}
 			};
 			try {
-				const result = await axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query);
+				const result = await axios.get("/ajaxTool/getOptionKumiawase.php", query);
 
 				if (!result.data) throw new Error('Error');
 				this.$parent.optionData = result.data;

@@ -140,7 +140,7 @@ module.exports = {
       formdata.append('shop_id',this.$parent.selected.sessions.base.customize_store);
 	formdata.append('tantou_id',this.$parent.selected.sessions.base.customize_employee);
 
-    axios.post("/sandbox/ajaxTool/getStockOrder.php",formdata).then(res => {
+    axios.post("/ajaxTool/getStockOrder.php",formdata).then(res => {
     // // console.log(res.data);
 	this.$parent.loading = false;
 	this.douzi = res.data;

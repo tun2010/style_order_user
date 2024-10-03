@@ -65,7 +65,7 @@ body {
 
         &::after {
             right: 10px;
-            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-right-circle.png);
+            background-image: url(/user_data/packages/default/img/style_order_icons/arrow-right-circle.png);
         }
     }
 
@@ -75,7 +75,7 @@ body {
 
         &::after {
             right: 10px;
-            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-right-black.png);
+            background-image: url(/user_data/packages/default/img/style_order_icons/arrow-right-black.png);
         }
     }
 
@@ -87,7 +87,7 @@ body {
 
         &::after {
             left: 20px;
-            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/options.png);
+            background-image: url(/user_data/packages/default/img/style_order_icons/options.png);
         }
 
     }
@@ -117,7 +117,7 @@ body {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-right-circle.png);
+        background-image: url(/user_data/packages/default/img/style_order_icons/arrow-right-circle.png);
     }
 
     &.step-change {
@@ -235,7 +235,7 @@ body {
                 border: 2px solid var(--black);
                 background-color: var(--white);
 
-                background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/close.png);
+                background-image: url(/user_data/packages/default/img/style_order_icons/close.png);
                 background-size: 18px;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -337,10 +337,10 @@ body {
                     }
 
                     &.wishable::before {
-                        background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/wishable.png);
+                        background-image: url(/user_data/packages/default/img/style_order_icons/wishable.png);
                     }
                     &.pleats::before {
-                        background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/pleats.png);
+                        background-image: url(/user_data/packages/default/img/style_order_icons/pleats.png);
                     }
                 }
             }
@@ -634,7 +634,7 @@ body {
 
                 &::after {
                     left: 20px;
-                    background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/mail.png);
+                    background-image: url(/user_data/packages/default/img/style_order_icons/mail.png);
                 }
             }
         }
@@ -1031,7 +1031,7 @@ body {
                         background-repeat: no-repeat;
                         background-position: center;
                         background-size: 70%;
-                        background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-right.png);
+                        background-image: url(/user_data/packages/default/img/style_order_icons/arrow-right.png);
                     }
 
                     &:last-child::after {
@@ -1057,7 +1057,7 @@ body {
             width: 50px;
             height: 50px;
 
-            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/persona.png);
+            background-image: url(/user_data/packages/default/img/style_order_icons/persona.png);
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -1223,11 +1223,11 @@ body {
 
 
                             &.wishable::before {
-                                background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/wishable.png);
+                                background-image: url(/user_data/packages/default/img/style_order_icons/wishable.png);
                             }
 
                             &.pleats::before {
-                                background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/pleats.png);
+                                background-image: url(/user_data/packages/default/img/style_order_icons/pleats.png);
                             }
                         }
                     }
@@ -1333,7 +1333,7 @@ body {
 
                         &::after {
                             left: 10px;
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-left-circle.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/arrow-left-circle.png);
                         }
                     }
                     &.action-button--next {
@@ -1342,7 +1342,7 @@ body {
 
                         &::after {
                             right: 10px;
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-right-circle.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/arrow-right-circle.png);
                         }
                     }
                     &.action-button--email {
@@ -1413,12 +1413,12 @@ body {
 
                     &.action-button--prev {
                         &::after {
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow_white_left.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/arrow_white_left.png);
                         }
                     }
                     &.action-button--next {
                         &::after {
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow_white_right.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/arrow_white_right.png);
                         }
                     }
                 }
@@ -1709,7 +1709,7 @@ body {
                         background: rgb(0, 68, 88);
 
                         &::after {
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-men.png)
+                            background-image: url(/user_data/packages/default/img/style_order_icons/arrow-men.png)
                         }
                     }
 
@@ -1717,7 +1717,7 @@ body {
                         background: rgb(151, 28, 59);
 
                         &::after {
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-lady.png)
+                            background-image: url(/user_data/packages/default/img/style_order_icons/arrow-lady.png)
                         }
                     }
                 }
@@ -1880,11 +1880,11 @@ body {
 
 
                 &.wishable::before {
-                    background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/wishable.png);
+                    background-image: url(/user_data/packages/default/img/style_order_icons/wishable.png);
                 }
 
                 &.pleats::before {
-                    background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/pleats.png);
+                    background-image: url(/user_data/packages/default/img/style_order_icons/pleats.png);
                 }
             }
         }
@@ -1918,7 +1918,7 @@ body {
                 top: 50%;
                 transform: translate(0, -50%);
 
-                background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/scroll.png);
+                background-image: url(/user_data/packages/default/img/style_order_icons/scroll.png);
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
@@ -1990,11 +1990,11 @@ body {
                         background-position: center;
 
                         &.wishable {
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/wishable.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/wishable.png);
                         }
 
                         &.pleats {
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/pleats.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/pleats.png);
                         }
                     }
                 }
@@ -2054,7 +2054,7 @@ body {
                         background-repeat: no-repeat;
                         background-position: center;
                         background-size: contain;
-                        background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/check-circle.png);
+                        background-image: url(/user_data/packages/default/img/style_order_icons/check-circle.png);
                     }
 
                     &::after {
@@ -2098,7 +2098,7 @@ body {
                         background-size: contain;
                         background-repeat: no-repeat;
                         background-position: center;
-                        background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/arrow-right-circle.png);
+                        background-image: url(/user_data/packages/default/img/style_order_icons/arrow-right-circle.png);
                     }
                 }
             }
@@ -2169,7 +2169,7 @@ body {
                         background-repeat: no-repeat;
                         background-position: center;
                         background-size: contain;
-                        background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/check-circle.png);
+                        background-image: url(/user_data/packages/default/img/style_order_icons/check-circle.png);
                     }
 
                     &::after {
@@ -2245,7 +2245,7 @@ body {
                             background-repeat: no-repeat;
                             background-position: center;
                             background-size: contain;
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/check-circle.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/check-circle.png);
                         }
 
                         &::after {
@@ -2306,7 +2306,7 @@ body {
                                 background-size: contain;
                                 background-repeat: no-repeat;
                                 background-position: center;
-                                background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/camera.png);
+                                background-image: url(/user_data/packages/default/img/style_order_icons/camera.png);
                             }
                         }
                     }
@@ -2429,7 +2429,7 @@ body {
                                 background-repeat: no-repeat;
                                 background-position: center;
                                 background-size: contain;
-                                background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/check-circle.png);
+                                background-image: url(/user_data/packages/default/img/style_order_icons/check-circle.png);
                             }
 
                             &::after {
@@ -2529,7 +2529,7 @@ body {
                             width: 16px;
                             height: 16px;
 
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/info_red.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/info_red.png);
                             background-size: contain;
                             background-repeat: no-repeat;
                             background-position: center;
@@ -2618,7 +2618,7 @@ body {
             width: 50px;
             height: 50px;
 
-            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/persona.png);
+            background-image: url(/user_data/packages/default/img/style_order_icons/persona.png);
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;

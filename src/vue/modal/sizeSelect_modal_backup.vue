@@ -146,7 +146,7 @@ module.exports = {
 				}
 			};
 			var thista = this;
-			axios.get("/sandbox/ajaxTool/getKatagamiSize.php", query).then(res => {
+			axios.get("/ajaxTool/getKatagamiSize.php", query).then(res => {
 				// // console.log(res.data);
 				thista.sizeData = res.data;
 				thista.sizeDataLoad = true;

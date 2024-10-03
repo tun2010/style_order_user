@@ -24,19 +24,19 @@
 		// 	img(class="shadow" :src='imageDirUrl+shadow')
 		// div.pants(v-else-if='$parent.view == "pants"')
 		// 	p pants
-		// 	img(class="torso" src="/sandbox/images/simulator/etc/torso.png")
+		// 	img(class="torso" src="/images/simulator/etc/torso.png")
 		// 	object(class="suitmodel" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-		// 	img(class="shadow" src="/sandbox/images/simulator/etc/shadow.png")
+		// 	img(class="shadow" src="/images/simulator/etc/shadow.png")
 		// div.vest(v-else-if='$parent.view == "vest"')
 		// 	p vest
-		// 	img(class="torso" src="/sandbox/images/simulator/etc/torso.png")
+		// 	img(class="torso" src="/images/simulator/etc/torso.png")
 		// 	object(class="suitmodel" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-		// 	img(class="shadow" src="/sandbox/images/simulator/etc/shadow.png")
+		// 	img(class="shadow" src="/images/simulator/etc/shadow.png")
 		// div.skirt(v-else-if='$parent.view == "skirt"')
 		// 	p skirt
-		// 	img(class="torso" src="/sandbox/images/simulator/etc/torso.png")
+		// 	img(class="torso" src="/images/simulator/etc/torso.png")
 		// 	object(class="suitmodel" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-		// 	img(class="shadow" src="/sandbox/images/simulator/etc/shadow.png")
+		// 	img(class="shadow" src="/images/simulator/etc/shadow.png")
 </template> -->
 
 <template>
@@ -105,8 +105,8 @@ module.exports = {
 		return {
 			svg: '',
 			shadow: '',
-			imageDirUrl: '/sandbox/images/simulator/svg_shadow/',
-			optionDirUrl: '/sandbox/images/simulator/options/',
+			imageDirUrl: '/images/simulator/svg_shadow/',
+			optionDirUrl: '/images/simulator/options/',
 			optionTargetResult: '',
 		}
 	},
@@ -467,27 +467,27 @@ module.exports = {
 			// console.log('VIEW', view);
 
 			if (view == '_all' && gender == 'women') {
-				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/svg.svg";
+				return "/images/simulator/model/" + gender + "/sample_pants/svg.svg";
 			} else {
-				return "/sandbox/images/simulator/model/" + gender + "/" + model + "/model.svg";
+				return "/images/simulator/model/" + gender + "/" + model + "/model.svg";
 			}
 		},
 		sampleshadowsrc: function () {
 			var gender = this.$parent.selected.gender;
 			var view = this.$parent.view;
 			if (view == '_all' && gender == 'women') {
-				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/shadow.png";
+				return "/images/simulator/model/" + gender + "/sample_pants/shadow.png";
 			} else {
-				return "/sandbox/images/simulator/model/" + gender + "/sample/shadow.png";
+				return "/images/simulator/model/" + gender + "/sample/shadow.png";
 			}
 		},
 		sampletorsosrc: function () {
 			var gender = this.$parent.selected.gender;
 			var view = this.$parent.view;
 			if (view == '_all' && gender == 'women') {
-				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/torso.png";
+				return "/images/simulator/model/" + gender + "/sample_pants/torso.png";
 			} else {
-				return "/sandbox/images/simulator/model/" + gender + "/sample/torso.png";
+				return "/images/simulator/model/" + gender + "/sample/torso.png";
 			}
 		},
 		targetSvgSrc: function () {

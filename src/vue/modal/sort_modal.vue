@@ -237,7 +237,7 @@ module.exports = {
 					sorts:true,
 				}
 				};
-				axios.get("/sandbox/ajaxTool/getItems.php", query).then(res => {
+				axios.get("/ajaxTool/getItems.php", query).then(res => {
 				var data = res.data;
 				// var selectedData = this.$parent.productData[this.$parent.selected.fabric];
 				// Vue.set(this.$parent,"selectedProductData", selectedData);

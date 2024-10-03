@@ -71,8 +71,8 @@ module.exports = {
 		return {
 			svg: '',
 			shadow: '',
-			imageDirUrl: '/sandbox/images/simulator/svg_shadow/',
-			optionDirUrl: '/sandbox/images/simulator/options/',
+			imageDirUrl: '/images/simulator/svg_shadow/',
+			optionDirUrl: '/images/simulator/options/',
 			optionTargetResult: '',
 			designList: [
 				{
@@ -194,7 +194,7 @@ module.exports = {
 			Vue.set(this.$parent, 'optionsetModalFlg', true);
 		},
 		notfounder: function (e) {
-			e.target.src = '/sandbox/images/notfounder.png';
+			e.target.src = '/images/notfounder.png';
 		},
 		imageloaded: function (event) {
 			//// console.log('imageloaded');
@@ -268,7 +268,7 @@ module.exports = {
 
 			const fabricData = Object.values(this.$parent.productData).find(item => item.product_code_min == this.$parent.selected.sessions.ordersheet.cloth_no);
 			if (fabricData) {
-				return fabricData.main_image ? this.uploadpass + fabricData.main_image : '/sandbox/images/noimage.png';
+				return fabricData.main_image ? this.uploadpass + fabricData.main_image : '/images/noimage.png';
 			}
 			return '';
 		},
@@ -282,7 +282,7 @@ module.exports = {
 					const lineingItem = Object.values(liningOption.optionitems).find(item => item.option_code == itemValue);
 
 					if (lineingItem) {
-						return lineingItem.option_image ? this.uploadpass + lineingItem.option_image : '/sandbox/images/noimage.png';
+						return lineingItem.option_image ? this.uploadpass + lineingItem.option_image : '/images/noimage.png';
 					}
 				}
 			}
@@ -457,27 +457,27 @@ module.exports = {
 			// console.log('VIEW', view);
 
 			if (view == '_all' && gender == 'women') {
-				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/svg.svg";
+				return "/images/simulator/model/" + gender + "/sample_pants/svg.svg";
 			} else {
-				return "/sandbox/images/simulator/model/" + gender + "/" + model + "/model.svg";
+				return "/images/simulator/model/" + gender + "/" + model + "/model.svg";
 			}
 		},
 		sampleshadowsrc: function () {
 			var gender = this.$parent.selected.gender;
 			var view = this.$parent.view;
 			if (view == '_all' && gender == 'women') {
-				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/shadow.png";
+				return "/images/simulator/model/" + gender + "/sample_pants/shadow.png";
 			} else {
-				return "/sandbox/images/simulator/model/" + gender + "/sample/shadow.png";
+				return "/images/simulator/model/" + gender + "/sample/shadow.png";
 			}
 		},
 		sampletorsosrc: function () {
 			var gender = this.$parent.selected.gender;
 			var view = this.$parent.view;
 			if (view == '_all' && gender == 'women') {
-				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/torso.png";
+				return "/images/simulator/model/" + gender + "/sample_pants/torso.png";
 			} else {
-				return "/sandbox/images/simulator/model/" + gender + "/sample/torso.png";
+				return "/images/simulator/model/" + gender + "/sample/torso.png";
 			}
 		},
 		targetSvgSrc: function () {

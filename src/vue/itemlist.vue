@@ -347,7 +347,7 @@ module.exports = {
 			formdata.append('product', productJson);
 			formdata.append('sa', sa);
 
-			axios.post("/sandbox/ajaxTool/kazuHerasuKakuhoItems.php", formdata).then(res => {
+			axios.post("/ajaxTool/kazuHerasuKakuhoItems.php", formdata).then(res => {
 				if (res.data == 'ok') {
 					alert('対象生地の確保数を変更しました。画面をリロードします。');
 					this.$parent.setParam('gender', this.$parent.selected.gender);
@@ -398,7 +398,7 @@ module.exports = {
 			formdata.append('sa', sa);
 
 			//// console.log('sa '+ sa);
-			axios.post("/sandbox/ajaxTool/kazuHerasuKakuhoItems.php", formdata).then(res => {
+			axios.post("/ajaxTool/kazuHerasuKakuhoItems.php", formdata).then(res => {
 				//// console.log(res.data);
 				if (res.data == 'ok') {
 					alert('対象生地の確保数を変更しました。画面をリロードします。');
@@ -516,7 +516,7 @@ module.exports = {
 
 			// console.log(JSON.parse(JSON.stringify(this.$parent.selected.sessions)));
 			try {
-				axios.get("/sandbox/ajaxTool/getKakuhoItems.php", query).then(res => {
+				axios.get("/ajaxTool/getKakuhoItems.php", query).then(res => {
 					this.kakuhoProduct = res.data;
 				})
 			} catch(error) {
@@ -628,7 +628,7 @@ module.exports = {
 				formdata.append("token", this.$parent.token);
 				formdata.append('ordersheet', sessionJson);
 				formdata.append('kakuhokizi', this.$parent.selected.kakuhokizi);
-				axios.post("/sandbox/ajaxTool/stepper_order_regist.php", formdata).then(res => {
+				axios.post("/ajaxTool/stepper_order_regist.php", formdata).then(res => {
 					//// console.log(res.data);
 					if (res.data == "no stock") {
 						//// console.log("在庫確保失敗");

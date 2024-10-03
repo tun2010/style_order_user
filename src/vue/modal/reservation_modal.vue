@@ -51,7 +51,7 @@ module.exports = {
 				formdata.append('product_id', this.product_id);
 				formdata.append('shop_id', this.$parent.selected.sessions.base.customize_store);
 				formdata.append('tantou_id', this.$parent.selected.sessions.base.customize_employee);
-				axios.post("/sandbox/ajaxTool/shopstock_order_regist.php", formdata).then(res => {
+				axios.post("/ajaxTool/shopstock_order_regist.php", formdata).then(res => {
 					if (res.data.indexOf('在庫が足りません') > -1) {
 						alert(res.data);
 						return false;

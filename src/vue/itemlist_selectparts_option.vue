@@ -1146,7 +1146,7 @@ module.exports = {
 				}
 			};
 			var thista = this;
-			axios.get("/sandbox/ajaxTool/checkKatagamiOption.php", query).then(res => {
+			axios.get("/ajaxTool/checkKatagamiOption.php", query).then(res => {
 				// // console.log('型紙で使えないオプション');
 				// // console.log(res.data);
 				Vue.set(thista, "katagamiKesuOption", {});
@@ -1871,7 +1871,7 @@ module.exports = {
 			};
 			var thista = this;
 			return new Promise(function (resolve, reject) {
-				axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query).then(res => {
+				axios.get("/ajaxTool/getOptionKumiawase.php", query).then(res => {
 					// // console.log('オプションデータ');
 					// // console.log(res.data);
 					thista.optionData = res.data;
@@ -1930,7 +1930,7 @@ module.exports = {
 				}
 			};
 			var thista = this;
-			axios.get("/sandbox/ajaxTool/getOptionCourse.php", query).then(res => {
+			axios.get("/ajaxTool/getOptionCourse.php", query).then(res => {
 				// // console.log(res.data);
 				data = res.data;
 				Vue.set(thista.$parent.selected.code, "optionCourse", data);
@@ -1994,7 +1994,7 @@ module.exports = {
 				}
 			};
 			try {
-				const result = await axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query);
+				const result = await axios.get("/ajaxTool/getOptionKumiawase.php", query);
 
 				if (!result.data) throw new Error('Error');
 				this.$parent.optionData = result.data;
@@ -2038,7 +2038,7 @@ module.exports = {
 			};
 
 			try {
-				const result = await axios.get("/sandbox/ajaxTool/checkKatagamiOption.php", query);
+				const result = await axios.get("/ajaxTool/checkKatagamiOption.php", query);
 
 				if (!result.data) throw new Error('Error');
 				return result.data;

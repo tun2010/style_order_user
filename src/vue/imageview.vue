@@ -457,7 +457,7 @@ module.exports = {
 			// console.log('VIEW', view);
 
 			if (view == '_all' && gender == 'women') {
-				return "/images/simulator/model/" + gender + "/sample_pants/svg.svg";
+				return "/images/simulator/model/" + gender + "/sample_pants2/svg.svg";
 			} else {
 				return "/images/simulator/model/" + gender + "/" + model + "/model.svg";
 			}
@@ -466,18 +466,18 @@ module.exports = {
 			var gender = this.$parent.selected.gender;
 			var view = this.$parent.view;
 			if (view == '_all' && gender == 'women') {
-				return "/images/simulator/model/" + gender + "/sample_pants/shadow.png";
+				return "/images/simulator/model/" + gender + "/sample_pants2/shadow.png";
 			} else {
-				return "/images/simulator/model/" + gender + "/sample/shadow.png";
+				return "/images/simulator/model/" + gender + "/sample2/shadow.png";
 			}
 		},
 		sampletorsosrc: function () {
 			var gender = this.$parent.selected.gender;
 			var view = this.$parent.view;
 			if (view == '_all' && gender == 'women') {
-				return "/images/simulator/model/" + gender + "/sample_pants/torso.png";
+				return "/images/simulator/model/" + gender + "/sample_pants2/torso.png";
 			} else {
-				return "/images/simulator/model/" + gender + "/sample/torso.png";
+				return "/images/simulator/model/" + gender + "/sample2/torso.png";
 			}
 		},
 		targetSvgSrc: function () {

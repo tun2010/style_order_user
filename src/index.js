@@ -808,7 +808,7 @@ var app = new Vue({
         //インスタント的に使う、選択された型紙のID　サイズセレクト用
         selectedKatagamiId: "",
         //イメージ画像のSVG
-        model: "sample",
+        model: "sample2",
         //店舗担当の方かフラグ
         tantouFlg: true,
         sinki: false,

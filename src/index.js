@@ -3161,6 +3161,8 @@ var app = new Vue({
             const fabrigImg = $(".simulator__preloader").find("img");
             const suitModal = document.querySelector(".suitmodel");
 
+            // console.log('ON_FABRIC_LOADED', fabrigImg, suitModal);
+
             if (fabrigImg && suitModal) {
                 const target = suitModal.contentDocument;
                 const [src, width, height] = [fabrigImg.attr("src"), fabrigImg.width(), fabrigImg.height()];
@@ -3169,6 +3171,9 @@ var app = new Vue({
 
                 $(target).find("pattern").not("#buttons").find("image").attr("xlink:href", src).attr("width", width).attr("height", height);
                 $(target).find("pattern").not("#buttons").attr("width", width).attr("height", height);
+
+                $('.simulator__image_view img,.simulator__image_view object').addClass('loaded');
+                $('.simulator__image_view img,.simulator__image_view object').addClass('loaded');
             }
         },
         texChanger: function (firstflg = false) {

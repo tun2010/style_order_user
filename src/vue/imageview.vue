@@ -81,8 +81,6 @@ module.exports = {
 			svg: '',
 			shadow: '',
 			imageDirUrl: '/sandbox/images/simulator/svg_shadow2/',
-			imageDirMain: '/sandbox/images/simulator/svg_shadow2/',
-			imageDirFallback: '/sandbox/images/simulator/svg_shadow/',
 			optionDirUrl: '/sandbox/images/simulator/options/',
 			optionTargetResult: '',
 			designList: [

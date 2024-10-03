@@ -724,8 +724,8 @@ module.exports = {
 			// console.log('OPTION????', JSON.parse(JSON.stringify(option)));
 
 			if (
-				['1020', '1004', '1', '25', '4000', '8', '11', '12', '3003', '3004', '3005'].includes(option.option_num)
-				|| (['1101', '45', '32', '47', '33', '1017', '1009', '2004', '1017'].includes(option.option_num) && item.option_code === '0')
+				['1020', '1004', '1', '25', '4000', '8', '11', '12', '3001', '3003', '3004', '3005'].includes(option.option_num)
+				|| (['1101', '45', '32', '47', '33', '1017', '1009', '2004', '1017', '5000'].includes(option.option_num) && item.option_code === '0')
 				|| (option.option_num == '6' && ['0', '1'].includes(item.option_code))
 				|| (option.option_num == '1004' && ['70', '71'].includes(item.option_code))
 				|| (['30'].includes(option.option_num) && ['0', '0.2', '0.7'].includes(item.option_code))

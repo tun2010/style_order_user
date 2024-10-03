@@ -28,7 +28,7 @@ module.exports = {
 		return {}
 	},
 	mounted: function () {
-		console.log("MOUNTED");
+		// console.log("MOUNTED");
 	},
 	computed: {
 		selectedGender: function () {
@@ -44,7 +44,7 @@ module.exports = {
 				Vue.set(this.$parent, 'firstCheckers', { ResetedFlg: false, jacket_dno: '', cloth_no: '', cloth_image: '', gb: false, washable: false, daiba: false, w_adjuster: false, factory: null, katafactory: "", allReseter: false, waistReseterFlg: false, daibaReseter: false });
 				Vue.set(this.$parent.selected, "gender", gender);
 				Vue.set(this.$parent.selected.sessions.ordersheet, "sex", master_no);
-				//console.log("パラメータリセット");
+				//// console.log("パラメータリセット");
 				Vue.set(this.$parent.selected, "parts", {});
 				Vue.set(this.$parent.selected.code, "course", "");
 				Vue.set(this.$parent.selected.sessions.ordersheet, "course_no", "");

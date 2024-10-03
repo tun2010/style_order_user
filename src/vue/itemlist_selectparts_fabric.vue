@@ -1,24 +1,26 @@
 <template>
 	<div class="products-container buttons-container" v-if="fabricOption">
-		<ul class="products-list vertical-scroll" @scroll="handleScroll">
-            <template v-for="item in optionItems(fabricOption.optionitems, searchKey)">
-                <li class="product"
-                    v-if="optionItemHiddenChecker(item)"
-                    :class="{ active: isActive(item.option_code) }"
-                    :key="item.option_code">
-                    <button class="product-card" @click="selectOptionItem(item)">
-                        <figure v-if="item.option_code != 19">
-                            <img v-if="item.option_image" :src="uploadpass + item.option_image" alt="Button">
-                            <img v-else src="/images/noimage.png" alt="Button">
-                        </figure>
-                        <div class="product-detail">
-                            <div class="product-code">{{ item.option_code }}</div>
-                            <div class="product-name">{{ item.option_field }}</div>
-                        </div>
-                    </button>
-                </li>
-            </template>
-		</ul>
+		<div class="lining-list vertical-scroll" @scroll="handleScroll">
+			<ul class="products-list">
+				<template v-for="item in optionItems(fabricOption.optionitems, searchKey)">
+					<li class="product"
+						v-if="optionItemHiddenChecker(item)"
+						:class="{ active: isActive(item.option_code) }"
+						:key="item.option_code">
+						<button class="product-card" @click="selectOptionItem(item)">
+							<figure v-if="item.option_code != 19">
+								<img v-if="item.option_image" :src="uploadpass + item.option_image" alt="Button">
+								<img v-else src="/images/noimage.png" alt="Button">
+							</figure>
+							<div class="product-detail">
+								<div class="product-code">{{ item.option_code }}</div>
+								<div class="product-name">{{ item.option_field }}</div>
+							</div>
+						</button>
+					</li>
+				</template>
+			</ul>
+		</div>
 		<div class="product-arrows">
 			<div class="arrow arrow--prev" v-if="prevIcon"></div>
 			<div class="arrow arrow--next" v-if="nextIcon"></div>
@@ -154,8 +156,8 @@ module.exports = {
             return this.$parent.selected.sessions.ordersheet[this.fabricOption.api_field] == option_code;
         },
         selectOptionItem(item) {
-			console.log(JSON.parse(JSON.stringify(item)));
-			console.log(JSON.parse(JSON.stringify(this.fabricOption)));
+			// console.log(JSON.parse(JSON.stringify(item)));
+			// console.log(JSON.parse(JSON.stringify(this.fabricOption)));
             Vue.set(this.$parent.selected.sessions.ordersheet, this.fabricOption.api_field, item.option_code);
         },
 		optionItems(optionitems, filter = '') {
@@ -184,7 +186,7 @@ module.exports = {
 
 				$.each(factoryList, function (key2, item2) {
 					if (item2 == thista.$parent.selectedProductData.factory) {
-						//console.log("工場だめ："+item.item_id);
+						//// console.log("工場だめ："+item.item_id);
 						checker = false;
 						return false;
 					}
@@ -195,8 +197,8 @@ module.exports = {
 				if (thista.$parent.selected.suitist) {
 
 				} else {
-					//console.log(thista.$parent.selected.suitist);
-					//console.log("スーティストではないから出さない："+item.item_id);
+					//// console.log(thista.$parent.selected.suitist);
+					//// console.log("スーティストではないから出さない："+item.item_id);
 					checker = false;
 				}
 			}
@@ -213,7 +215,7 @@ module.exports = {
         updateOption() {
             const optionId = 48;
             this.fabricOption = Object.values(this.optionData.mazemaze).find(item => item.option_id == optionId);
-            console.log('OPTION_DATA::', JSON.parse(JSON.stringify(this.fabricOption)));
+            // console.log('OPTION_DATA::', JSON.parse(JSON.stringify(this.fabricOption)));
         },
 		async getKatagamiOption(katagami) {
 			const query = {
@@ -292,7 +294,7 @@ module.exports = {
 					});
 				}
 			}
-			// console.log('this.katagamiKesuOption::::::::::', JSON.parse(JSON.stringify(this.katagamiKesuOption)));
+			// // console.log('this.katagamiKesuOption::::::::::', JSON.parse(JSON.stringify(this.katagamiKesuOption)));
 		},
         optionNaiChecker() {
             if (!this.$parent.selected.sessions.ordersheet[this.fabricOption.api_field]) {

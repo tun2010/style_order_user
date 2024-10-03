@@ -180,8 +180,8 @@ module.exports = {
     },
     computed: {
         targetGender: function () {
-            //console.log('targetgender');
-            //console.log(this.$parent.selected.gb);
+            //// console.log('targetgender');
+            //// console.log(this.$parent.selected.gb);
             if (this.$parent.selected.gb) {
                 return "gb";
             } else {
@@ -205,8 +205,8 @@ module.exports = {
         },
 		selectedKatagami: function () {
 			var target = this.$parent.c3Category + this.$parent.sub;
-            // console.log('TARGET', target);
-            // console.log('selectedKatagami', this.$parent.selected.sessions.ordersheet, this.session_himoduke);
+            // // console.log('TARGET', target);
+            // // console.log('selectedKatagami', this.$parent.selected.sessions.ordersheet, this.session_himoduke);
 			return this.$parent.selected.sessions.ordersheet[this.session_himoduke[target]];
 		},
         selectedSize: function () {
@@ -216,7 +216,7 @@ module.exports = {
     },
     methods: {
         log(message, data) {
-            console.log(message.toUpperCase().concat('::::::::::'), JSON.parse(JSON.stringify(data)));
+            // console.log(message.toUpperCase().concat('::::::::::'), JSON.parse(JSON.stringify(data)));
         },
         getMenSizetableData() {
             const rows = [];
@@ -290,14 +290,14 @@ module.exports = {
         modalCloser: function () {
             // alert("サイズを選択してください");
             Vue.set(this.$parent,"sizeSelectModalFlg",false);
-            // console.log(
+            // // console.log(
             //     "SELECTED_SIZE_CLOSED",
             //     JSON.parse(JSON.stringify(this.$parent.selected))
             // );
         },
         isSelectedItem(data) {
-            // console.log('PATTERN', this.selectedKatagami, this.sizeData.data.pattern_num);
-            // console.log('SIZE', this.selectedSize, data);
+            // // console.log('PATTERN', this.selectedKatagami, this.sizeData.data.pattern_num);
+            // // console.log('SIZE', this.selectedSize, data);
             return (
                 this.selectedKatagami == this.sizeData.data.pattern_num
                 && this.selectedSize == data
@@ -305,13 +305,13 @@ module.exports = {
         },
         isSelected: function(item, baseitem, pattern_num) {
             const size = baseitem + '-' + item
-            // console.log('PATTERN', this.selectedKatagami, pattern_num);
-            // console.log('SIZE', this.selectedSize, size);
+            // // console.log('PATTERN', this.selectedKatagami, pattern_num);
+            // // console.log('SIZE', this.selectedSize, size);
             return this.selectedKatagami == pattern_num && this.selectedSize == size;
         },
         sizeDataSubmit(targetCategory, item) {
             // this.log('designSelectedParams', this.$parent.designSelectedParams)
-            console.log(targetCategory, item);
+            // console.log(targetCategory, item);
 
             this.katagamiClicker(
                 this.$parent.designSelectedParams.target,
@@ -591,7 +591,7 @@ module.exports = {
             Vue.set(this.$parent, "sizeSelectModalFlg", false);
         },
         sizeSubmit: function (targetCategory, targetBase, targetNum, event) {
-            // console.log(targetCategory, targetBase, targetNum);
+            // // console.log(targetCategory, targetBase, targetNum);
             this.katagamiClicker(
                 this.$parent.designSelectedParams.target,
                 this.$parent.designSelectedParams.selectedCourse,
@@ -604,7 +604,7 @@ module.exports = {
             );
 
             var st = $(event.target).attr("data-targets");
-            //console.log($('.sizenashi[data-child='+st+']').length);
+            //// console.log($('.sizenashi[data-child='+st+']').length);
             if ($(".sizenashi[data-child=" + st + "]").not(".notAdj").length > 0) {
                 alert("こちらはサイズが設定されていないため使えません");
                 return false;
@@ -861,11 +861,11 @@ module.exports = {
                     );
                 }
             }
-            //console.log(this.$parent.selected);
+            //// console.log(this.$parent.selected);
             // alert("サイズを選択しました.");
             Vue.set(this.$parent, "sizeSelectModalFlg", false);
 
-            // console.log('SELECTED_DESIGN', JSON.parse(JSON.stringify(this.$parent.selected)));
+            // // console.log('SELECTED_DESIGN', JSON.parse(JSON.stringify(this.$parent.selected)));
         },
 		categoryZen2(categoryKatagami) {
 			var zenmasu = this.$parent.masters.style;
@@ -884,8 +884,8 @@ module.exports = {
 					})
 				}
 			})
-			//console.log('カテゴリ内全スタイル');
-			//console.log(targetKatagamis);
+			//// console.log('カテゴリ内全スタイル');
+			//// console.log(targetKatagamis);
 			return targetKatagamis
 		},
         katagamiClicker: function(target, selectedCourse, styleno, pattern_nums, pattern_ids, type, categoryKatagami, sub) {
@@ -909,8 +909,8 @@ module.exports = {
             } else {
                 Vue.set(this.$parent.selected.course[this.$parent.c3Category + sub], this.$parent.selected.styleTarget, selectedCourse);
             }
-            //console.log("this.$parent.selected.course");
-            //console.log(this.$parent.selected.course);
+            //// console.log("this.$parent.selected.course");
+            //// console.log(this.$parent.selected.course);
             // Vue.set(this.$parent.selected,'katagami',{});
             Vue.set(this.$parent.selected.katagami, this.$parent.c3Category + sub, {});
             if (type == 'zen') {
@@ -919,16 +919,16 @@ module.exports = {
                 Vue.set(this.$parent.selected.katagami[this.$parent.c3Category + sub], target, selectedCourse);
             }
             //オプション選択内容をリセット
-            // console.log('あなたが選択した型紙↓');
-            // console.log(this.$parent.selected.course[this.$parent.c3Category+this.sub][this.$parent.selected.styleTarget]);
+            // // console.log('あなたが選択した型紙↓');
+            // // console.log(this.$parent.selected.course[this.$parent.c3Category+this.sub][this.$parent.selected.styleTarget]);
             if ((this.$parent.selected.sessions.ordersheet.air_fit != '' && this.$parent.selected.sessions.ordersheet.air_fit != null && this.$parent.selected.sessions.ordersheet.air_fit != "0") && (this.$parent.c3Category == "1" || this.$parent.c3Category == "5") && !(43 in this.$parent.selected.course[this.$parent.c3Category + sub][this.$parent.selected.styleTarget].option_id)) {
-                // console.log('エアーフィットがついとるのに型紙は対応してない');
+                // // console.log('エアーフィットがついとるのに型紙は対応してない');
                 alert('エアーフィットに対応していない型紙なので、エアーフィットを解除します。');
                 Vue.set(this.$parent.selected.sessions.ordersheet, 'air_fit', null);
             }
             // this.$parent.optionReseter();
 
-            console.log('kitagami_clicker', this.$parent.c3Category, sub, pattern_nums);
+            // console.log('kitagami_clicker', this.$parent.c3Category, sub, pattern_nums);
 
             if (this.$parent.c3Category == "1" || this.$parent.c3Category == "5") {
                 Vue.set(this.$parent.selected.sessions.ordersheet, "jacket_dno", pattern_nums);
@@ -979,9 +979,9 @@ module.exports = {
             });
 
             if (this.$parent.c3Category == 1 || this.$parent.c3Category == 5) {
-                // console.log('裏仕様チェック');
+                // // console.log('裏仕様チェック');
                 if (type == 'zen') {
-                    // console.log(zenKatagami[target]['urashiyo']);
+                    // // console.log(zenKatagami[target]['urashiyo']);
                     if (zenKatagami[target]['urashiyo'].length > 0) {
                         if (zenKatagami[target]['urashiyo'].indexOf(this.$parent.selected.sessions.ordersheet.ext_specification_normal)) {
 
@@ -989,11 +989,11 @@ module.exports = {
                             Vue.set(this.$parent.selected.sessions.ordersheet, 'ext_specification_normal', zenKatagami[target]['urashiyo'][0]);
                         }
                     } else {
-                        // console.log('ひとつもチェックされていない');
+                        // // console.log('ひとつもチェックされていない');
                         Vue.set(this.$parent.selected.sessions.ordersheet, 'ext_specification_normal', null);
                     }
                 } else {
-                    // console.log(this.selectedCourse['urashiyo']);
+                    // // console.log(this.selectedCourse['urashiyo']);
                     if (selectedCourse['urashiyo'].length > 0) {
                         if (selectedCourse['urashiyo'].indexOf(this.$parent.selected.sessions.ordersheet.ext_specification_normal)) {
 
@@ -1001,11 +1001,11 @@ module.exports = {
                             Vue.set(this.$parent.selected.sessions.ordersheet, 'ext_specification_normal', selectedCourse['urashiyo'][0]);
                         }
                     } else {
-                        // console.log('ひとつもチェックされていない');
+                        // // console.log('ひとつもチェックされていない');
                         Vue.set(this.$parent.selected.sessions.ordersheet, 'ext_specification_normal', null);
                     }
                 }
-                // console.log(this.$parent.selected.sessions.ordersheet);
+                // // console.log(this.$parent.selected.sessions.ordersheet);
             }
             Vue.set(this.$parent, "sizeSelectModalFlg", true);
             // this.$parent.selected.parts[target] = this.$parent.selectparts[this.gender][target];
@@ -1026,7 +1026,7 @@ module.exports = {
                         }
                     })
                 })
-                // console.log(powerTaiouFlg);
+                // // console.log(powerTaiouFlg);
                 var parts = this.$parent.selected.parts;
                 var styleNo = '';
                 var thista = this;
@@ -1036,14 +1036,14 @@ module.exports = {
                 if (styleNo == 4 || styleNo == 5 || styleNo == 6 || styleNo == 1 || styleNo == 10 || styleNo == 11 || styleNo == 15 || styleNo == 17 || styleNo == 16 || styleNo == 7) {
                     if ((thista.$parent.selected.gender == 'men' && 1 in powerTaiouFlg) || (thista.$parent.selected.gender == 'women' && 5 in powerTaiouFlg)) {
                         if ((thista.$parent.selected.gender == 'men' && powerTaiouFlg[1] == true) || (thista.$parent.selected.gender == 'women' && powerTaiouFlg[5] == true)) {
-                            // console.log('パワストOK');
+                            // // console.log('パワストOK');
                         } else {
-                            // console.log('パワストだめ1');
+                            // // console.log('パワストだめ1');
                             alert('パワーストレッチに対応していないため、パワーストレッチを解除します。');
                             Vue.set(this.$parent.selected.sessions.ordersheet, "ext_specification", null);
                         }
                     } else {
-                        // console.log('パワストだめ2');
+                        // // console.log('パワストだめ2');
                         alert('パワーストレッチに対応していないため、パワーストレッチを解除します。');
                         Vue.set(this.$parent.selected.sessions.ordersheet, "ext_specification", null);
                     }
@@ -1051,14 +1051,14 @@ module.exports = {
                 else if (styleNo == 3) {
                     if (3 in powerTaiouFlg) {
                         if (powerTaiouFlg[3] == true) {
-                            // console.log('パワストOK');
+                            // // console.log('パワストOK');
                         } else {
-                            // console.log('パワストだめ3');
+                            // // console.log('パワストだめ3');
                             alert('パワーストレッチに対応していないため、パワーストレッチを解除します。');
                             Vue.set(this.$parent.selected.sessions.ordersheet, "ext_specification", null);
                         }
                     } else {
-                        // console.log('パワストだめ4');
+                        // // console.log('パワストだめ4');
                         alert('パワーストレッチに対応していないため、パワーストレッチを解除します。');
                         Vue.set(this.$parent.selected.sessions.ordersheet, "ext_specification", null);
                     }
@@ -1078,26 +1078,26 @@ module.exports = {
         };
         var thista = this;
         axios.get("/sandbox/ajaxTool/getKatagamiSize.php", query).then((res) => {
-            // console.log("サイズデータロードOK");
+            // // console.log("サイズデータロードOK");
             // thista.sizeData = res.data;
             Vue.set(thista, "sizeData", res.data);
             thista.sizeDataLoad = true;
 
-            // console.log('-----------------------------------');
-            // console.log(
+            // // console.log('-----------------------------------');
+            // // console.log(
             //     "SIZE_DATA",
             //     this.$parent.selectedKatagamiId,
             //     JSON.parse(JSON.stringify(thista.sizeData))
             // );
-            // console.log("SIZE_DATA_LIST",JSON.parse(JSON.stringify(thista.sizeData.data.size)))
-            // console.log(this.targetGender, this.targetCategory);
-            // console.log(this.$parent.designSelectedParams);
+            // // console.log("SIZE_DATA_LIST",JSON.parse(JSON.stringify(thista.sizeData.data.size)))
+            // // console.log(this.targetGender, this.targetCategory);
+            // // console.log(this.$parent.designSelectedParams);
 
-            // console.log('-----------------------------------');
+            // // console.log('-----------------------------------');
 
             //データが無い列は表示を消す
             // setTimeout(function () {
-            //     //console.log('データが無いカラムを非表示');
+            //     //// console.log('データが無いカラムを非表示');
             //     $(".dataline").each(function (key, item) {
             //         var checkstring = "";
             //         $(item)

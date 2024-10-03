@@ -60,21 +60,21 @@ module.exports = {
 		},
 	},
 	mounted: function () {
-		// console.log('SELECTED::PARTS', JSON.parse(JSON.stringify(this.$parent.selected)));
+		console.log('SELECTED::PARTS', JSON.parse(JSON.stringify(this.$parent.selected)));
 		const parts = this.$refs.partsEl.querySelectorAll('.part');
-		console.log('PARTS LIST MOUNTED', parts.length);
+		// console.log('PARTS LIST MOUNTED', parts.length);
 		if (parts.length == 0) {
-			console.log('FIRST CONDITION');
+			// console.log('FIRST CONDITION');
 			alert("お客様の選択された生地では選択できるコースがありません。別の生地を選択してください");
 			this.nanimonai = true;
 			Vue.set(this.$parent, "step", 1);
 		} else {
-			console.log('SECOND CONDITION');
+			// console.log('SECOND CONDITION');
 			this.nanimonai = false;
 		}
 	},
 	beforeDestroy: function () {
-		console.log('SOMEHOW BEFORE DISTORY RUN');
+		// console.log('SOMEHOW BEFORE DISTORY RUN');
 		//実際にアクティブになっているパーツの数
 		const part = this.$refs.partsEl.querySelector('.part-button.active');
 		if (
@@ -89,11 +89,18 @@ module.exports = {
 			}
 			Vue.set(this.$parent, "step", 2);
 		} else {
-			// console.log('irannokesu');
+			// // console.log('irannokesu');
 			this.$parent.finalSheetCheck();
 		}
 	},
 	methods: {
+		getPattern() {
+			if (this.$parent.selected.course && this.$parent.selected.course[1]) {
+				const pattern = Object.values(this.$parent.selected.course[1]).find(item => !!item);
+				if (pattern && 'style_option' in pattern) return pattern;
+			}
+			return null;
+		},
 		//プリーツがONの場合、パンツ含むスタイルしか選べない
 		pleatsChecker(parts) {
 			if (this.$parent.selected.sessions.ordersheet.pleats_sta == 1) {
@@ -112,7 +119,7 @@ module.exports = {
 				this.$parent.tantouFlg == false &&
 				this.$parent.katagamiNaiUser == false
 			) {
-				// console.log('使えるパーツチェック');
+				// // console.log('使えるパーツチェック');
 				var ordersheet = this.$parent.selected.sessions.ordersheet;
 				var jacket = ordersheet.jacket_dno;
 				var jacketFlg = true;
@@ -134,8 +141,10 @@ module.exports = {
 				if (skirt == "" || skirt == null || skirt == void 0) {
 					skirtFlg = false;
 				}
-				// console.log('パーツは');
-				// console.log(parts);
+				const pattern = this.getPattern();
+				if (pattern && pattern.pattern_id == '45' && this.$parent.selected.sessions.ordersheet.washable == '1') {
+					return  parts.designParts.length == 1 && parts.designParts.includes('pants');
+				}
 				if (parts.designParts.indexOf("jacket") > -1 && jacketFlg == false) {
 					return false;
 				}

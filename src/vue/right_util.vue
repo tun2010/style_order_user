@@ -12,7 +12,7 @@
 		// p.buttons.buttons-line.buttons-small.viewZentai(v-on:click="zentai2()" v-if='$parent.step == 5 && $parent.view2 != $parent.checkSkPt') 全体を表示
 		p.buttons.buttons-line.buttons-small.viewZentai(v-on:click="kakudai()" v-else-if='$parent.step == 3 && $parent.view == $parent.checkSkPt') 拡大表示
 		// p.buttons.buttons-line.buttons-small.viewZentai(v-on:click="kakudai2()" v-else-if='$parent.step == 5 && $parent.view2 == $parent.checkSkPt') 拡大表示
-		p.buttons.buttons-line.buttons-small.mailSender(v-on:click="emailOpen()") 
+		p.buttons.buttons-line.buttons-small.mailSender(v-on:click="emailOpen()")
 			span シミュレーション内容をメールで送信
 		// ul.parts_selector()
 		// 	li(:class="{'active':selectImageDisp == 'jacket'}")
@@ -36,20 +36,20 @@ module.exports = {
 				5:'オプション',
 
 			},
-			
+
 		}
 	},
 	computed:{
 		selectImageDisp:function(){
 			return this.$parent.selectImageDisp;
 		},
-		
+
 	},
 	methods:{
 		spShitaIdou:function(){
       var target = $('.simulator__left').offset().top;
 	  $(window).scrollTop(target);
-      console.log(target);
+      // console.log(target);
     },
 		partsSelect:function(parts){
 			Vue.set(this.$parent,"selectImageDisp",parts);

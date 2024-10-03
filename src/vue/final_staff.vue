@@ -45,7 +45,7 @@
 					th 同時購入
 				tr(v-for="(item,key) in douzi" v-if="item.ordersheet != null && item.ordersheet.ordersheet.course_combi && item.ordersheet.ordersheet.sex")
 					td {{item.itemDetail.product_code}}
-					td 
+					td
 						span(v-if="item.ordersheet != null") {{getCourseCombiName(item.ordersheet.ordersheet.course_combi,item.ordersheet.ordersheet.sex)}}
 					template(v-if="item.ordersheet != null")
 						td( v-for="(item2,key2) in getSelectParts(item.ordersheet.ordersheet.course_combi,item.ordersheet.ordersheet.sex)['designParts']")
@@ -73,7 +73,7 @@
 					td {{item.delivery}}
 					td
 						input(type="checkbox" name="douziChecker[]" :value="item.order_id" v-model="$parent.douziChecker")
-				
+
 </template>
 
 <script>
@@ -87,10 +87,10 @@ module.exports = {
     }
 	},
 	watch:{
-		
+
 	},
 	methods:{
-		
+
 		getSelectParts:function(number,sex){
 			var result = "";
 			var gender = "men";
@@ -130,22 +130,22 @@ module.exports = {
 		});
 		return result;
 		}
-		
+
 	},
 	mounted:function(){
 		this.$parent.loading = true;
 		let formdata = new URLSearchParams();
-	// console.log(JSON.stringify(this.$parent.selected.sessions.ordersheet));
+	// // console.log(JSON.stringify(this.$parent.selected.sessions.ordersheet));
 	// return false;
       formdata.append('shop_id',this.$parent.selected.sessions.base.customize_store);
 	formdata.append('tantou_id',this.$parent.selected.sessions.base.customize_employee);
 
     axios.post("/sandbox/ajaxTool/getStockOrder.php",formdata).then(res => {
-    // console.log(res.data);
+    // // console.log(res.data);
 	this.$parent.loading = false;
 	this.douzi = res.data;
 	});
 	},
-		
+
 };
 </script>

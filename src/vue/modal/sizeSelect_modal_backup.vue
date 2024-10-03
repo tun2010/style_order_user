@@ -5,7 +5,7 @@
 			p.modal_closer
 				span(v-on:click="modalCloser") ×
 			div(v-if="sizeDataLoad")
-				div.sizeList(v-if="'size' in sizeData.data") 
+				div.sizeList(v-if="'size' in sizeData.data")
 					template(v-for="(baseitem,basekey) in sizeData.cntOption")
 						p.size-title
 							span(v-if="baseitem in sizeData.data.size") {{sizeData.data.size[baseitem]}}
@@ -17,7 +17,7 @@
 							tr(v-for="n in sizeData.kaisu[gender]")
 								td(v-if="gender == 1")
 									span.buttons.buttons-tatesmall(v-on:click="sizeSubmit(targetCategory,baseitem,n-1)") {{sizeData.data.size[baseitem]}}-{{n-1}}
-								td(v-else-if="gender == 2") 
+								td(v-else-if="gender == 2")
 									span.buttons.buttons-tatesmall(v-on:click="sizeSubmit(targetCategory,baseitem,n-1)") {{sizeData.radiesSize[n-1]}}
 								td(v-for="(item,key) in sizeData.cols[targetCategory]" v-if="item in sizeData.data")
 									input(v-if="baseitem in sizeData.data[item] && n-1 in sizeData.data[item][baseitem]" :value="sizeData.data[item][baseitem][n-1]" readonly)
@@ -64,7 +64,7 @@ module.exports = {
 			Vue.set(this.$parent,"sizeSelectModalFlg",false);
 		},
 		sizeSubmit:function(targetCategory,targetBase,targetNum){
-			
+
 			if(this.gender == 1){
 			if(targetCategory == "jacket"){
 				// Vue.set(this.$parent.selected.baseSize.jacket,"baseNum",targetBase);
@@ -76,7 +76,7 @@ module.exports = {
 				Vue.set(this.$parent.selected.sessions.ordersheet,"ja_shoulder",this.sizeData.data["ja_shoulder"][targetBase][targetNum]);
 				Vue.set(this.$parent.selected.sessions.ordersheet,"waist",this.sizeData.data["waist"][targetBase][targetNum]);
 			}else if(targetCategory == "pants"){
-				
+
 				var subs = this.$parent.sub;
 				var subNum = 1;
 				if(subs == "pants2"){
@@ -130,7 +130,7 @@ module.exports = {
 				Vue.set(this.$parent.selected.sessions.ordersheet,"wo_waist_"+subNum,this.sizeData.data["wo_waist_1"][targetBase][targetNum]);
 			}
 			}
-			console.log(this.$parent.selected);
+			// console.log(this.$parent.selected);
 			alert("サイズを選択しました.");
 			Vue.set(this.$parent,"sizeSelectModalFlg",false);
 		}
@@ -147,11 +147,11 @@ module.exports = {
 			};
 			var thista = this;
 			axios.get("/sandbox/ajaxTool/getKatagamiSize.php", query).then(res => {
-				// console.log(res.data);
+				// // console.log(res.data);
 				thista.sizeData = res.data;
 				thista.sizeDataLoad = true;
-				console.log("ロードしたサイズ↓")
-				console.log(thista.sizeData);
+				// console.log("ロードしたサイズ↓")
+				// console.log(thista.sizeData);
 			})
 	}
 };

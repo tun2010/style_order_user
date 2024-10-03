@@ -84,12 +84,12 @@ div.simulator__productselect_modal.simulator__modal
 								<label class="radio-box" v-if="targetProductData.check_washable">
 									<input type="radio" name="selecttype" v-model="radioVal" value="2">
 									<div class="name">ウォッシャブル</div>
-									<div class="box">無料</div>
+									<div class="box">有料</div>
 								</label>
 								<label class="radio-box" v-if="targetProductData.check_pleats == true && $parent.selected.gender == 'men'">
 									<input type="radio" name="selecttype" v-model="radioVal" value="3">
 									<div class="name">プリーツ安定</div>
-									<div class="box">無料</div>
+									<div class="box">有料</div>
 								</label>
 							</div>
 							<div class="message">
@@ -165,7 +165,7 @@ module.exports = {
 					//ウォッシャブルがオン
 					if (this.$parent.firstCheckers.washable != true) {
 						washableChangeFlg = true;
-						// console.log('washablechangeee');
+						// // console.log('washablechangeee');
 					}
 
 				}
@@ -173,28 +173,28 @@ module.exports = {
 					factoryChangeFlg = true;
 				}
 				//工場がかわっているか
-				// console.log(this.targetProductData);
-				// console.log('工場かわってるか');
-				// console.log(firstfactory);
-				// console.log(selectfactory);
-				// console.log(this.$parent.selected.sessions);
+				// // console.log(this.targetProductData);
+				// // console.log('工場かわってるか');
+				// // console.log(firstfactory);
+				// // console.log(selectfactory);
+				// // console.log(this.$parent.selected.sessions);
 				if (factoryChangeFlg == true) {
 					//工場が変わっている。元々の工場はセンチュリー
 					if (firstfactory == '7861') {
 						//センチュリーがワキタに変わる場合リセット
 						if (selectfactory == '3923') {
-							// console.log('センチュリーがワキタに変わるのでオプション全リセット');
+							// // console.log('センチュリーがワキタに変わるのでオプション全リセット');
 							resetString = 'all';
 						}
 						//センチュリーが中国に変わるんでリセットするが、中国にも対応する型紙を使っている場合はオプションだけリセット
 						if (selectfactory == '4423' && this.$parent.firstCheckers.katafactory != '' && this.$parent.firstCheckers.katafactory != null && this.$parent.firstCheckers.katafactory.indexOf('4423') > -1 && this.$parent.firstCheckers.katafactory.indexOf('7861') > -1) {
 
-							// console.log('センチュリーが中国に変わるんでリセットするが、中国にも対応する型紙を使っている場合はオプションだけリセット');
+							// // console.log('センチュリーが中国に変わるんでリセットするが、中国にも対応する型紙を使っている場合はオプションだけリセット');
 							resetOptiondake = true;
 
 							//センチュリーが中国に変わるんでリセット　兼用できる生地ではない
 						} else if (selectfactory == '4423') {
-							// console.log('センチュリーが中国に変わるんでリセット　兼用できる生地ではない');
+							// // console.log('センチュリーが中国に変わるんでリセット　兼用できる生地ではない');
 							resetString = 'all';
 						}
 
@@ -202,26 +202,26 @@ module.exports = {
 					} else if (firstfactory == '4423') {
 						//中国がセンチュリーに変わる場合オプションだけリセット
 						// if(selectfactory == '7861' && this.$parent.firstCheckers.katafactory != '' && this.$parent.firstCheckers.katafactory != null && this.$parent.firstCheckers.katafactory.indexOf('4423') > -1 && this.$parent.firstCheckers.katafactory.indexOf('7861') > -1){
-						// 	console.log('中国がセンチュリーに変わるのでオプション全リセット');
+						// 	// console.log('中国がセンチュリーに変わるのでオプション全リセット');
 						// 	resetOptiondake = true;
 						// }else if(selectfactory == '7861'){
-						// 	console.log('中国がセンチュリーに変わるし対応してない型紙あるんで全リセット');
+						// 	// console.log('中国がセンチュリーに変わるし対応してない型紙あるんで全リセット');
 						// 	resetString = 'all';
 						// }
 						if (selectfactory == '7861') {
-							// console.log('中国がセンチュリーに変わるのでオプション全リセット');
+							// // console.log('中国がセンチュリーに変わるのでオプション全リセット');
 							resetOptiondake = true;
 						}
 						//中国がワキタに変わる場合リセット
 						if (selectfactory == '3923') {
-							// console.log('中国がワキタに変わるのでオプション全リセット');
+							// // console.log('中国がワキタに変わるのでオプション全リセット');
 							resetString = 'all';
 						}
 					}
 					//工場が変わっている。元々の工場はワキタ
 					else if (firstfactory == '3923') {
 						//ワキタがワキタ以外に変わる場合リセット
-						// console.log('ワキタがワキタ以外に変わるのでオプション全リセット');
+						// // console.log('ワキタがワキタ以外に変わるのでオプション全リセット');
 						resetString = 'all';
 					}
 				}
@@ -232,10 +232,10 @@ module.exports = {
 						//型紙がAJMCH-15,もしくはGBの場合はオプションオールリセット
 						if (this.$parent.firstCheckers.jacket_dno == 'AJMCH-15' || this.$parent.firstCheckers.gb == true) {
 							if (this.$parent.tantouFlg) {
-								// console.log('センチュリーで、ウォッシャブルがオンになり、前寸型紙がAJMCH-15　もしくは　GBのため　全リセット');
+								// // console.log('センチュリーで、ウォッシャブルがオンになり、前寸型紙がAJMCH-15　もしくは　GBのため　全リセット');
 								resetString = 'all';
 							} else {
-								// console.log('センチュリーで、ウォッシャブルがオンになり、前寸型紙がAJMCH-15　もしくは　GBのため　ユーザーは注文できない');
+								// // console.log('センチュリーで、ウォッシャブルがオンになり、前寸型紙がAJMCH-15　もしくは　GBのため　ユーザーは注文できない');
 								washakanzenDame = true;
 							}
 						}
@@ -245,13 +245,13 @@ module.exports = {
 				if (resetString != 'all' && resetOptiondake != true) {
 					if (washableChangeFlg == true && (this.$parent.firstCheckers.w_adjuster == true || (this.$parent.selected.sessions.ordersheet.w_adjuster1 != null && this.$parent.selected.sessions.ordersheet.w_adjuster1 != '0') || (this.$parent.selected.sessions.ordersheet.w_adjuster2 != null && this.$parent.selected.sessions.ordersheet.w_adjuster2 != '0'))) {
 						//ウォッシャブルオンで、元々ウェストアジャスターがついてるんでウェストアジャスターだけリセット
-						// console.log('ウォッシャブルオンで、元々ウェストアジャスターがついてるんでウェストアジャスターだけリセット');
+						// // console.log('ウォッシャブルオンで、元々ウェストアジャスターがついてるんでウェストアジャスターだけリセット');
 						resetWAdj = true;
 					}
 
 					if (washableChangeFlg == true && (this.$parent.firstCheckers.daiba == true || (this.$parent.selected.sessions.ordersheet.daiba != null && this.$parent.selected.sessions.ordersheet.daiba != '0'))) {
 						//ウォッシャブルオンで、元々台場がついてるんで台場だけリセット
-						// console.log('ウォッシャブルオンで、元々台場がついてるんで台場だけリセット');
+						// // console.log('ウォッシャブルオンで、元々台場がついてるんで台場だけリセット');
 						resetDaiba = true;
 					}
 
@@ -272,7 +272,7 @@ module.exports = {
 						if (this.radioVal == 2) {
 							Vue.set(this.$parent.firstCheckers, 'washable', true);
 						}
-						// console.log(this.$parent.firstCheckers);
+						// // console.log(this.$parent.firstCheckers);
 						//↑firstcheckers をセットしなおす
 
 						return true;
@@ -334,9 +334,9 @@ module.exports = {
 			Vue.set(this.$parent, "loading", true);
 
 			var checks = this.optionResetChecker();
-			//console.log("生地を変更した");
-			//console.log(this.$parent.selectedProductData);
-			//console.log(this.$parent.selected.sessions.ordersheet);
+			//// console.log("生地を変更した");
+			//// console.log(this.$parent.selectedProductData);
+			//// console.log(this.$parent.selected.sessions.ordersheet);
 			if (checks == true) {
 				if (this.$parent.selected.suitist == true && this.$parent.masters.line[this.$parent.selectedProductData["suitistline"]]) {
 					this.$parent.selected.code.line = this.$parent.masters.line[this.$parent.selectedProductData["suitistline"]]["line_code"];
@@ -348,20 +348,20 @@ module.exports = {
 				if (this.radioVal == 1) {
 					Vue.set(this.$parent.selected.sessions.ordersheet, "washable", "");
 					Vue.set(this.$parent.selected.sessions.ordersheet, "pleats_sta", "");
-					//console.log("生地タイプ標準：ウォッシャブルとプリーツ安定解除");
+					//// console.log("生地タイプ標準：ウォッシャブルとプリーツ安定解除");
 				}
 				else if (this.radioVal == 2) {
 					Vue.set(this.$parent.selected.sessions.ordersheet, "washable", "1");
 					Vue.set(this.$parent.selected.sessions.ordersheet, "pleats_sta", "");
-					//console.log("生地タイプ：ウォッシャブル");
+					//// console.log("生地タイプ：ウォッシャブル");
 				}
 				else if (this.radioVal == 3) {
 					Vue.set(this.$parent.selected.sessions.ordersheet, "washable", "");
 					Vue.set(this.$parent.selected.sessions.ordersheet, "pleats_sta", "1");
-					//console.log("生地タイプ：プリーツ安定");
+					//// console.log("生地タイプ：プリーツ安定");
 				}
-				//console.log("janコード特定用ラインNO変更");
-				//console.log(this.$parent.selected.code);
+				//// console.log("janコード特定用ラインNO変更");
+				//// console.log(this.$parent.selected.code);
 				if (this.$parent.guest === false && this.$parent.katagamiNaiUser == false) {
 					//一旦在庫確保
 					let formdata = new URLSearchParams();
@@ -372,13 +372,13 @@ module.exports = {
 					formdata.append('ordersheet', sessionJson);
 					formdata.append('kakuhokizi', this.$parent.selected.kakuhokizi);
 					axios.post("/sandbox/ajaxTool/stepper_order_regist.php", formdata).then(res => {
-						//console.log(res.data);
+						//// console.log(res.data);
 						if (res.data == "no stock") {
-							//console.log("在庫確保失敗");
+							//// console.log("在庫確保失敗");
 							alert("指定した生地の在庫がありません。別の生地を選択してください");
 							Vue.set(this.$parent, "loading", false);
 						} else {
-							//console.log("在庫確保OK");
+							//// console.log("在庫確保OK");
 							Vue.set(this.$parent, "step", 2);
 							Vue.set(this.$parent, "loading", false);
 							this.$parent.checkOptionCourse();
@@ -387,7 +387,7 @@ module.exports = {
 				} else {
 					Vue.set(this.$parent, "step", 2);
 
-					//console.log('在庫の確保が必要ないユーザーなので確保しません');
+					//// console.log('在庫の確保が必要ないユーザーなので確保しません');
 				}
 			}
 			Vue.set(this.$parent, "loading", false);

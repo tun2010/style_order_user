@@ -1,4 +1,4 @@
-<template lang="pug">
+<!-- <template lang="pug">
 div.simulator__sort_modal.simulator__modal
 	div.simulator__modal__back(v-on:click="modalCloser")
 	div.simulator__modal__wrap
@@ -63,30 +63,123 @@ div.simulator__sort_modal.simulator__modal
 		div.flex_top
 			p.buttons.icon-end.sort_modal-button(v-on:click="sortSubmiter()") 絞り込む
 
+</template> -->
+
+<template>
+
+	<div class="simulator-modal">
+		<div class="simulator-modal__container" @click.self="modalCloser">
+			<div class="simulator-modal__card">
+				<header class="simulator-modal__header">
+					<button class="modal-close" @click="modalCloser"></button>
+				</header>
+				<div class="simulator-modal__body">
+					<div class="product-filter-container">
+						<div class="product-filter__group">
+							<div class="product-filter__title">
+								価格<small>から</small>選ぶ
+							</div>
+							<ul class="filter-list filter-list--large">
+								<li
+									v-for="(item,key) in $parent.masters.line"
+									:key="key"
+									@click="sortItemClick(key,'price')"
+									:class="{checked: selectedSort.price.includes(key)}"
+								>
+								<div class="checkbox"></div>
+								{{item.name}}
+							</li>
+							</ul>
+						</div>
+
+						<div class="product-filter__group">
+							<div class="product-filter__title">
+								カラー<small>から</small>選ぶ
+							</div>
+							<ul class="filter-list">
+								<li
+									class="filter-item--color"
+									v-for="(item,key) in $parent.masters.colors"
+									:key="key"
+									@click="sortItemClick(key,'color')"
+									:class="{checked: selectedSort.color.includes(key)}"
+								>
+									<div class="checkbox"></div>
+									<div class="color" :style="'background:'+item.hex" :class='"maru"+key'></div>
+									{{item.name}}
+								</li>
+							</ul>
+						</div>
+
+						<div class="product-filter__group product-filter__group--pattern">
+							<div class="product-filter__title">
+								柄<small>から</small>選ぶ
+							</div>
+							<ul class="filter-list">
+								<li
+									v-for="(item,key) in $parent.masters.gara"
+									:key="key"
+									@click="sortItemClick(key,'pattern')"
+									:class="{checked: selectedSort.pattern.includes(key)}"
+								>
+									<div class="checkbox"></div>
+									{{item}}
+								</li>
+							</ul>
+						</div>
+
+						<div class="product-filter__group">
+							<div class="product-filter__title">
+								シーズン
+							</div>
+							<ul class="filter-list">
+								<li
+									v-for="(item,key) in $parent.masters.season"
+									:key="key"
+									@click="sortItemClick(item.category_id,'season')"
+									:class="{checked: selectedSort.season.includes(item.category_id)}"
+								>
+									<div class="checkbox"></div>
+									{{item.category_name}}
+								</li>
+							</ul>
+						</div>
+
+						<div class="product-filter__group">
+							<div class="product-filter__title">
+								生地特性
+							</div>
+							<ul class="filter-list filter-list--large">
+								<li @click="sortItemClick('washable','function')"
+									:class="{checked: selectedSort.function.includes('washable')}"
+								>
+									<div class="checkbox"></div>
+									ウォッシャブル対応
+								</li>
+								<li @click="sortItemClick('pleats','function')"
+									:class="{checked: selectedSort.function.includes('pleats')}"
+								>
+									<div class="checkbox"></div>
+									プリーツ安定対応
+								</li>
+								<li @click="sortItemClick('jacket','function')"
+									:class="{checked: selectedSort.function.includes('jacket')}"
+								>
+									<div class="checkbox"></div>
+									ジャケット / ベスト専用生地
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<footer class="simulator-modal__footer">
+					<button class="simu-button simu-button--primary" style="max-width: 250px" @click="sortSubmiter">絞り込む</button>
+				</footer>
+			</div>
+		</div>
+	</div>
 </template>
-<style>
-.maru{
-	width:1rem;
-	height:1rem;
-	display:block;
-	margin-left:0.5em;
-	border-radius:50%;
-	position:relative;
-	overflow:hidden;
-}
-.maru0001{
-	background:#f1f1f1 !important;
-}
-.maru0001:after{
-	content:'';
-	background:#000000;
-	height:100%;
-	width:100%;
-	left:-50%;
-	position:absolute;
-	z-index:2;
-}
-</style>
+
 <script>
 // コンポーネントのtemplateは、一つのタグですべて囲われていなければならん。注意。
 //アロー関数では値が取れなくなる場合がある。　hoge:function(){}としろ。
@@ -126,7 +219,7 @@ module.exports = {
 		sortSubmiter:function(){
 			Vue.set(this.$parent,'loading',true);
 			// 商品読み込み
-			// console.log(this.selectedSort);
+			// // console.log(this.selectedSort);
 			// return false;
 				const query = {
 				headers: {
@@ -158,7 +251,6 @@ module.exports = {
 				Vue.set(this.$parent,"sortFlg",false);
 				Vue.set(this.$parent,'loading',false);
 				});
-
 		}
 	}
 };

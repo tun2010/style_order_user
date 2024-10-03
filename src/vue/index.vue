@@ -20,13 +20,13 @@ module.exports = {
             return "test";
         },
 		ladtest:function(){
-			console.log(this.lad);
-			console.log("↑");
+			// console.log(this.lad);
+			// console.log("↑");
 			return this.lad.getOnlineCustomerCard;
 		}
     },
 	mounted:function(){
-			console.log("sss");
+			// console.log("sss");
 	}
 };
 </script>

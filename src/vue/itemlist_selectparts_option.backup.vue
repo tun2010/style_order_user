@@ -79,7 +79,7 @@
 									//名前
 									p.selectparts__selected_item(v-if='parts.api_field == "enter_name"') {{selectedItemCheck('hyoujunOption',31,$parent.selected.sessions.ordersheet.style_name)["option_field"]}}
 									p.selectparts__selected_item(v-if='parts.api_field == "enter_name"') {{$parent.selected.sessions.ordersheet.enter_name}}
-									
+
 			//ここからオプションアイテム
 			div.product__list(v-if="disp == 2 && inputtype == 1 && targetApiField.indexOf('colorcustoms_') == -1 && targetApiField.indexOf('suso_d') == -1  && targetApiField.indexOf('customselect_') == -1 && ($parent.selected.gender == 'women' && targetApiField.indexOf('button_cno') > -1) == false" key="item")
 				ul
@@ -188,7 +188,7 @@
 						div.product__list__data
 							p.product__list__data__code {{product.option_code}}
 							p.product__list__data__name {{product.option_field}}
-					
+
 				//flowerhall
 				ul.koteiul(v-if="targetApiField == 'colorcustoms_flower_hall_normal' && $parent.selected.sessions.ordersheet.colorcustoms_flower_hall_normal == '999999'" :data-methods='koteiEnter()')
 					li(v-for="product in flowerColorOptionData.optionitems" v-bind:data-optionid="product.option_id" v-on:click="selectOptionKotei(product,'colorcustoms_flower_hall')" v-if="optionItemHiddenChecker(product)" :class="{'active':product.option_code ==  selectedOptionCodeKotei('colorcustoms_flower_hall')}")
@@ -279,28 +279,28 @@ module.exports = {
 			var mk1pro = '';
 		var mk2pro = '';
 		var mk1 = 0;
-		//console.log('裾１が変更されたのでマッキン初期化');
-		//console.log(this.mackinOptionData);
+		//// console.log('裾１が変更されたのでマッキン初期化');
+		//// console.log(this.mackinOptionData);
 		$.each(this.mackinOptionData.optionitems,function(key,item){
 			if(item.option_code == mk1){
 				mk1pro = item;
 			}
 		});
-		//console.log(mk1pro);
-		//console.log(mk2pro);
+		//// console.log(mk1pro);
+		//// console.log(mk2pro);
 		Vue.set(this,"selectSentakuMackin1",mk1pro);
 		},
 		'$parent.selected.sessions.ordersheet.suso_d2':function(){
 		var mk2pro = '';
 		var mk2 = 0;
-		//console.log('裾2が変更されたのでマッキン初期化');
-		//console.log(this.mackinOptionData);
+		//// console.log('裾2が変更されたのでマッキン初期化');
+		//// console.log(this.mackinOptionData);
 		$.each(this.mackinOptionData.optionitems,function(key,item){
 			if(item.option_code == mk2){
 				mk2pro = item;
 			}
 		});
-		//console.log(mk2pro);
+		//// console.log(mk2pro);
 		Vue.set(this,"selectSentakuMackin2",mk2pro);
 		},
 	},
@@ -323,8 +323,8 @@ module.exports = {
 			return styleNo;
 		},
 		orded: function () {
-			// console.log('表示するオプションリスト');
-			// console.log(this.optionData.mazemaze);
+			// // console.log('表示するオプションリスト');
+			// // console.log(this.optionData.mazemaze);
     return _.orderBy(this.optionData.mazemaze, 'rank');
 		},
 		ordedReverse:function(){
@@ -352,15 +352,15 @@ module.exports = {
 			}else{
 				courses[0] = course;
 			}
-			//console.log("courseNos:::");
-			//console.log(courses);
+			//// console.log("courseNos:::");
+			//// console.log(courses);
 			return courses;
 		},
 		gender:function(){
 			return this.$parent.selected.gender;
 		},
 		selectedSelect:function(){
-			//console.log(this.$parent.selected.parts);
+			//// console.log(this.$parent.selected.parts);
 			return this.$parent.selected.parts;
 		},
 		partsdata:function(){
@@ -380,13 +380,13 @@ module.exports = {
 			}else{
 				result = this.$parent.selected.sessions.ordersheet[targetSessionCode];
 			}
-			//console.log("selectedOptionCode:"+result);
+			//// console.log("selectedOptionCode:"+result);
 			if(result == null){
 				result = 0;
 			}
 			return result;
 		},
-		
+
 		//dpuraziの有料カラーデータ
 		uradpColorOptionData(){
 			if(65 in this.optionData["AllAll"]){
@@ -405,7 +405,7 @@ module.exports = {
 		},
 		//flowerhallの有料カラーデータ
 		flowerColorOptionData(){
-			//console.log(this.optionData);
+			//// console.log(this.optionData);
 			return this.optionData["AllAll"][36];
 		},
 		//カラークロスの有料カラーデータ
@@ -417,7 +417,7 @@ module.exports = {
 			return this.optionData["AllAll"][46];
 		},
 		womenYuryouButton(){
-			// //console.log(this.optionData);
+			// //// console.log(this.optionData);
 			return this.optionData["AllAll"][67];
 		},
 		//ネーム刺繍書式データ
@@ -438,37 +438,37 @@ module.exports = {
 			};
 			var thista = this;
 			axios.get("/sandbox/ajaxTool/checkKatagamiOption.php", query).then(res => {
-				// console.log('型紙で使えないオプション');
-				// console.log(res.data);
+				// // console.log('型紙で使えないオプション');
+				// // console.log(res.data);
 				Vue.set(thista,"katagamiKesuOption",{});
 				$.each(res.data['kesuOption'],function(key,item){
 					Vue.set(thista.katagamiKesuOption,item['option_id'],item);
 				});
-				// console.log(thista.katagamiKesuOption);
+				// // console.log(thista.katagamiKesuOption);
 			})
 
 		},
 		//型紙が対象オプションに対応しているか
 		katagamiTsukaenChecker:function(option){
 			if(option.option_id in this.katagamiKesuOption){
-				// console.log(option.option_name+'は対応していないので消す');
+				// // console.log(option.option_name+'は対応していないので消す');
 				// if(this.sub == '' && option.option_id == 26 && (this.$parent.selected.sessions.ordersheet.w_adjuster1 != null && this.$parent.selected.sessions.ordersheet.w_adjuster1 != '')){
-				// 	console.log('w_adjuster1 消す');
+				// 	// console.log('w_adjuster1 消す');
 				// 	Vue.set(this.$parent.selected.sessions.ordersheet,'w_adjuster1',null);
 				// }
 				// if(this.sub != '' && option.option_id == 26 && (this.$parent.selected.sessions.ordersheet.w_adjuster2 != null && this.$parent.selected.sessions.ordersheet.w_adjuster2 != '')){
-				// 	console.log('w_adjuster2 消す');
+				// 	// console.log('w_adjuster2 消す');
 				// 	Vue.set(this.$parent.selected.sessions.ordersheet,'w_adjuster2',null);
 				// }
 				return false;
 			}else{
-				// console.log(option.option_name+'は対応している');
+				// // console.log(option.option_name+'は対応している');
 				// if(this.sub == '' && option.option_id == 26 && (this.$parent.selected.sessions.ordersheet.w_adjuster1 == null || this.$parent.selected.sessions.ordersheet.w_adjuster1 == '')){
-				// 	console.log('w_adjuster1 初期値つける');
+				// 	// console.log('w_adjuster1 初期値つける');
 				// 	Vue.set(this.$parent.selected.sessions.ordersheet,'w_adjuster1',"0");
 				// }
 				// if(this.sub != '' && option.option_id == 26 && (this.$parent.selected.sessions.ordersheet.w_adjuster2 == null || this.$parent.selected.sessions.ordersheet.w_adjuster2 == '')){
-				// 	console.log('w_adjuster2 初期値つける');
+				// 	// console.log('w_adjuster2 初期値つける');
 				// 	Vue.set(this.$parent.selected.sessions.ordersheet,'w_adjuster2',"0");
 				// }
 			return true;
@@ -513,7 +513,7 @@ module.exports = {
 					item = item2;
 				});
 			if(parts.api_field == 'ext_specification'){
-				
+
 				if((this.c3Category == 2 && (item.styleNo == 4 || item.styleNo == 5 || item.styleNo == 6 || item.styleNo == 1)) || (this.c3Category == 4 && (item.styleNo == 3)) || (this.c3Category == 5 && (item.styleNo == 11 || item.styleNo == 10 || item.styleNo == 15 || item.styleNo == 17 || item.styleNo == 16 || item.styleNo == 7))){
 					checker = true;
 				}else{
@@ -531,9 +531,9 @@ module.exports = {
 						checker = false;
 					}
 				});
-				//console.log("cooooourse");
-				//console.log(course);
-				//console.log(parts);
+				//// console.log("cooooourse");
+				//// console.log(course);
+				//// console.log(parts);
 			}
 			return checker;
 		},
@@ -578,15 +578,15 @@ module.exports = {
 		optionItemHiddenChecker:function(item){
 			var checker = true;
 			var thista = this;
-			//console.log('オプションアイテム');
-			//console.log(item);
-			
+			//// console.log('オプションアイテム');
+			//// console.log(item);
+
 			//パワーフィットの場合は裏仕様のクロスバックは使えない
 			// 52はパワーフィット　裏仕様は57
 			if(item.option_id == 52){
-				
+
 				if(this.$parent.selected.sessions.ordersheet.ext_specification_normal == 3 && item.option_code == 1){
-					//console.log('裏仕様がクロスバックなんでパワーフィットはつかえない');
+					//// console.log('裏仕様がクロスバックなんでパワーフィットはつかえない');
 					checker = false;
 				}
 			}
@@ -603,8 +603,8 @@ module.exports = {
 				$.each(this.$parent.selected.katagami[targetGenderNum],function(key22,item22){
 					targetUrashiyo = item22.urashiyo;
 				})
-				// console.log(this.$parent.selected.katagami);
-				// console.log(targetUrashiyo);
+				// // console.log(this.$parent.selected.katagami);
+				// // console.log(targetUrashiyo);
 				if(targetUrashiyo.length > 0){
 				if(targetUrashiyo.indexOf(item.option_code) == -1){
 					checker = false;
@@ -614,7 +614,7 @@ module.exports = {
 				}
 				//クロスバックとパワーフィットのチェック
 				if(this.$parent.selected.sessions.ordersheet.ext_specification == 1 && item.option_code == 3){
-					//console.log('パワーフィット適用されてるんでクロスバックはつかえない');
+					//// console.log('パワーフィット適用されてるんでクロスバックはつかえない');
 					checker = false;
 				}
 			}
@@ -624,14 +624,14 @@ module.exports = {
 			// 切羽配色は55 袖口本切羽は47
 			// if(item.option_id == 55){
 			// 	if(this.$parent.selected.sessions.ordersheet.sode_honseppa == 0 && item.option_code == 999999){
-			// 		//console.log('袖口本切羽がなしになっているのでカラーは選べない');
+			// 		//// console.log('袖口本切羽がなしになっているのでカラーは選べない');
 			// 		checker = false;
 			// 	}
 			// }
 
 			// if(item.option_id == 47){
 			// 	if(this.$parent.selected.sessions.ordersheet.colorcustoms_seppa_hall_normal == 999999 && item.option_code == 0){
-			// 		//console.log('切羽配色がカラーになっているので袖口本切羽を無しにはできない');
+			// 		//// console.log('切羽配色がカラーになっているので袖口本切羽を無しにはできない');
 			// 		alert('袖口本切羽を無しにする場合は、切羽配色を[表地と同色]にしてください');
 			// 		checker = false;
 			// 	}
@@ -646,10 +646,10 @@ module.exports = {
 				}else{
 					factoryList[0] = item.option_factory;
 				}
-				
+
 				$.each(factoryList,function(key2,item2){
 					if(item2 == thista.$parent.selectedProductData.factory){
-						//console.log("工場だめ："+item.item_id);
+						//// console.log("工場だめ："+item.item_id);
 						checker = false;
 						return false;
 					}
@@ -658,10 +658,10 @@ module.exports = {
 			//スーティストチェック
 			if(item.option_tq == "1"){
 				if(thista.$parent.selected.suitist){
-					
+
 				}else{
-					//console.log(thista.$parent.selected.suitist);
-					//console.log("スーティストではないから出さない："+item.item_id);
+					//// console.log(thista.$parent.selected.suitist);
+					//// console.log("スーティストではないから出さない："+item.item_id);
 					checker = false;
 				}
 			}
@@ -681,7 +681,7 @@ module.exports = {
 				return false;
 			}
 
-			
+
 
 			// その他固定でけすやつ
 			targetarray = [];
@@ -703,7 +703,7 @@ module.exports = {
 			targetarray.push('washable');
 			targetarray.push('style_name');
 			var activer = $('.selector_design__category ul li').index('.selector_design__category ul li.buttons-line');
-			// console.log(this.selectCourse);
+			// // console.log(this.selectCourse);
 			if((this.selectCourse != 3 && this.selectCourse != 2 && ((this.selectCourse == 13 && this.sub != '') || this.selectCourse != 13) && ((this.selectCourse == 12 && this.sub != '') || this.selectCourse != 12) && this.selectCourse != 8 && (this.c3Category != 2 && this.c3Category != 5))){
 				targetarray.push('button_cno');
 			}
@@ -729,7 +729,7 @@ module.exports = {
 				return false;
 			}
 
-			
+
 
 			// その他固定でけすやつ
 			targetarray = [];
@@ -781,7 +781,7 @@ module.exports = {
 			}else{
 				result = this.$parent.selected.sessions.ordersheet[targetSessionCode];
 			}
-			//console.log("selectedOptionCode("+kotei+"):"+result);
+			//// console.log("selectedOptionCode("+kotei+"):"+result);
 			if(result == null){
 				result = 0;
 			}
@@ -809,7 +809,7 @@ module.exports = {
 		selectedItemCheck:function(type,key,sessionId){
 			if(this.optionData != ''){
 				if(type == 'hyoujunOption' && key == 48){
-					
+
 				}
 				if(type in this.optionData){
 				if(key in this.optionData[type]){
@@ -823,7 +823,7 @@ module.exports = {
 					return false;
 				}
 			});
-			//console.log(targetOption);
+			//// console.log(targetOption);
 			if(type == 'hyoujunOption' && key == 48 && targetOption == ""){
 					if(65 in this.optionData['AllAll']){
 					if('optionitems' in this.optionData['AllAll'][65]){
@@ -852,9 +852,9 @@ module.exports = {
 				this.sub = sub;
 				Vue.set(this.$parent.selected,'optionSub',sub);
 				// this.$parent.sub = sub;
-				//console.log("２枚目のものを選択");
-				//console.log(this.sub);
-				
+				//// console.log("２枚目のものを選択");
+				//// console.log(this.sub);
+
 			}else{
 				this.sub = "";
 				Vue.set(this.$parent.selected,'optionSub','');
@@ -862,7 +862,7 @@ module.exports = {
 			}
 			this.c3Category = target;
 			Vue.set(this.$parent,'optionC3Category',this.henkankun2(target));
-			//console.log("表示するオプションカテゴリーを変更した:"+target);
+			//// console.log("表示するオプションカテゴリーを変更した:"+target);
 			var target2 ;
 			if(target == "2"){
 				target2 = "1";
@@ -873,13 +873,13 @@ module.exports = {
 			}
 			var targetParts = target2 + sub;
 			if(Object.keys(this.$parent.selected.katagami[targetParts]).length >= 1){
-			// console.log('対象の箇所');
+			// // console.log('対象の箇所');
 			var targetKatagamiOptions = {};
 			$.each(this.$parent.selected.katagami[targetParts],function(key,item){
 				targetKatagamiOptions = item;
 			});
-			// console.log(targetParts);
-			// console.log(targetKatagamiOptions);
+			// // console.log(targetParts);
+			// // console.log(targetKatagamiOptions);
 			this.checkKatagamiOption(JSON.stringify(targetKatagamiOptions));
 				}
 
@@ -903,20 +903,20 @@ module.exports = {
 			this.targetApiField = apifield;
 			this.inputtype = inputtype;
 			this.disp = 2;
-			//console.log("選択されたオプションカテゴリ：");
-			//console.log(this.targetApiField);
-			//console.log(this.selectedOptionType);
-			//console.log(this.selectedCategory);
-			//console.log(this.optionData);
-			 //console.log(this.optionData[this.selectedOptionType][this.selectedCategory]);
+			//// console.log("選択されたオプションカテゴリ：");
+			//// console.log(this.targetApiField);
+			//// console.log(this.selectedOptionType);
+			//// console.log(this.selectedCategory);
+			//// console.log(this.optionData);
+			 //// console.log(this.optionData[this.selectedOptionType][this.selectedCategory]);
 			}
 		},
 		selectOption:function(option){
 			// Vue.set(this.$parent.selected.options,option.option_id,{});
 			// Vue.set(this.$parent.selected.options[option.option_id],option.item_id,option);
 			// Vue.set(this.$parent.selected.sessions[option.option_id],option.item_id,option);
-			//console.log(this.c3Category);
-			
+			//// console.log(this.c3Category);
+
 			var targetSessionCode = this.optionData[this.selectedOptionType][this.selectedCategory].api_field;
 			var targetSessionCodePlus = this.optionData[this.selectedOptionType][this.selectedCategory].api_field;
 			if((this.c3Category == 6 || this.c3Category == 7 || this.c3Category == 4) && this.sub == ""){
@@ -933,11 +933,11 @@ module.exports = {
 			setTimeout(function(){
 			thista.checkOptionCourse();
 			},500);
-			//console.log("オプションが変更・追加されました");
-			//console.log(this.$parent.selected.sessions);
+			//// console.log("オプションが変更・追加されました");
+			//// console.log(this.$parent.selected.sessions);
 		},
 		selectOptionWomenButtonNormal:function(option){
-			//console.log(this.c3Category);
+			//// console.log(this.c3Category);
 			Vue.set(this.$parent.selected.sessions.ordersheet,'colorcustoms_button_cno',null);
 			var targetSessionCode = this.optionData[this.selectedOptionType][this.selectedCategory].api_field;
 			var targetSessionCodePlus = this.optionData[this.selectedOptionType][this.selectedCategory].api_field;
@@ -955,12 +955,12 @@ module.exports = {
 			setTimeout(function(){
 			thista.checkOptionCourse();
 			},500);
-			//console.log("オプションが変更・追加されました");
-			//console.log(this.$parent.selected.sessions);
+			//// console.log("オプションが変更・追加されました");
+			//// console.log(this.$parent.selected.sessions);
 		},
 		selectOptionWomenButton:function(option){
-			//console.log(this.c3Category);
-			
+			//// console.log(this.c3Category);
+
 			var targetSessionCode = "colorcustoms_button_cno";
 			var targetSessionCodePlus = "colorcustoms_button_cno";
 			if((this.c3Category == 6 || this.c3Category == 7 || this.c3Category == 4) && this.sub == ""){
@@ -979,15 +979,15 @@ module.exports = {
 			setTimeout(function(){
 			thista.checkOptionCourse();
 			},500);
-			//console.log("オプションが変更・追加されました");
-			//console.log(this.$parent.selected.sessions);
+			//// console.log("オプションが変更・追加されました");
+			//// console.log(this.$parent.selected.sessions);
 		},
 		selectOptionPocket:function(option){
 			// Vue.set(this.$parent.selected.options,option.option_id,{});
 			// Vue.set(this.$parent.selected.options[option.option_id],option.item_id,option);
 			// Vue.set(this.$parent.selected.sessions[option.option_id],option.item_id,option);
-			//console.log(this.c3Category);
-			
+			//// console.log(this.c3Category);
+
 			var targetSessionCode = this.optionData[this.selectedOptionType][this.selectedCategory].api_field;
 			var targetSessionCodePlus = this.optionData[this.selectedOptionType][this.selectedCategory].api_field;
 			if((this.c3Category == 6 || this.c3Category == 7 || this.c3Category == 4) && this.sub == ""){
@@ -1001,18 +1001,18 @@ module.exports = {
 
 			//ポケット
 			if(option.option_code == '2'){
-				//console.log('チェンジポケットを有効化');
+				//// console.log('チェンジポケットを有効化');
 				Vue.set(this.$parent.selected.sessions.ordersheet,'change_pocket',1);
 			}else{
-				//console.log('チェンジポケットをnullに');
+				//// console.log('チェンジポケットをnullに');
 				Vue.set(this.$parent.selected.sessions.ordersheet,'change_pocket',null);
 			}
 			//ポケット
 			if(option.option_code == '1'){
-				//console.log('パッチポケットを有効化');
+				//// console.log('パッチポケットを有効化');
 				Vue.set(this.$parent.selected.sessions.ordersheet,'patch_pocket',1);
 			}else{
-				//console.log('パッチポケットをnullに');
+				//// console.log('パッチポケットをnullに');
 				Vue.set(this.$parent.selected.sessions.ordersheet,'patch_pocket',null);
 			}
 
@@ -1020,15 +1020,15 @@ module.exports = {
 			setTimeout(function(){
 			thista.checkOptionCourse();
 			},500);
-			//console.log("オプションが変更・追加されました");
-			//console.log(this.$parent.selected.sessions);
+			//// console.log("オプションが変更・追加されました");
+			//// console.log(this.$parent.selected.sessions);
 		},
 		selectOptionKotei:function(option,kotei){
 			// Vue.set(this.$parent.selected.options,option.option_id,{});
 			// Vue.set(this.$parent.selected.options[option.option_id],option.item_id,option);
 			// Vue.set(this.$parent.selected.sessions[option.option_id],option.item_id,option);
-			//console.log(this.c3Category);
-			
+			//// console.log(this.c3Category);
+
 			var targetSessionCode = kotei;
 			var targetSessionCodePlus = kotei;
 			if((this.c3Category == 6 || this.c3Category == 7 || this.c3Category == 4) && this.sub == ""){
@@ -1045,8 +1045,8 @@ module.exports = {
 			setTimeout(function(){
 			thista.checkOptionCourse();
 			},500);
-			//console.log("オプションが変更・追加されました");
-			//console.log(this.$parent.selected.sessions);
+			//// console.log("オプションが変更・追加されました");
+			//// console.log(this.$parent.selected.sessions);
 		},
 		ivModalOpen:function(target,type){
 			Vue.set(this.$parent,"imageAndVideoModalFlg",true);
@@ -1063,10 +1063,10 @@ module.exports = {
 				gb = 1;
 			}
 			var katagami = {};
-			//console.log(this.$parent.selected.course);
+			//// console.log(this.$parent.selected.course);
 			$.each(this.$parent.selected.course,function(key,item){
 				if(Object.keys(item).length > 0){
-					//console.log("型紙検知："+key);
+					//// console.log("型紙検知："+key);
 					$.each(item,function(key2,item2){
 					katagami[key] = item2.pattern_id;
 					})
@@ -1089,14 +1089,14 @@ module.exports = {
 			var thista = this;
 			return new Promise(function (resolve, reject) {
 			axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query).then(res => {
-				// console.log('オプションデータ');
-				// console.log(res.data);
+				// // console.log('オプションデータ');
+				// // console.log(res.data);
 				thista.optionData = res.data;
 				thista.$parent.optionData = res.data;
 				thista.optionLoad = true;
-				// console.log(thista.selectCourseZenbu);
+				// // console.log(thista.selectCourseZenbu);
 				if(26 in thista.optionData.mazemaze){
-					// console.log('ウェストアジャスタ含まれてるんで初期値０つける');
+					// // console.log('ウェストアジャスタ含まれてるんで初期値０つける');
 					if(thista.$parent.selected.gender == 'men' && thista.selectCourseZenbu.designParts.indexOf('pants') && (thista.$parent.selected.sessions.ordersheet.w_adjuster1 == null || thista.$parent.selected.sessions.ordersheet.w_adjuster1 == '') && thista.$parent.selected.sessions.ordersheet.washable != 1){
 						Vue.set(thista.$parent.selected.sessions.ordersheet,'w_adjuster1',"0");
 					}
@@ -1104,7 +1104,7 @@ module.exports = {
 						Vue.set(thista.$parent.selected.sessions.ordersheet,'w_adjuster2',"0");
 					}
 				}else{
-					// console.log('ウェストアジャスタ含まれてないんでnullに');
+					// // console.log('ウェストアジャスタ含まれてないんでnullに');
 					if(thista.selectCourseZenbu.designParts.indexOf('pants') && (thista.$parent.selected.sessions.w_adjuster1 != null && thista.$parent.selected.sessions.w_adjuster1 != '')){
 						Vue.set(thista.$parent.selected.sessions,'w_adjuster1',null);
 					}
@@ -1118,8 +1118,8 @@ module.exports = {
 		},
 		// index.jsにもある　両方修正せよ
 		checkOptionCourse:function(){
-			//console.log("checkOptionCourse");
-			//console.log(this.optionData);
+			//// console.log("checkOptionCourse");
+			//// console.log(this.optionData);
 			const query = {
 			headers: {
 				"content-Type": "application/json;charset=UTF-8"
@@ -1135,14 +1135,14 @@ module.exports = {
 			};
 			var thista = this;
 			axios.get("/sandbox/ajaxTool/getOptionCourse.php", query).then(res => {
-				// console.log(res.data);
+				// // console.log(res.data);
 				data = res.data;
 				Vue.set(thista.$parent.selected.code,"optionCourse",data);
 				Vue.set(thista.$parent.selected.sessions.ordersheet,'course_no',data);
-				// console.log("オプションコース特定した selected.code.optionCourse："+thista.$parent.selected.code.optionCourse);
+				// // console.log("オプションコース特定した selected.code.optionCourse："+thista.$parent.selected.code.optionCourse);
 				if(thista.$parent.selected.sessions.ordersheet.course_no != 'none' && thista.$parent.selected.sessions.ordersheet.course_no != '' && thista.$parent.selected.sessions.ordersheet.course_no != null){
-					// console.log('optioncourseチェック');
-					// console.log(thista.$parent.selected.sessions.ordersheet.course_no);
+					// // console.log('optioncourseチェック');
+					// // console.log(thista.$parent.selected.sessions.ordersheet.course_no);
         thista.$parent.getOptionCourseDetail(thista.$parent.selected.sessions.ordersheet.course_no);
         }
 			})
@@ -1150,20 +1150,20 @@ module.exports = {
 		optionNaiChecker:function(){
 			var dame = [];
 			var thista = this;
-			// console.log(this.wanted);
+			// // console.log(this.wanted);
 			$.each(this.wanted,function(key,item){
-				// console.log(item);
+				// // console.log(item);
 				if(thista.$parent.selected.sessions.ordersheet[item.api_field] == '' || thista.$parent.selected.sessions.ordersheet[item.api_field] == null){
 					if(key == 'colorcustoms_ura_cno_normal'){
 						if(thista.$parent.selected.sessions.ordersheet.colorcustoms_ura_cno == null || thista.$parent.selected.sessions.ordersheet.colorcustoms_ura_cno == '0'){
 							dame.push(item.name);
 						}else{
-							// console.log('裏地はDPのものをつかっている');
+							// // console.log('裏地はDPのものをつかっている');
 						}
 					}else{
 						dame.push(item.name);
 					}
-					
+
 				}
 			});
 			if(dame.length > 0){
@@ -1177,9 +1177,9 @@ module.exports = {
 		}
 	},
 	mounted:function(){
-		
+
 		var kumiawaseIds = this.$parent.selectedProductData.type;
-		//console.log(kumiawaseIds);
+		//// console.log(kumiawaseIds);
 		this.getOptions(kumiawaseIds,this.$parent.selected.gender).then(res =>{
 		var mk1 = this.$parent.selected.sessions.ordersheet.mackin_width1;
 		var mk2 = this.$parent.selected.sessions.ordersheet.mackin_width2;
@@ -1191,8 +1191,8 @@ module.exports = {
 		}
 		var mk1pro = '';
 		var mk2pro = '';
-		//console.log('ここやで');
-		//console.log(this.mackinOptionData);
+		//// console.log('ここやで');
+		//// console.log(this.mackinOptionData);
 		$.each(this.mackinOptionData.optionitems,function(key,item){
 			if(item.option_code == mk1){
 				mk1pro = item;
@@ -1200,8 +1200,8 @@ module.exports = {
 				mk2pro = item;
 			}
 		});
-		//console.log(mk1pro);
-		//console.log(mk2pro);
+		//// console.log(mk1pro);
+		//// console.log(mk2pro);
 		Vue.set(this,"selectSentakuMackin1",mk1pro);
 		Vue.set(this,"selectSentakuMackin2",mk2pro);
 		});
@@ -1210,7 +1210,7 @@ module.exports = {
 		}
 		var thista = this;
 		Vue.nextTick(function(){
-			//console.log('カテゴリの一つ目をクリックします');
+			//// console.log('カテゴリの一つ目をクリックします');
 			setTimeout(function(){
 				//ここに追加する場合、getOptionSyokitiもなおしてね
 				var wanted = {};
@@ -1223,15 +1223,15 @@ module.exports = {
 				wanted['button_cno'] = {'api_field':'button_cno','name':'ボタン'};
 			}
 			if($(item).attr('data-target') == 2 || $(item).attr('data-target') == 5 || $(item).attr('data-target') == 3){
-				
+
 				wanted['colorcustoms_ura_cno_normal'] = {'api_field':'colorcustoms_ura_cno_normal','name':'裏地'};
 			};
 		});
 
 		Vue.set(thista,'wanted',wanted);
-		// console.log(thista.wanted);
+		// // console.log(thista.wanted);
 
-			
+
 
 
 		//衿が使える場合で衿がNULLんときにデフォルト値つける
@@ -1255,9 +1255,9 @@ module.exports = {
         }
 		if(thista.$parent.guest == true){
 			eriFlg = true;
-			// console.log('ゲストです');
+			// // console.log('ゲストです');
 		}else{
-			// console.log('ゲストではない');
+			// // console.log('ゲストではない');
 		}
         if(eriFlg == true && thista.$parent.selected.sessions.ordersheet['sh_eri'] == null){
           Vue.set(thista.$parent.selected.sessions.ordersheet,'sh_eri',1);
@@ -1272,8 +1272,8 @@ module.exports = {
 				thista.checkOptionCourse();
 			},1500);
 		})
-		// console.log('セッション情報↓');
-		// console.log(this.$parent.selected.sessions);
+		// // console.log('セッション情報↓');
+		// // console.log(this.$parent.selected.sessions);
 	},
 	beforeDestroy:function(){
 		if(this.$parent.step > 5){

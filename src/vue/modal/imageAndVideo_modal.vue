@@ -1,4 +1,4 @@
-<template lang="pug">
+<!-- <template lang="pug">
 	div.simulator__imageandvideo_modal.simulator__modal
 		div.simulator__modal__back(v-on:click="modalCloser")
 		div.simulator__modal__wrap
@@ -9,6 +9,23 @@
 			div(v-if="$parent.ivModalType == 'video'")
 				div.movie(v-html="$parent.modalVideo")
 
+</template> -->
+
+<template>
+	<div class="simulator-modal">
+		<div class="simulator-modal__container" @click.self="modalCloser">
+			<div class="simulator-modal__card">
+				<header class="simulator-modal__header">
+					<button class="modal-close" @click="modalCloser"></button>
+				</header>
+				<div class="simulator-modal__body">
+					<figure class="simulator-modal__image" v-if="$parent.ivModalType == 'image'">
+						<img :src="$parent.modalImage" alt="Design Image">
+					</figure>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>

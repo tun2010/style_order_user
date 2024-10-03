@@ -28,17 +28,17 @@
 .slideup-enter-active {
     animation: slideup .4s ease;
 }
-.slideup-enter-active .simulator__modal__back  {
+.slideup-enter-active .simulator-modal  {
     animation: slidefader .4s ease;
 }
-.slideup-enter-active .simulator__modal__wrap {
+.slideup-enter-active .simulator-modal__card {
     animation: slideuper .4s ease;
 }
 
 .slideup-leave-active {
     animation: slidefader .4s ease reverse;
 }
-.slideup-leave-active .simulator__modal__wrap {
+.slideup-leave-active .simulator-modal__card {
     animation: slideuper .4s ease reverse;
 }
 
@@ -103,17 +103,36 @@
             <loadinger></loadinger>
         </div>
         <template v-if="sessionDataLoadFlg">
-            <div class="full-template" v-if="step == 0">
+            <div v-if="staffstartFlg" class="simulator-template simulator-template--start">
+                <div class="simulator-object">
+                    <imageview v-bind:uploadpass="uploadPass"></imageview>
+                </div>
+                <div class="simulator-controls">
+                    <staffstart ></staffstart>
+                </div>
+                <div class="simulator-actions">
+                    <stepactions></stepactions>
+                </div>
+            </div>
+            <div class="full-template" v-else-if="step == 0">
                 <gender></gender>
             </div>
-            <div class="simulator-template" :class="{ 'simulator-template--options': step > 5 }" v-else>
+            <div  v-else class="simulator-template"
+                :class="{ 'simulator-template--options': step == 6, 'simulator-template--confirm': step == 7 }"
+            >
                 <div class="headstep">
                     <headstep></headstep>
                 </div>
                 <div class="totalprice">
                     <totalprice></totalprice>
                 </div>
-                <div class="messagner">MESSANGER</div>
+                <div class="messagner" v-if="step < 7">
+                    <div class="persona"></div>
+                    <div class="message-group">
+                        <span class="all">{{stepMessage}}をお選びください。</span>
+                        <span class="large">シミュレーションウィンドウでイメージを確認することができます。</span>
+                    </div>
+                </div>
                 <div class="simulator-object">
                     <imageview v-bind:uploadpass="uploadPass"></imageview>
                 </div>
@@ -125,9 +144,10 @@
                         <itemlistselectpartsbutton v-else-if="step == 4" v-bind:tantouflg="tantouFlg" v-bind:uploadpass="uploadPass"></itemlistselectpartsbutton>
                         <itemlistselectpartsfabric v-else-if="step == 5" v-bind:tantouflg="tantouFlg" v-bind:uploadpass="uploadPass"></itemlistselectpartsfabric>
                         <itemlistselectpartsoption v-else-if="step == 6" v-bind:tantouflg="tantouFlg" v-bind:uploadpass="uploadPass"></itemlistselectpartsoption>
+                        <confirm v-else-if="step == 7" v-bind:uploadpass="uploadPass"></confirm>
                     </transition>
                 </div>
-                <div class="simulator-actions">
+                <div class="simulator-actions" v-if="step">
                     <stepactions></stepactions>
                 </div>
             </div>

@@ -113,9 +113,9 @@ module.exports = {
 				}
 			});
 			if (thista.$parent.selected.suitist) {
-				// console.log('dp スーティストです');
+				// // console.log('dp スーティストです');
 			} else {
-				// console.log('dp スーティストではない');
+				// // console.log('dp スーティストではない');
 				if (
 					(
 						thista.$parent.productData[targetProductId]
@@ -128,7 +128,7 @@ module.exports = {
 						&& thista.$parent.productData[targetProductId]['kiji_disp'].indexOf("1") > -1
 					)
 				) { } else {
-					// console.log('スーティストではないんでDP消します');
+					// // console.log('スーティストではないんでDP消します');
 					Vue.set(thista.$parent.selected.sessions.ordersheet, 'digital_name', null);
 					if (parseInt(thista.$parent.selected.sessions.ordersheet["ura_cno"]) > 300) {
 						Vue.set(thista.$parent.selected.sessions.ordersheet, 'ura_cno', null);
@@ -147,10 +147,10 @@ module.exports = {
 		},
 		//オプションで特殊効果が発動するやつの設定　送る前に使う
 		tokusyuOptionCheck: function () {
-			//console.log('特殊なオプションチェック');
+			//// console.log('特殊なオプションチェック');
 			//エアーフィットがつくと、ジャケットの型紙NOにAが付く
 			if (this.$parent.selected.sessions.ordersheet.air_fit == '1' || this.$parent.selected.sessions.ordersheet.air_fit == 1) {
-				//console.log('エアーフィットオプションがついているので、jacket_dnoにAがつきます');
+				//// console.log('エアーフィットオプションがついているので、jacket_dnoにAがつきます');
 				var jacketdno = this.$parent.selected.sessions.ordersheet.jacket_dno;
 				Vue.set(this.$parent.selected.sessions.ordersheet, 'jacket_dno', jacketdno + 'A');
 			}
@@ -209,15 +209,15 @@ module.exports = {
 			}
 			var thista = this;
 			$.each(apiSakujoTarget, function (key, item) {
-				// console.log(item+'をnullにします');
+				// // console.log(item+'をnullにします');
 				Vue.set(thista.$parent.selected.sessions.ordersheet, item, null);
 			});
-			//console.log(thista.$parent.selected.sessions.ordersheet);
+			//// console.log(thista.$parent.selected.sessions.ordersheet);
 		},
 		selectedChecker: function () {
 			var checker = true;
 
-			//console.log('型紙が選択されているかチェックします');
+			//// console.log('型紙が選択されているかチェックします');
 
 			var checkList = this.selectparts;
 
@@ -229,37 +229,37 @@ module.exports = {
 					switch (item) {
 						case 'jacket':
 							if ((os.jacket_size == '' || os.jacket_size == null) && (gender == 'men' && Object.keys(courses['1']).length == 0 || gender == 'women' && Object.keys(courses['5']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'pants':
 							if ((os.slacks_size1 == '' || os.slacks_size1 == null) && (gender == 'men' && Object.keys(courses['3']).length == 0 || gender == 'women' && Object.keys(courses['6']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'pants2':
 							if ((os.slacks_size2 == '' || os.slacks_size2 == null) && (gender == 'men' && Object.keys(courses['3pants2']).length == 0 || gender == 'women' && Object.keys(courses['6pants2']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'vest':
 							if ((os.best_size == '' || os.best_size == null) && (gender == 'men' && Object.keys(courses['2']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'skirt':
 							if ((os.wo_sk_size1 == '' || os.wo_sk_size1 == null) && (gender == 'women' && Object.keys(courses['7']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'skirt2':
 							if ((os.wo_sk_size2 == '' || os.wo_sk_size2 == null) && (gender == 'women' && Object.keys(courses['7skirt2']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
@@ -273,37 +273,37 @@ module.exports = {
 					switch (item) {
 						case 'jacket':
 							if ((gender == 'men' && Object.keys(courses['1']).length == 0 || gender == 'women' && Object.keys(courses['5']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'pants':
 							if ((gender == 'men' && Object.keys(courses['3']).length == 0 || gender == 'women' && Object.keys(courses['6']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'pants2':
 							if ((gender == 'men' && Object.keys(courses['3pants2']).length == 0 || gender == 'women' && Object.keys(courses['6pants2']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'vest':
 							if ((gender == 'men' && Object.keys(courses['2']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'skirt':
 							if ((gender == 'women' && Object.keys(courses['7']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
 						case 'skirt2':
 							if ((gender == 'men' && Object.keys(courses['7skirt2']).length == 0)) {
-								//console.log(item+'が選択されていません');
+								//// console.log(item+'が選択されていません');
 								checker = false;
 							}
 							break;
@@ -339,7 +339,7 @@ module.exports = {
 			formdata.append('url', url);
 
 			axios.post("/sandbox/ajaxTool/simuRaitenYoyakuSend.php", formdata).then(res => {
-				//console.log(res.data);
+				//// console.log(res.data);
 				window.open(res.data, 'shinki');
 				location.reload();
 			});
@@ -368,17 +368,17 @@ module.exports = {
 			} else {
 				formdata.append('stylenoid', '');
 			}
-			//console.log("同時購入："+this.$parent.douziChecker);
+			//// console.log("同時購入："+this.$parent.douziChecker);
 
 			axios.post("/sandbox/ajaxTool/okyaku_final_order_update.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {
-					//console.log("注文を登録しました");
+					//// console.log("注文を登録しました");
 					// location.href=res.data;
 					window.open(res.data, 'shinki');
 					location.reload();
-					//console.log(res.data);
+					//// console.log(res.data);
 				}
 				Vue.set(this.$parent, "loading", false);
 			});
@@ -410,13 +410,13 @@ module.exports = {
 			}
 			formdata.append('tantou_id', this.$parent.selected.sessions.base.customize_employee);
 			formdata.append('deliveryDate', this.$parent.deliveryDate);
-			//console.log("同時購入："+this.$parent.douziChecker);
+			//// console.log("同時購入："+this.$parent.douziChecker);
 
 			axios.post("/sandbox/ajaxTool/staff_final_order_update.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {
-					//console.log("注文をデータベースに登録しました");
+					//// console.log("注文をデータベースに登録しました");
 
 					window.open(res.data, 'shinki');
 					location.reload();
@@ -427,11 +427,11 @@ module.exports = {
 		orderSaver: function () {
 			var data = this.$parent.selected.sessions;
 			this.$parent.saveData.push(data);
-			//console.log("saveしました。");
+			//// console.log("saveしました。");
 			this.tenpogaRenzokuSubmiter();
 
-			// //console.log(this.$parent.saveData);
-			// //console.log(this.$parent.defaultSessions);
+			// //// console.log(this.$parent.saveData);
+			// //// console.log(this.$parent.defaultSessions);
 			// var thista = this;
 
 			// this.$parent.defaultSelectedRe();
@@ -442,12 +442,12 @@ module.exports = {
 			// 	setTimeout(function(){
 			// 	Vue.set(thista.$parent.selected,"sessions",thista.$parent.defaultSessions);
 			// 	},1);
-			// 	//console.log(thista.$parent.selected);
+			// 	//// console.log(thista.$parent.selected);
 			// },1000);
 			// Vue.set(this.$parent,"selected",this.$parent.defaultSelected);
 			// Vue.set(this.$parent.selected,"sessions",{});
 			// Vue.set(this.$parent.selected,"sessions",this.$parent.defaultSessions);
-			// //console.log(this.$parent.selected);
+			// //// console.log(this.$parent.selected);
 
 		},
 		matashitaChecker: function () {
@@ -478,7 +478,7 @@ module.exports = {
 						if (this.$parent.selected.fabric) {
 							this.$parent.productSelectFlg = true;
 						} else {
-							// console.log('NEXT', this.$parent.clickLocker);
+							// // console.log('NEXT', this.$parent.clickLocker);
 							alert('生地を選択してください');
 						}
 					} else {
@@ -504,7 +504,7 @@ module.exports = {
 		stepPrev: function () {
 			var step = this.$parent.step;
 			var steplimit = this.$parent.stepLimit;
-			// console.log('PREV', this.$parent.clickLocker);
+			// // console.log('PREV', this.$parent.clickLocker);
 			if (this.$parent.clickLocker == false) {
 				if (step == 1) {
 					Vue.set(this.$parent, "step", 0);
@@ -524,8 +524,8 @@ module.exports = {
 			}
 		},
 		finalSubmiter: function () {
-			//console.log("finalsubmiter");
-			//console.log(this.quantity * this.stocktani.all);
+			//// console.log("finalsubmiter");
+			//// console.log(this.quantity * this.stocktani.all);
 
 			let formdata = new URLSearchParams();
 			this.kyouseiOptionChecker();
@@ -536,21 +536,21 @@ module.exports = {
 			formdata.append('product_id', this.product_id);
 			formdata.append('ordersheet', sessionJson);
 			formdata.append('deliveryDate', this.deliveryDate);
-			//console.log("deliv:"+this.deliveryDate);
+			//// console.log("deliv:"+this.deliveryDate);
 			axios.post("/sandbox/ajaxTool/normal_order_regist.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {
-					//console.log("仮受注を受け付けました");
+					//// console.log("仮受注を受け付けました");
 				}
-				//console.log(res);
+				//// console.log(res);
 			});
 
 		},
 		tenpogaRenzokuSubmiter: function () {
 			Vue.set(this.$parent, "loading", true);
-			//console.log("tenpoRenzoku");
-			//console.log(this.quantity * this.stocktani.all);
+			//// console.log("tenpoRenzoku");
+			//// console.log(this.quantity * this.stocktani.all);
 			this.finalSheetCheck();
 			let formdata = new URLSearchParams();
 			this.kyouseiOptionChecker();
@@ -565,13 +565,13 @@ module.exports = {
 			formdata.append('shop_id', this.$parent.selected.sessions.base.customize_store);
 			formdata.append('tantou_id', this.$parent.selected.sessions.base.customize_employee);
 			formdata.append('deliveryDate', this.$parent.deliveryDate);
-			//console.log("deliv:"+this.$parent.deliveryDate);
+			//// console.log("deliv:"+this.$parent.deliveryDate);
 			axios.post("/sandbox/ajaxTool/stepper_order_update.php", formdata).then(res => {
 				if (res.data == "no stock") {
 					alert("在庫が足りないため確保できませんでした");
 				} else {
-					//console.log(res.data);
-					//console.log("受注を受け付けました");
+					//// console.log(res.data);
+					//// console.log("受注を受け付けました");
 					var resurl = location.href;
 
 					resurl += (resurl.indexOf('?') == -1) ? '?' : '&';
@@ -580,7 +580,7 @@ module.exports = {
 
 					location.href = resurl;
 				}
-				//console.log(res);
+				//// console.log(res);
 				Vue.set(this.$parent, "loading", false);
 			});
 		}

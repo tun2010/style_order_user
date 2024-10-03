@@ -14,8 +14,8 @@
 			p(v-if='$parent.tantouFlg && kakuhoListFlg == false') ※生地番号検索は入力した瞬間反映されます
 			div.sorter_flexer
 				div.product__list__sorter2(v-if='$parent.tantouFlg && kakuhoListFlg == false')
-					
-					div.sorter2__flexer 
+
+					div.sorter2__flexer
 						input(type='text' v-model='sorter2' placeholder='生地番号検索')
 						//span.buttons.buttons-black(v-on:click="sorter2run()") 検索
 				div.product__list__sorter(v-if="kakuhoListFlg == false")
@@ -39,7 +39,7 @@
 						div.product__list__nokori(v-if="tantouflg == true")
 							p(v-if="product.stock_unlimited_max != 1") {{Math.floor(product.stock_min / stocktani.all)}}着
 							p(v-else) 無制限
-			// 確保済アイテム一覧↓				
+			// 確保済アイテム一覧↓
 			ul(v-else)
 				li(v-for="product in kakuhoProduct" v-bind:data-productid="product.productdata.product_id" v-bind:class="{'active':selectedFabric == product.productdata.product_code_min}" v-if="")
 					img(class="product__list__preload_image" v-if="product.productdata.kiji_image",v-bind:src="uploadpass+product.productdata.kiji_image")
@@ -52,20 +52,20 @@
 						img(v-else="product.productdata.kiji_image",src="/images/noimage.png")
 
 					div.product__list__data(v-on:click="kakuhoitemClick(product)")
-						p.product__list__data__maker {{product.productdata.product_code_min}} / 
+						p.product__list__data__maker {{product.productdata.product_code_min}} /
 							span(v-if="masters[product.productdata.maker_id]") {{masters[product.productdata.maker_id].name}}
 						p.product__list__data__name {{product.productdata.name}}
 						p.product__list__data__price {{mastersLine[product.productdata[lineChecker]].name}}
 						div.product__list__nokori(v-if="tantouflg == true")
-							p 
+							p
 								select( v-on:change="kakuhoKazuChange(product,$event)")
 									option(v-bind:value="n" v-for="n in optionCreater(product.kazu)") {{n}}
 								// input(type="number" v-bind:value="product.kazu" v-bind:max="product.kazu" v-on:change="kakuhoKazuChange(product,$event)")
 								|着
 
-					
 
-					
+
+
 </template>
 
 <script>
@@ -84,7 +84,7 @@ module.exports = {
 		}
 	},
 	mounted:function(){
-		// console.log(this.productdata);
+		// // console.log(this.productdata);
 	},
 	props:["productdata","tantouflg","uploadpass"],
 	computed:{
@@ -118,11 +118,11 @@ module.exports = {
 			for(i=count;i>=0;i--){
 				countList.push(i);
 			}
-			console.log(countList);
+			// console.log(countList);
 			return countList;
 		},
 		kakuhoKazuChange:function(product,event){
-			console.log(product);
+			// console.log(product);
 			var productJson = JSON.stringify(product);
 			var value = parseInt(event.target.value);
 			var sa = parseInt(product.kazu) - value;
@@ -130,10 +130,10 @@ module.exports = {
 			let formdata = new URLSearchParams();
 				formdata.append('product',productJson);
 				formdata.append('sa',sa);
-				
-			console.log('sa '+ sa);
+
+			// console.log('sa '+ sa);
 			axios.post("/ajaxTool/kazuHerasuKakuhoItems.php",formdata).then(res => {
-				console.log(res.data);
+				// console.log(res.data);
 				if(res.data == 'ok'){
 					alert('対象生地の確保数を変更しました。画面をリロードします。');
 					window.location.reload();
@@ -166,7 +166,7 @@ module.exports = {
 		//スーティスト店舗で中国工場製品ださんやつ
 		suitister:function(product){
 			if(this.$parent.selected.suitist && product.factory == "4423"){
-				console.log("スーティスト＋中国工場なので排除"+product.product_id);
+				// console.log("スーティスト＋中国工場なので排除"+product.product_id);
 				return false;
 			}
 			return true;
@@ -177,7 +177,7 @@ module.exports = {
 		},
 		kakuhoProductsList:function(){
 			this.kakuhoListFlg = true;
-			
+
 			const query = {
         headers: {
           "content-Type": "application/json;charset=UTF-8"
@@ -189,8 +189,8 @@ module.exports = {
         };
         var thista = this;
         axios.get("/ajaxTool/getKakuhoItems.php", query).then(res => {
-			console.log("kakuhokizi↓");
-			console.log(res.data);
+			// console.log("kakuhokizi↓");
+			// console.log(res.data);
 			this.kakuhoProduct = res.data;
 		})
 		},
@@ -201,12 +201,12 @@ module.exports = {
 		itemClick:function(product_id){
 			Vue.set(this.$parent.selected,"kakuhokizi","");
 			Vue.set(this.$parent.selected,"fabric",product_id);
-			console.log(this.$parent.selected.fabric);
+			// console.log(this.$parent.selected.fabric);
 			Vue.set(this.$parent.selected.sessions.ordersheet,"cloth_no",this.$parent.productData[product_id].product_code_min);
 			Vue.set(this.$parent,"selectedProductData",this.$parent.productData[product_id]);
 			// this.$parent.selected.fabric = product_id;
 			this.$parent.checkOptionCourse();
-			
+
 		},
 		kakuhoitemClick:function(orderData){
 			Vue.set(this.$parent.selected,"fabric",orderData.productdata.product_id);
@@ -214,24 +214,24 @@ module.exports = {
 			var product_id = orderData.productdata.product_id;
 			Vue.set(this.$parent.selected.sessions.ordersheet,"cloth_no",this.$parent.productData[product_id].product_code_min);
 			Vue.set(this.$parent,"selectedProductData",this.$parent.productData[product_id]);
-			console.log(this.$parent.selected.fabric);
+			// console.log(this.$parent.selected.fabric);
 			// this.$parent.selected.fabric = product_id;
 			this.$parent.checkOptionCourse();
 			// this.$parent.productSelectFlg = true;
 
-			
+
 		},
 		genderChanger:function(gender,master_no){
 			this.$parent.syokika('genderfirst');
 			Vue.set(this.$parent.selected,"gender",gender);
 			Vue.set(this.$parent.selected.sessions.ordersheet,"sex",master_no);
-			console.log("パラメータリセット");
+			// console.log("パラメータリセット");
 			Vue.set(this.$parent.selected,"parts",{});
 			Vue.set(this.$parent.selected.code,"course","");
 			Vue.set(this.$parent.selected.sessions.ordersheet,"course_no","");
 			Vue.set(this.$parent.selected.sessions.ordersheet,"cloth_no","");
 			Vue.set(this.$parent.selected,"fabric","");
-			
+
 			var thista = this;
 			setTimeout(function(){
 				if(thista.$parent.selected.gender == 'women'){
@@ -251,7 +251,7 @@ module.exports = {
 	beforeDestroy:function(){
 		if(this.$parent.selected.fabric){
 
-		
+
 		if(this.$parent.guest === false && this.$parent.katagamiNaiUser == false){
     //一旦在庫確保
 	this.$parent.loading = true;
@@ -263,22 +263,22 @@ module.exports = {
       formdata.append('ordersheet',sessionJson);
       formdata.append('kakuhokizi',this.$parent.selected.kakuhokizi);
     axios.post("/ajaxTool/stepper_order_regist.php",formdata).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
     if(res.data == "no stock"){
-      console.log("在庫確保失敗");
+      // console.log("在庫確保失敗");
       alert("指定した生地の在庫がないようです。別の生地を選択してください。");
 	  this.$parent.step = 1;
 	  this.$parent.loading = false;
       // Vue.set(this.$parent,"loading",false);
     }else{
-    console.log("在庫確保OK");
+    // console.log("在庫確保OK");
 	this.$parent.loading = false;
     // Vue.set(this.$parent,"step",2);
     // Vue.set(this.$parent,"loading",false);
     }
     });
   }else{
-	  console.log('在庫の確保が必要ないユーザーなので確保しません');
+	  // console.log('在庫の確保が必要ないユーザーなので確保しません');
   }
   }else{
 	  alert('生地を選択してください');

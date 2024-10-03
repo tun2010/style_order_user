@@ -1,5 +1,6 @@
 import "./normalize.css";
 import "./reset.css";
+import "./animation.css";
 import "./styles.css";
 
 import axios from "axios"; //外部
@@ -42,7 +43,7 @@ import VueLazyComponent from '@xunlei/vue-lazy-component'
 Vue.filter('pricer', function (value) {
     return parseInt(value).toLocaleString();
 });
-//console.log('a');
+//// console.log('a');
 var lads = new LoginApiData();
 Vue.filter('addComma', function (val) {
     return val.toLocaleString();
@@ -66,7 +67,7 @@ function getParam(key) {
     let currentURL = window.location.href;
     let url = new URL(currentURL);
     let params = new URLSearchParams(url.search);
-    // console.log('GENDER:::::::::::', params.get(key));
+    // // console.log('GENDER:::::::::::', params.get(key));
     return params.get(key) || null;
 }
 
@@ -74,10 +75,10 @@ axios.get("/sandbox/ajaxTool/getMasters.php", query).then(res => {
     var data = res.data;
     app.masters = data;
     sessionGetter();
-    // console.log('マスター');
-    // console.log(res.data);
+    // // console.log('マスター');
+    // // console.log(res.data);
     // app.testSetter();
-    // console.log(data);
+    // // console.log(data);
 });
 function sessionGetter() {
     axios.get("/sandbox/ajaxTool/getItems.php", query).then(res => {
@@ -90,8 +91,8 @@ function sessionGetter() {
         app.productData = res.data;
         app.dataload = true;
 
-        // console.log('getItems.php', JSON.parse(JSON.stringify(app.productData)));
-        // console.log('app.productNarabi', JSON.parse(JSON.stringify(app.productNarabi)));
+        // // console.log('getItems.php', JSON.parse(JSON.stringify(app.productData)));
+        // // console.log('app.productNarabi', JSON.parse(JSON.stringify(app.productNarabi)));
         var gets = getUrlVars();
         if (gets["guest"] == 1) {
             app.guest = true;
@@ -103,8 +104,8 @@ function sessionGetter() {
         $.each(gets, function (key, item) {
             paramser[item] = gets[item];
         });
-        ////console.log('paramser');
-        // console.log('GETS_BEFORE', gets);
+        ////// console.log('paramser');
+        // // console.log('GETS_BEFORE', gets);
         const query = {
             headers: {
                 "content-Type": "application/json;charset=UTF-8"
@@ -118,7 +119,7 @@ function sessionGetter() {
                 app.optionInit();
             }
             var data = res.data;
-            // console.log('getSession.php', JSON.parse(JSON.stringify(data)));
+            // // console.log('getSession.php', JSON.parse(JSON.stringify(data)));
             app.sessions = data;
             app.defaultSessions = data;
             app.selected.sessions = data;
@@ -131,33 +132,33 @@ function sessionGetter() {
             // if(app.selected.sessions.base.customize_store == "" || app.selected.sessions.base.customize_store == null){
             //   app.tantouFlg = false;
             // }
-            // console.log("セッション読み込みOK");
-            // console.log(app.selected.sessions);
+            // // console.log("セッション読み込みOK");
+            // // console.log(app.selected.sessions);
             if (res.data.base.customize_store != "" && res.data.base.customize_store != null) {
                 app.tantouFlg = true;
                 if (getUrlVars()['tantoukill'] == 1) {
                     app.tantouFlg = false;
                 }
-                ////console.log("店舗担当の方");
+                ////// console.log("店舗担当の方");
             } else {
                 app.tantouFlg = false;
                 app.stepLimit = 6;
-                ////console.log("一般のお客様");
+                ////// console.log("一般のお客様");
             }
             if ((app.selected.sessions.ordersheet.jacket_dno == null || app.selected.sessions.ordersheet.jacket_dno == '') && (app.selected.sessions.ordersheet.slacks_dno1 == null || app.selected.sessions.ordersheet.slacks_dno1 == '') && (app.selected.sessions.ordersheet.best_dno == null || app.selected.sessions.ordersheet.best_dno == '') && (app.selected.sessions.ordersheet.wo_sk_d1 == null || app.selected.sessions.ordersheet.wo_sk_d1 == '')) {
                 app.sinki = true;
             }
 
 
-            ////console.log("スーティスト店舗かをチェック");
-            ////console.log(res.data.base.customize_store);
+            ////// console.log("スーティスト店舗かをチェック");
+            ////// console.log(res.data.base.customize_store);
             $.each(app.masters.suitist, function (key, item) {
                 if (item.shop_id == res.data.base.customize_store) {
-                    //console.log("スーティスト店舗です");
+                    //// console.log("スーティスト店舗です");
                     Vue.set(app.selected, "suitist", true);
                     return false;
                 } else {
-                    //console.log('スーティストではない');
+                    //// console.log('スーティストではない');
                 }
             });
 
@@ -166,17 +167,17 @@ function sessionGetter() {
                 app.selected.gender = paramGender;
                 Vue.set(app.selected.sessions.ordersheet, "sex", paramGender == "men" ? 1 : 2);
             } else {
-                ////console.log("セッションのデータからシミュレーターを再構築します");
+                ////// console.log("セッションのデータからシミュレーターを再構築します");
                 if (res.data.ordersheet.sex == 1 || res.data.ordersheet.sex == null) {
                     app.selected.gender = "men";
-                    ////console.log("session:性別:男性");
+                    ////// console.log("session:性別:男性");
                     Vue.set(app.selected.sessions.ordersheet, "sex", 1);
                 } else if (res.data.ordersheet.sex == 2) {
                     app.selected.gender = "women";
-                    ////console.log("session:性別:女性");
+                    ////// console.log("session:性別:女性");
                 } else {
                     app.selected.gender = "men";
-                    ////console.log("session:性別が未選択なので男性にします");
+                    ////// console.log("session:性別が未選択なので男性にします");
                 }
             }
 
@@ -186,8 +187,8 @@ function sessionGetter() {
             var targetProductId = "";
             // axios.get("/ajaxTool/getItems.php", query).then(res => {
             //     var data2 = itemdatas;
-            //     //console.log('プロダクトデータ一覧');
-            //     //console.log(data2);
+            //     //// console.log('プロダクトデータ一覧');
+            //     //// console.log(data2);
             //     //ステータスっぽいのいらんので削除
             //     delete data2.productStatus;
             //     app.productNarabi = data2.narabi;
@@ -233,13 +234,13 @@ function sessionGetter() {
                 app.isGBChecker();
                 //型紙に登録されている工場を取得
                 app.isKataFacChecker();
-                // //console.log(data.base);
-                // //console.log('初期状態取得結果');
-                // //console.log(app.firstCheckers);
+                // //// console.log(data.base);
+                // //// console.log('初期状態取得結果');
+                // //// console.log(app.firstCheckers);
                 Vue.set(app, 'loading', false);
 
                 if (targetProductId != "") {
-                    //console.log('ここはとおってる');
+                    //// console.log('ここはとおってる');
                     //オプションリセット判断のため登録↓
                     Vue.set(app.firstCheckers, 'factory', app.productData[targetProductId]['factory']);
 
@@ -249,13 +250,13 @@ function sessionGetter() {
                         //↓を有効にすると前寸で生地がある場合勝手にセットされる
                         // Vue.set(app.selected,"fabric",targetProductId);
                         if (app.selected.suitist) {
-                            //console.log("スーティスト店舗です");
+                            //// console.log("スーティスト店舗です");
                             Vue.set(app.selected, "suitist", true);
                             // return false;
                         } else {
-                            //console.log('スーティスト店舗ではない');
+                            //// console.log('スーティスト店舗ではない');
                             if (app.productData[targetProductId]['kiji_disp'].indexOf("3") > -1 || app.productData[targetProductId]['kiji_disp'].indexOf("1") > -1) { } else {
-                                //console.log('スーティストではないんでスーティスト専用ファブリック空にします');
+                                //// console.log('スーティストではないんでスーティスト専用ファブリック空にします');
                                 Vue.set(app.selected, "fabric", "");
                             }
                             // Vue.set(app.selected,"fabric","");
@@ -278,95 +279,95 @@ function sessionGetter() {
                         },
                     };
                     var thista = this;
-                    // //console.log("パワーストレッチチェック");
+                    // //// console.log("パワーストレッチチェック");
                     if (app.selected.sessions.ordersheet["specification"] != "" && app.selected.sessions.ordersheet["specification"] != null) {
                         var power = parseInt(app.selected.sessions.ordersheet["specification"]);
                         if (power > 10) {
-                            // //console.log(power);
-                            // //console.log("パワーストレッチつかってる");
+                            // //// console.log(power);
+                            // //// console.log("パワーストレッチつかってる");
                             Vue.set(app.selected.sessions.ordersheet, "ext_specification_normal", power / 11);
                             Vue.set(app.selected.sessions.ordersheet, "ext_specification", 1);
                         } else if (power < 9) {
-                            // //console.log("パワーストレッチつかってない");
+                            // //// console.log("パワーストレッチつかってない");
                             Vue.set(app.selected.sessions.ordersheet, "ext_specification_normal", power);
                             Vue.set(app.selected.sessions.ordersheet, "ext_specification", 0);
                         }
                     }
-                    // //console.log(app.selected.sessions.ordersheet);
-                    ////console.log("パッチポケットチェック");
+                    // //// console.log(app.selected.sessions.ordersheet);
+                    ////// console.log("パッチポケットチェック");
                     if (app.selected.sessions.ordersheet["patch_pocket"] != "" && app.selected.sessions.ordersheet["patch_pocket"] != null) {
                         var power = parseInt(app.selected.sessions.ordersheet["patch_pocket"]);
                         if (power == 1) {
-                            ////console.log("パッチポケット使ってる");
+                            ////// console.log("パッチポケット使ってる");
                             Vue.set(app.selected.sessions.ordersheet, "customselect_pocket", 1);
                             pocketer = 1;
                         }
                     }
-                    ////console.log("チェンジポケットチェック");
+                    ////// console.log("チェンジポケットチェック");
                     if (app.selected.sessions.ordersheet["change_pocket"] != "" && app.selected.sessions.ordersheet["change_pocket"] != null) {
                         var power = parseInt(app.selected.sessions.ordersheet["change_pocket"]);
                         if (power == 1) {
-                            ////console.log("チェンジポケット使ってる");
+                            ////// console.log("チェンジポケット使ってる");
                             Vue.set(app.selected.sessions.ordersheet, "customselect_pocket", 2);
                             pocketer = 1;
                         }
                     }
 
-                    // //console.log("カラー使用チェック：切羽配色");
+                    // //// console.log("カラー使用チェック：切羽配色");
                     if (app.selected.sessions.ordersheet["seppa_hall"] != "" && app.selected.sessions.ordersheet["seppa_hall"] != null) {
                         if (app.selected.sessions.ordersheet["seppa_hall"] != "00" && app.selected.sessions.ordersheet["seppa_hall"] != "200") {
-                            // //console.log("切羽配色は有料のカラーを使っている");
+                            // //// console.log("切羽配色は有料のカラーを使っている");
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_seppa_hall", app.selected.sessions.ordersheet["seppa_hall"]);
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_seppa_hall_normal", "999999");
                         } else {
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_seppa_hall_normal", "00");
-                            // //console.log("切羽配色は無料");
+                            // //// console.log("切羽配色は無料");
                         }
                     }
-                    ////console.log("有料使用チェック：女性ボタン");
+                    ////// console.log("有料使用チェック：女性ボタン");
                     if (app.selected.sessions.ordersheet["sex"] == 2 && (app.selected.sessions.ordersheet["button_cno"] == '61' || app.selected.sessions.ordersheet["button_cno"] == '67' || app.selected.sessions.ordersheet["button_cno"] == '69')) {
-                        ////console.log("女性ボタンは有料のもの");
+                        ////// console.log("女性ボタンは有料のもの");
                         Vue.set(app.selected.sessions.ordersheet, "colorcustoms_button_cno", app.selected.sessions.ordersheet["button_cno"]);
                     } else {
-                        ////console.log('女性ボタンは無料か設定なし');
+                        ////// console.log('女性ボタンは無料か設定なし');
                     }
-                    ////console.log("カラー使用チェック：カラークロス");
+                    ////// console.log("カラー使用チェック：カラークロス");
                     if (app.selected.sessions.ordersheet["color_cross"] != "" && app.selected.sessions.ordersheet["color_cross"] != null) {
                         if (app.selected.sessions.ordersheet["color_cross"] != "00" && app.selected.sessions.ordersheet["color_cross"] != "200") {
-                            ////console.log("カラークロスは有料のカラーを使っている");
+                            ////// console.log("カラークロスは有料のカラーを使っている");
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_color_cross", app.selected.sessions.ordersheet["color_cross"]);
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_color_cross_normal", "999999");
                         } else {
-                            ////console.log("カラークロスは無料");
+                            ////// console.log("カラークロスは無料");
                         }
                     }
-                    //console.log("カラー使用チェック：dp裏地");
+                    //// console.log("カラー使用チェック：dp裏地");
                     if (app.selected.sessions.ordersheet["ura_cno"] != "" && app.selected.sessions.ordersheet["ura_cno"] != null) {
                         if (parseInt(app.selected.sessions.ordersheet["ura_cno"]) > 300) {
-                            //console.log("dp裏地は有料のカラーを使っている");
+                            //// console.log("dp裏地は有料のカラーを使っている");
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_ura_cno", app.selected.sessions.ordersheet["ura_cno"]);
                         } else {
-                            //console.log("裏地は無料");
+                            //// console.log("裏地は無料");
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_ura_cno_normal", app.selected.sessions.ordersheet["ura_cno"])
                         }
                     } else {
 
                     }
-                    ////console.log("カラー使用チェック：フラワーホール");
+                    ////// console.log("カラー使用チェック：フラワーホール");
                     if (app.selected.sessions.ordersheet["flower_hall"] != "" && app.selected.sessions.ordersheet["flower_hall"] != null) {
                         if (app.selected.sessions.ordersheet["flower_hall"] != "00" && app.selected.sessions.ordersheet["flower_hall"] != "200") {
-                            ////console.log("フラワーホールは有料のカラーを使っている");
+                            ////// console.log("フラワーホールは有料のカラーを使っている");
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_flower_hall", app.selected.sessions.ordersheet["flower_hall"]);
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_flower_hall_normal", "999999");
                         } else {
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_flower_hall_normal", app.selected.sessions.ordersheet["flower_hall"]);
-                            ////console.log("フラワーホールは無料");
+                            ////// console.log("フラワーホールは無料");
                         }
                     }
-                    ////console.log("カラー使用チェック：amfステッチ");
+                    ////// console.log("カラー使用チェック：amfステッチ");
                     if (app.selected.sessions.ordersheet["amf_stitch"] != "" && app.selected.sessions.ordersheet["amf_stitch"] != null) {
                         if (app.selected.sessions.ordersheet["amf_stitch"] != "0") {
-                            ////console.log("amfステッチは有料のカラーを使っている");
+                            ////// console.log("amfステッチは有料のカラーを使っている");
                             Vue.set(app.selected.sessions.ordersheet, "colorcustoms_amf_stitch", Math.floor(parseFloat(app.selected.sessions.ordersheet["amf_stitch"])));
                             if (String(app.selected.sessions.ordersheet["amf_stitch"]).indexOf('.2') > -1) {
                                 Vue.set(app.selected.sessions.ordersheet, "colorcustoms_amf_stitch_normal", "0.2");
@@ -374,7 +375,7 @@ function sessionGetter() {
                                 Vue.set(app.selected.sessions.ordersheet, "colorcustoms_amf_stitch_normal", "0.7");
                             }
                         } else {
-                            ////console.log("amfステッチは無料");
+                            ////// console.log("amfステッチは無料");
                         }
                     }
 
@@ -382,7 +383,7 @@ function sessionGetter() {
                     app.optionInit();
                     app.getSelectedOption();
                 }
-                // //console.log(pocketer);
+                // //// console.log(pocketer);
                 if (pocketer == 0) {
                     //ポケット選択なければ０
                     Vue.set(app.selected.sessions.ordersheet, "customselect_pocket", "0");
@@ -396,14 +397,14 @@ function sessionGetter() {
                 // });
 
             }
-            ////console.log('後継機チェック前一応チェック');
-            ////console.log(app.selected.course);
+            ////// console.log('後継機チェック前一応チェック');
+            ////// console.log(app.selected.course);
             //02部分
 
             // エアーフィットがついてたらjacket_dnoからAを取る
-            ////console.log('エアーフィットチェック');
+            ////// console.log('エアーフィットチェック');
             if (app.selected.sessions.ordersheet['air_fit'] == 1 || app.selected.sessions.ordersheet['air_fit'] == '1') {
-                ////console.log('エアーフィットなのでA取ります');
+                ////// console.log('エアーフィットなのでA取ります');
                 if (app.selected.sessions.ordersheet.jacket_dno != '' && app.selected.sessions.ordersheet.jacket_dno != null) {
                     var jacketer = app.selected.sessions.ordersheet.jacket_dno.slice(0, -1);
                     Vue.set(app.selected.sessions.ordersheet, 'jacket_dno', jacketer);
@@ -414,12 +415,12 @@ function sessionGetter() {
                 var masterNo = res.data.ordersheet.course_combi;
                 $.each(app.selectparts[app.selected.gender], function (key, item) {
                     if (item.masterNo == masterNo) {
-                        ////console.log("session:step02部分を反映");
+                        ////// console.log("session:step02部分を反映");
                         app.partsChangers(key);
                     }
                 })
             }
-            // console.log('GETS_AFTER', gets);
+            // // console.log('GETS_AFTER', gets);
             //03部分
             if ('st1' in gets) {
                 Vue.set(app.selected.course["1"], gets['st1'], {});
@@ -453,14 +454,14 @@ function sessionGetter() {
                     $.each(item.katagami_pattern, function (key2, item2) {
                         if ("jacket_dno" in app.selected.sessions.ordersheet) {
                             if (item2.pattern_num == app.selected.sessions.ordersheet.jacket_dno) {
-                                ////console.log('選択されている型紙の期限');
+                                ////// console.log('選択されている型紙の期限');
                                 app.katagamiKoukeiChecker(item2, 'jacket_dno', 'ジャケット').then((katagami) => {
-                                    ////console.log('後継機チェックの後の型紙 jacket');
-                                    ////console.log(key);
-                                    ////console.log(katagami);
+                                    ////// console.log('後継機チェックの後の型紙 jacket');
+                                    ////// console.log(key);
+                                    ////// console.log(katagami);
                                     if (app.selected.gender == 'men') {
-                                        ////console.log('後継機を実際セットするとこ');
-                                        ////console.log(key);
+                                        ////// console.log('後継機を実際セットするとこ');
+                                        ////// console.log(key);
                                         Vue.set(app.selected.course["1"], key, {});
                                         app.selected.course["1"][key] = katagami;
                                         Vue.set(app.selected.katagami["1"], key2, katagami);
@@ -469,15 +470,15 @@ function sessionGetter() {
                                         Vue.set(app.selected.katagami["5"], key2, katagami);
                                         app.selected.course["5"][key] = katagami;
                                     }
-                                    ////console.log(app.selected.course);
+                                    ////// console.log(app.selected.course);
                                 });
                             }
                         }
                         if ("slacks_dno1" in res.data.ordersheet) {
                             if (item2.pattern_num == res.data.ordersheet.slacks_dno1) {
                                 app.katagamiKoukeiChecker(item2, 'slacks_dno1', 'スラックス１枚目').then((katagami) => {
-                                    ////console.log('後継機チェックの後の型紙 slacks_dno1');
-                                    ////console.log(katagami);
+                                    ////// console.log('後継機チェックの後の型紙 slacks_dno1');
+                                    ////// console.log(katagami);
                                     if (app.selected.gender == 'men') {
                                         Vue.set(app.selected.course["3"], key, {});
                                         app.selected.course["3"][key] = katagami;
@@ -493,8 +494,8 @@ function sessionGetter() {
                         if ("slacks_dno2" in res.data.ordersheet) {
                             if (item2.pattern_num == res.data.ordersheet.slacks_dno2) {
                                 app.katagamiKoukeiChecker(item2, 'slacks_dno2', 'スラックス２枚目').then((katagami) => {
-                                    ////console.log('後継機チェックの後の型紙 slacks_dno2');
-                                    ////console.log(katagami);
+                                    ////// console.log('後継機チェックの後の型紙 slacks_dno2');
+                                    ////// console.log(katagami);
                                     if (app.selected.gender == 'men') {
                                         Vue.set(app.selected.course["3pants2"], key, {});
                                         app.selected.course["3pants2"][key] = katagami;
@@ -510,8 +511,8 @@ function sessionGetter() {
                         if ("best_dno" in res.data.ordersheet) {
                             if (item2.pattern_num == res.data.ordersheet.best_dno) {
                                 app.katagamiKoukeiChecker(item2, 'best_dno', 'ベスト').then((katagami) => {
-                                    ////console.log('後継機チェックの後の型紙 best_dno');
-                                    ////console.log(katagami);
+                                    ////// console.log('後継機チェックの後の型紙 best_dno');
+                                    ////// console.log(katagami);
                                     Vue.set(app.selected.course["2"], key, {});
                                     app.selected.course["2"][key] = katagami;
                                     Vue.set(app.selected.katagami["2"], key2, katagami);
@@ -521,8 +522,8 @@ function sessionGetter() {
                         if ("wo_sk_d1" in res.data.ordersheet) {
                             if (item2.pattern_num == res.data.ordersheet.wo_sk_d1) {
                                 app.katagamiKoukeiChecker(item2, 'wo_sk_d1', 'スカート１枚目').then((katagami) => {
-                                    ////console.log('後継機チェックの後の型紙 wo_sk_d1');
-                                    ////console.log(katagami);
+                                    ////// console.log('後継機チェックの後の型紙 wo_sk_d1');
+                                    ////// console.log(katagami);
                                     Vue.set(app.selected.course["7"], key, {});
                                     app.selected.course["7"][key] = katagami;
                                     Vue.set(app.selected.katagami["7"], key2, katagami);
@@ -532,8 +533,8 @@ function sessionGetter() {
                         if ("wo_sk_d2" in res.data.ordersheet) {
                             if (item2.pattern_num == res.data.ordersheet.wo_sk_d2) {
                                 app.katagamiKoukeiChecker(item2, 'wo_sk_d2', 'スカート２枚目').then((katagami) => {
-                                    ////console.log('後継機チェックの後の型紙 wo_sk_d2');
-                                    ////console.log(katagami);
+                                    ////// console.log('後継機チェックの後の型紙 wo_sk_d2');
+                                    ////// console.log(katagami);
                                     Vue.set(app.selected.course["7skirt2"], key, {});
                                     app.selected.course["7skirt2"][key] = katagami;
                                     Vue.set(app.selected.katagami["7skirt2"], key2, katagami);
@@ -543,8 +544,8 @@ function sessionGetter() {
                     });
                 });
             }
-            ////console.log('app.selected.course');
-            ////console.log(app.selected.course);
+            ////// console.log('app.selected.course');
+            ////// console.log(app.selected.course);
             //サイズ部分
             var targetJunle = [];
             Vue.set(app.size, "adj", {});
@@ -1267,7 +1268,8 @@ var app = new Vue({
             pattern:[],
             season:[],
             function:[]
-        }
+        },
+        stepMessage: '生地'
     },
     components: {
         'vue-lazy-component': VueLazyComponent,
@@ -1305,12 +1307,12 @@ var app = new Vue({
     },
     watch: {
         tantouFlg: function (v) {
-            // //console.log('担当なのか');
-            // //console.log(v);
+            // //// console.log('担当なのか');
+            // //// console.log(v);
         },
         'selected.course': {
             handler(v, ov) {
-                ////console.log('ジャケットあるかチェック');
+                ////// console.log('ジャケットあるかチェック');
                 var jacketstyle = '';
                 var thista = this;
                 if (this.selected.gender == 'men') {
@@ -1318,18 +1320,18 @@ var app = new Vue({
                         $.each(v[1], function (key, item) {
                             jacketstyle = thista.masters.style[key]?.style_id;
                         });
-                        ////console.log('style_idは'+jacketstyle);
+                        ////// console.log('style_idは'+jacketstyle);
                     }
                 } else {
                     if (Object.keys(v[5]).length > 0) {
-                        ////console.log('ジャケットある');
+                        ////// console.log('ジャケットある');
                         $.each(v[5], function (key, item) {
                             jacketstyle = thista.masters.style[key]?.style_id;
                         });
                     }
                 }
                 Vue.set(this, 'zentaiNo', jacketstyle);
-                ////console.log('全体表示に使うナンバーは'+this.zentaiNo);
+                ////// console.log('全体表示に使うナンバーは'+this.zentaiNo);
             },
             deep: true
         },
@@ -1347,14 +1349,14 @@ var app = new Vue({
             this.getJan();
         },
         selected: function () {
-            ////console.log("selected 内部が変更された");
-            ////console.log(selected);
+            ////// console.log("selected 内部が変更された");
+            ////// console.log(selected);
         },
         //jacket_size は　Y-０とかはいるやつ
         'selected.sessions.ordersheet.jacket_size': function (v, ov) {
             if (this.guest == false) {
-                ////console.log("ジャケットサイズが変更された");
-                ////console.log(v);
+                ////// console.log("ジャケットサイズが変更された");
+                ////// console.log(v);
                 if (v != "" && v != null) {
                     this.sizeTouroku(v, "jacket", "jacket_dno");
                 }
@@ -1362,8 +1364,8 @@ var app = new Vue({
         },
         'selected.sessions.ordersheet.best_size': function (v, ov) {
             if (this.guest == false) {
-                ////console.log("べすとサイズが変更された");
-                ////console.log(v);
+                ////// console.log("べすとサイズが変更された");
+                ////// console.log(v);
                 if (v != "" && v != null) {
                     this.sizeTouroku(v, "vest", "best_dno");
                 }
@@ -1371,8 +1373,8 @@ var app = new Vue({
         },
         'selected.sessions.ordersheet.slacks_size1': function (v, ov) {
             if (this.guest == false) {
-                // console.log("SLACKS_SIZE_1_CHANGE");
-                // console.log(v);
+                // // console.log("SLACKS_SIZE_1_CHANGE");
+                // // console.log(v);
                 if (v != "" && v != null) {
                     this.sizeTouroku(v, "pants", "slacks_dno1");
                 }
@@ -1380,8 +1382,8 @@ var app = new Vue({
         },
         'selected.sessions.ordersheet.slacks_size2': function (v, ov) {
             if (this.guest == false) {
-                ////console.log("スラックスサイズ(2)が変更された");
-                ////console.log(v);
+                ////// console.log("スラックスサイズ(2)が変更された");
+                ////// console.log(v);
                 if (v != "" && v != null) {
                     this.sizeTouroku(v, "pants2", "slacks_dno2");
                 }
@@ -1389,8 +1391,8 @@ var app = new Vue({
         },
         'selected.sessions.ordersheet.wo_sk_size1': function (v, ov) {
             if (this.guest == false) {
-                ////console.log("スカートサイズが変更された");
-                ////console.log(v);
+                ////// console.log("スカートサイズが変更された");
+                ////// console.log(v);
                 if (v != "" && v != null) {
                     this.sizeTouroku(v, "skirt", "wo_sk_d1");
                 }
@@ -1398,8 +1400,8 @@ var app = new Vue({
         },
         'selected.sessions.ordersheet.wo_sk_size2': function (v, ov) {
             if (this.guest == false) {
-                ////console.log("スカートサイズ(2)が変更された");
-                ////console.log(v);
+                ////// console.log("スカートサイズ(2)が変更された");
+                ////// console.log(v);
                 if (v != "" && v != null) {
                     this.sizeTouroku(v, "skirt2", "wo_sk_d2");
                 }
@@ -1407,16 +1409,16 @@ var app = new Vue({
         },
         'selected.sessions.ordersheet.suso_d1': function (v, ov) {
 
-            ////console.log("裾１が変更された");
-            ////console.log(v);
+            ////// console.log("裾１が変更された");
+            ////// console.log(v);
             if (this.step > 1) {
                 Vue.set(this.selected.sessions.ordersheet, 'mackin_width1', null);
             }
         },
         'selected.sessions.ordersheet.suso_d2': function (v, ov) {
 
-            ////console.log("裾2が変更された");
-            ////console.log(v);
+            ////// console.log("裾2が変更された");
+            ////// console.log(v);
             if (this.step > 1) {
                 Vue.set(this.selected.sessions.ordersheet, 'mackin_width2', null);
             }
@@ -1425,9 +1427,9 @@ var app = new Vue({
         'selected.sessions.ordersheet.colorcustoms_ura_cno_normal': function (v, ov) {
 
 
-            ////console.log(v);
+            ////// console.log(v);
             if (this.selected.sessions.ordersheet.colorcustoms_ura_cno_normal != null) {
-                ////console.log("裏地が無料のものに変更された");
+                ////// console.log("裏地が無料のものに変更された");
                 Vue.set(this.selected.sessions.ordersheet, "ura_cno", v);
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_ura_cno", null);
             }
@@ -1436,9 +1438,9 @@ var app = new Vue({
         'selected.sessions.ordersheet.colorcustoms_ura_cno': function (v, ov) {
 
 
-            ////console.log(v);
+            ////// console.log(v);
             if (this.selected.sessions.ordersheet.colorcustoms_ura_cno != null) {
-                ////console.log("裏地が有料のものに変更された");
+                ////// console.log("裏地が有料のものに変更された");
                 Vue.set(this.selected.sessions.ordersheet, "ura_cno", v);
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_ura_cno_normal", null);
             }
@@ -1446,8 +1448,8 @@ var app = new Vue({
         },
         'selected.sessions.ordersheet.colorcustoms_color_cross_normal': function (v, ov) {
 
-            ////console.log("カラークロスが変更された");
-            ////console.log(v);
+            ////// console.log("カラークロスが変更された");
+            ////// console.log(v);
             var seppa = false;
             if ("colorcustoms_color_cross_normal" in this.selected.sessions.ordersheet) {
                 if (this.selected.sessions.ordersheet.colorcustoms_color_cross_normal != "00" && this.selected.sessions.ordersheet.colorcustoms_color_cross_normal != null) {
@@ -1455,20 +1457,20 @@ var app = new Vue({
                 }
             }
             if (seppa) {
-                ////console.log("カラークロスは有料になる");
+                ////// console.log("カラークロスは有料になる");
                 Vue.set(this.selected.sessions.ordersheet, "color_cross", this.selected.sessions.ordersheet.colorcustoms_color_cross);
-                ////console.log(this.selected.sessions.ordersheet.color_cross);
+                ////// console.log(this.selected.sessions.ordersheet.color_cross);
             } else {
-                ////console.log("カラークロスは無料になる");
+                ////// console.log("カラークロスは無料になる");
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_color_cross", '');
                 Vue.set(this.selected.sessions.ordersheet, "color_cross", "00");
-                ////console.log(this.selected.sessions.ordersheet.color_cross);
+                ////// console.log(this.selected.sessions.ordersheet.color_cross);
             }
         },
         'selected.sessions.ordersheet.colorcustoms_color_cross': function (v, ov) {
 
-            ////console.log("カラークロスが変更された");
-            ////console.log(v);
+            ////// console.log("カラークロスが変更された");
+            ////// console.log(v);
             var seppa = false;
             if ("colorcustoms_color_cross_normal" in this.selected.sessions.ordersheet) {
                 if (this.selected.sessions.ordersheet.colorcustoms_color_cross_normal != "00" && this.selected.sessions.ordersheet.colorcustoms_color_cross_normal != null) {
@@ -1476,20 +1478,20 @@ var app = new Vue({
                 }
             }
             if (seppa) {
-                ////console.log("カラークロスは有料になる");
+                ////// console.log("カラークロスは有料になる");
                 Vue.set(this.selected.sessions.ordersheet, "color_cross", this.selected.sessions.ordersheet.colorcustoms_color_cross);
-                ////console.log(this.selected.sessions.ordersheet.color_cross);
+                ////// console.log(this.selected.sessions.ordersheet.color_cross);
             } else {
-                ////console.log("カラークロスは無料になる");
+                ////// console.log("カラークロスは無料になる");
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_color_cross", '');
                 Vue.set(this.selected.sessions.ordersheet, "color_cross", "00");
-                ////console.log(this.selected.sessions.ordersheet.color_cross);
+                ////// console.log(this.selected.sessions.ordersheet.color_cross);
             }
         },
         'selected.sessions.ordersheet.colorcustoms_flower_hall_normal': function (v, ov) {
 
-            ////console.log("フラワーホールが変更された");
-            ////console.log(v);
+            ////// console.log("フラワーホールが変更された");
+            ////// console.log(v);
             var seppa = false;
             if ("colorcustoms_flower_hall_normal" in this.selected.sessions.ordersheet) {
                 if (this.selected.sessions.ordersheet.colorcustoms_flower_hall_normal != "00" && this.selected.sessions.ordersheet.colorcustoms_flower_hall_normal != "200" && this.selected.sessions.ordersheet.colorcustoms_flower_hall_normal != null) {
@@ -1497,23 +1499,23 @@ var app = new Vue({
                 }
             }
             if (seppa) {
-                ////console.log("フラワーホールは有料になる");
+                ////// console.log("フラワーホールは有料になる");
                 Vue.set(this.selected.sessions.ordersheet, "flower_hall", this.selected.sessions.ordersheet.colorcustoms_flower_hall);
-                ////console.log(this.selected.sessions.ordersheet.flower_hall);
+                ////// console.log(this.selected.sessions.ordersheet.flower_hall);
             } else {
-                ////console.log("フラワーホールは無料になる");
+                ////// console.log("フラワーホールは無料になる");
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_flower_hall", "");
                 Vue.set(this.selected.sessions.ordersheet, "flower_hall", this.selected.sessions.ordersheet.colorcustoms_flower_hall_normal);
 
 
-                ////console.log(this.selected.sessions.ordersheet.flower_hall);
+                ////// console.log(this.selected.sessions.ordersheet.flower_hall);
             }
         },
 
         'selected.sessions.ordersheet.colorcustoms_flower_hall': function (v, ov) {
 
-            ////console.log("フラワーホールが変更された");
-            ////console.log(v);
+            ////// console.log("フラワーホールが変更された");
+            ////// console.log(v);
             var seppa = false;
             if ("colorcustoms_flower_hall_normal" in this.selected.sessions.ordersheet) {
                 if (this.selected.sessions.ordersheet.colorcustoms_flower_hall_normal != "00" && this.selected.sessions.ordersheet.colorcustoms_flower_hall_normal != "200" && this.selected.sessions.ordersheet.colorcustoms_flower_hall_normal != null) {
@@ -1521,22 +1523,22 @@ var app = new Vue({
                 }
             }
             if (seppa) {
-                ////console.log("フラワーホールは有料になる");
+                ////// console.log("フラワーホールは有料になる");
                 Vue.set(this.selected.sessions.ordersheet, "flower_hall", this.selected.sessions.ordersheet.colorcustoms_flower_hall);
-                ////console.log(this.selected.sessions.ordersheet.flower_hall);
+                ////// console.log(this.selected.sessions.ordersheet.flower_hall);
             } else {
-                ////console.log("フラワーホールは無料になる");
+                ////// console.log("フラワーホールは無料になる");
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_flower_hall", "");
                 Vue.set(this.selected.sessions.ordersheet, "flower_hall", this.selected.sessions.ordersheet.colorcustoms_flower_hall_normal);
 
 
-                ////console.log(this.selected.sessions.ordersheet.flower_hall);
+                ////// console.log(this.selected.sessions.ordersheet.flower_hall);
             }
         },
         'selected.sessions.ordersheet.colorcustoms_seppa_hall_normal': function (v, ov) {
 
-            ////console.log("切羽配色が変更された");
-            ////console.log(v);
+            ////// console.log("切羽配色が変更された");
+            ////// console.log(v);
             var seppa = false;
             if ("colorcustoms_seppa_hall_normal" in this.selected.sessions.ordersheet) {
                 if ((this.selected.sessions.ordersheet.colorcustoms_seppa_hall_normal != "00" && this.selected.sessions.ordersheet.colorcustoms_seppa_hall_normal != "200") && this.selected.sessions.ordersheet.colorcustoms_seppa_hall_normal != null) {
@@ -1544,22 +1546,22 @@ var app = new Vue({
                 }
             }
             if (seppa) {
-                ////console.log("切羽配色は有料になる");
+                ////// console.log("切羽配色は有料になる");
                 Vue.set(this.selected.sessions.ordersheet, "seppa_hall", this.selected.sessions.ordersheet.colorcustoms_seppa_hall);
-                ////console.log(this.selected.sessions.ordersheet.seppa_hall);
+                ////// console.log(this.selected.sessions.ordersheet.seppa_hall);
             } else {
-                ////console.log("切羽配色は無料になる");
+                ////// console.log("切羽配色は無料になる");
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_seppa_hall", "");
                 Vue.set(this.selected.sessions.ordersheet, "seppa_hall", this.selected.sessions.ordersheet.colorcustoms_seppa_hall_normal);
 
 
-                ////console.log(this.selected.sessions.ordersheet.seppa_hall);
+                ////// console.log(this.selected.sessions.ordersheet.seppa_hall);
             }
         },
         'selected.sessions.ordersheet.colorcustoms_seppa_hall': function (v, ov) {
 
-            ////console.log("切羽配色が変更された");
-            ////console.log(v);
+            ////// console.log("切羽配色が変更された");
+            ////// console.log(v);
             var seppa = false;
             if ("colorcustoms_seppa_hall_normal" in this.selected.sessions.ordersheet) {
                 if ((this.selected.sessions.ordersheet.colorcustoms_seppa_hall_normal != "00" && this.selected.sessions.ordersheet.colorcustoms_seppa_hall_normal != "200")) {
@@ -1567,22 +1569,22 @@ var app = new Vue({
                 }
             }
             if (seppa) {
-                ////console.log("切羽配色は有料になる");
+                ////// console.log("切羽配色は有料になる");
                 Vue.set(this.selected.sessions.ordersheet, "seppa_hall", this.selected.sessions.ordersheet.colorcustoms_seppa_hall);
-                ////console.log(this.selected.sessions.ordersheet.seppa_hall);
+                ////// console.log(this.selected.sessions.ordersheet.seppa_hall);
             } else {
-                ////console.log("切羽配色は無料になる");
+                ////// console.log("切羽配色は無料になる");
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_seppa_hall", "");
                 Vue.set(this.selected.sessions.ordersheet, "seppa_hall", this.selected.sessions.ordersheet.colorcustoms_seppa_hall_normal);
 
 
-                ////console.log(this.selected.sessions.ordersheet.seppa_hall);
+                ////// console.log(this.selected.sessions.ordersheet.seppa_hall);
             }
         },
         'selected.sessions.ordersheet.colorcustoms_amf_stitch_normal': function (v, ov) {
 
-            ////console.log("amfステッチが変更された");
-            ////console.log(v);
+            ////// console.log("amfステッチが変更された");
+            ////// console.log(v);
             var amf = false;
             if ("colorcustoms_amf_stitch_normal" in this.selected.sessions.ordersheet) {
                 if (this.selected.sessions.ordersheet.colorcustoms_amf_stitch_normal != "0" && this.selected.sessions.ordersheet.colorcustoms_amf_stitch_normal != null) {
@@ -1590,20 +1592,20 @@ var app = new Vue({
                 }
             }
             if (amf) {
-                ////console.log("amfステッチは有料になる");
+                ////// console.log("amfステッチは有料になる");
                 Vue.set(this.selected.sessions.ordersheet, "amf_stitch", parseFloat(this.selected.sessions.ordersheet.colorcustoms_amf_stitch) + parseFloat(this.selected.sessions.ordersheet.colorcustoms_amf_stitch_normal));
-                ////console.log(this.selected.sessions.ordersheet.amf_stitch);
+                ////// console.log(this.selected.sessions.ordersheet.amf_stitch);
             } else {
-                ////console.log("amfステッチは無料になる");
+                ////// console.log("amfステッチは無料になる");
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_amf_stitch", "");
                 Vue.set(this.selected.sessions.ordersheet, "amf_stitch", "0");
-                ////console.log(this.selected.sessions.ordersheet.amf_stitch);
+                ////// console.log(this.selected.sessions.ordersheet.amf_stitch);
             }
         },
         'selected.sessions.ordersheet.colorcustoms_amf_stitch': function (v, ov) {
 
-            ////console.log("amfステッチが変更された");
-            ////console.log(v);
+            ////// console.log("amfステッチが変更された");
+            ////// console.log(v);
             var amf = false;
             if ("colorcustoms_amf_stitch_normal" in this.selected.sessions.ordersheet) {
                 if (this.selected.sessions.ordersheet.colorcustoms_amf_stitch_normal != "0" && this.selected.sessions.ordersheet.colorcustoms_amf_stitch_normal != null) {
@@ -1611,20 +1613,20 @@ var app = new Vue({
                 }
             }
             if (amf) {
-                ////console.log("amfステッチは有料になる");
+                ////// console.log("amfステッチは有料になる");
                 Vue.set(this.selected.sessions.ordersheet, "amf_stitch", parseFloat(this.selected.sessions.ordersheet.colorcustoms_amf_stitch) + parseFloat(this.selected.sessions.ordersheet.colorcustoms_amf_stitch_normal));
-                ////console.log(this.selected.sessions.ordersheet.amf_stitch);
+                ////// console.log(this.selected.sessions.ordersheet.amf_stitch);
             } else {
-                ////console.log("amfステッチは無料になる");
+                ////// console.log("amfステッチは無料になる");
                 Vue.set(this.selected.sessions.ordersheet, "colorcustoms_amf_stitch", "");
                 Vue.set(this.selected.sessions.ordersheet, "amf_stitch", "0");
-                ////console.log(this.selected.sessions.ordersheet.amf_stitch);
+                ////// console.log(this.selected.sessions.ordersheet.amf_stitch);
             }
         },
         'selected.sessions.ordersheet.ext_specification_normal': function (v, ov) {
 
-            ////console.log("裏仕様が変更された");
-            ////console.log(v);
+            ////// console.log("裏仕様が変更された");
+            ////// console.log(v);
             var powerFlg = false;
             if ("ext_specification" in this.selected.sessions.ordersheet) {
                 if (this.selected.sessions.ordersheet.ext_specification == "1") {
@@ -1632,19 +1634,19 @@ var app = new Vue({
                 }
             }
             if (powerFlg) {
-                ////console.log("パワーストレッチが発動した specificationは１１倍される");
+                ////// console.log("パワーストレッチが発動した specificationは１１倍される");
                 Vue.set(this.selected.sessions.ordersheet, "specification", parseInt(this.selected.sessions.ordersheet.ext_specification_normal) * 11);
-                ////console.log(this.selected.sessions.ordersheet.specification);
+                ////// console.log(this.selected.sessions.ordersheet.specification);
             } else {
-                ////console.log("パワーストレッチ無し");
+                ////// console.log("パワーストレッチ無し");
                 Vue.set(this.selected.sessions.ordersheet, "specification", this.selected.sessions.ordersheet.ext_specification_normal);
-                ////console.log(this.selected.sessions.ordersheet.specification);
+                ////// console.log(this.selected.sessions.ordersheet.specification);
             }
         },
         'selected.sessions.ordersheet.ext_specification': function (v, ov) {
 
-            //console.log("裏仕様が変更された");
-            ////console.log(v);
+            //// console.log("裏仕様が変更された");
+            ////// console.log(v);
             var powerFlg = false;
             if ("ext_specification" in this.selected.sessions.ordersheet) {
                 if (this.selected.sessions.ordersheet.ext_specification == "1") {
@@ -1653,27 +1655,27 @@ var app = new Vue({
             }
             if (powerFlg) {
                 if (this.selected.sessions.ordersheet.ext_specification_normal != '' && this.selected.sessions.ordersheet.ext_specification_normal != null) {
-                    //console.log("パワーストレッチが発動した specificationは１１倍される");
+                    //// console.log("パワーストレッチが発動した specificationは１１倍される");
                     Vue.set(this.selected.sessions.ordersheet, "specification", parseInt(this.selected.sessions.ordersheet.ext_specification_normal) * 11);
                 } else {
                     Vue.set(this.selected.sessions.ordersheet, "specification", 11);
                 }
-                ////console.log(this.selected.sessions.ordersheet.specification);
+                ////// console.log(this.selected.sessions.ordersheet.specification);
             } else {
-                //console.log("パワーストレッチ無し");
+                //// console.log("パワーストレッチ無し");
                 Vue.set(this.selected.sessions.ordersheet, "specification", this.selected.sessions.ordersheet.ext_specification_normal);
-                //console.log(this.selected.sessions.ordersheet.specification);
+                //// console.log(this.selected.sessions.ordersheet.specification);
             }
         },
         'selected.sessions.base': function (v) {
-            ////console.log('セッションのbaseが変更された');
-            ////console.log(v);
+            ////// console.log('セッションのbaseが変更された');
+            ////// console.log(v);
         },
         'selected.sessions.ordersheet': {
             handler(v, ov) {
-                // //console.log("セッションの中身が変更された");
-                // //console.log(v);
-                ////console.log(this.defaultSessions);
+                // //// console.log("セッションの中身が変更された");
+                // //// console.log(v);
+                ////// console.log(this.defaultSessions);
 
                 //その他オプションのコード特定
                 var sonota1 = v.washable;
@@ -1693,7 +1695,7 @@ var app = new Vue({
                     var sonotaR = "008";
                 }
                 Vue.set(this.selected.code, "optionSonota", sonotaR);
-                ////console.log("その他アイテムコード："+sonotaR);
+                ////// console.log("その他アイテムコード："+sonotaR);
             },
             deep: true
         },
@@ -1710,7 +1712,7 @@ var app = new Vue({
         },
         'selected.gb': function (v) {
             Vue.nextTick(function () {
-                ////console.log("selected.gbが変更された："+v);
+                ////// console.log("selected.gbが変更された："+v);
             });
         },
         step: function (v, ov) {
@@ -1731,8 +1733,8 @@ var app = new Vue({
         productData: function (v, ov) {
             if (Object.keys(v).length > 0) {
                 app.productDataLoad = true;
-                ////console.log('ロードされたプロダクトデータ');
-                ////console.log(v);
+                ////// console.log('ロードされたプロダクトデータ');
+                ////// console.log(v);
                 // Vue.set(app.selected,"fabric",4);
 
             }
@@ -1754,8 +1756,8 @@ var app = new Vue({
                 //   }
                 // });
                 // app.size.adj = compObj;
-                // ////console.log("サイズ調整用データ登録");
-                // ////console.log(app.size.adj);
+                // ////// console.log("サイズ調整用データ登録");
+                // ////// console.log(app.size.adj);
             }
         }
     },
@@ -1775,7 +1777,7 @@ var app = new Vue({
                     result = "3";
                 }
             }
-            ////console.log('dispTypeChecker '+ result);
+            ////// console.log('dispTypeChecker '+ result);
             return result;
         },
         stocktani: function () {
@@ -1798,8 +1800,8 @@ var app = new Vue({
             if (courses.indexOf('013') > -1) {
                 aller = '_skirt';
             }
-            ////console.log(aller);
-            ////console.log('checkskpt');
+            ////// console.log(aller);
+            ////// console.log('checkskpt');
             return aller;
         },
         //セッションの型紙項目無い人は買えないけど形は変えられる
@@ -1859,28 +1861,28 @@ var app = new Vue({
                 })
 
             }
-            ////console.log(productLine);
-            ////console.log("料金計算：02")
-            ////console.log(parts);
+            ////// console.log(productLine);
+            ////// console.log("料金計算：02")
+            ////// console.log(parts);
             $.each(parts, function (key, item) {
                 if (item == "jacket" && app.selected.gender == "men") {
                     totalPrice = totalPrice + parseInt(productLine.men_price_jk);
-                    ////console.log("料金計算：男性ジャケット："+productLine.men_price_jk);
+                    ////// console.log("料金計算：男性ジャケット："+productLine.men_price_jk);
                 } else if ((item == "pants" || item == "pants2") && app.selected.gender == "men") {
                     totalPrice = totalPrice + parseInt(productLine.men_price_pt);
-                    ////console.log("料金計算：男性pants："+productLine.men_price_pt);
+                    ////// console.log("料金計算：男性pants："+productLine.men_price_pt);
                 } else if (item == "vest") {
                     totalPrice = totalPrice + parseInt(productLine.men_price_gill);
-                    ////console.log("料金計算：男性ベスト："+productLine.men_price_gill);
+                    ////// console.log("料金計算：男性ベスト："+productLine.men_price_gill);
                 } else if (item == "jacket" && app.selected.gender == "women") {
                     totalPrice = totalPrice + parseInt(productLine.ladies_price_jk);
-                    ////console.log("料金計算：女性ジャケット："+productLine.ladies_price_jk);
+                    ////// console.log("料金計算：女性ジャケット："+productLine.ladies_price_jk);
                 } else if ((item == "pants" || item == "pants2") && app.selected.gender == "women") {
                     totalPrice = totalPrice + parseInt(productLine.ladies_price_pt);
-                    ////console.log("料金計算：女性pants："+productLine.ladies_price_pt);
+                    ////// console.log("料金計算：女性pants："+productLine.ladies_price_pt);
                 } else if ((item == "skirt" || item == "skirt2") && app.selected.gender == "women") {
                     totalPrice = totalPrice + parseInt(productLine.ladies_price_sk);
-                    ////console.log("料金計算：女性skirt："+productLine.ladies_price_sk);
+                    ////// console.log("料金計算：女性skirt："+productLine.ladies_price_sk);
                 }
             });
 
@@ -1891,13 +1893,13 @@ var app = new Vue({
                 $.each(this.masters.optionset, function (key, item) {
                     if (item.optionset_num == course) {
                         if (item.price_choice == 1) {
-                            ////console.log("料金計算：オプションセットネーム: "+item.optionset_name);
-                            ////console.log("料金計算：オプション(全タイプ同額)："+item.optionset_name+""+item.price);
+                            ////// console.log("料金計算：オプションセットネーム: "+item.optionset_name);
+                            ////// console.log("料金計算：オプション(全タイプ同額)："+item.optionset_name+""+item.price);
                             if (item.price != null) {
                                 totalPrice = totalPrice + parseInt(item.price);
                                 Vue.set(app.selected, 'optionCoursePrice', item.price);
                             } else {
-                                ////console.log("注意：オプションセットネーム: "+item.optionset_name+"はオプション価格が設定されていない可能性");
+                                ////// console.log("注意：オプションセットネーム: "+item.optionset_name+"はオプション価格が設定されていない可能性");
                             }
                         } else {
                             var masterNo = "";
@@ -1906,13 +1908,13 @@ var app = new Vue({
                                     masterNo = item.masterNo;
                                 })
                                 if (masterNo != "") {
-                                    ////console.log("料金計算：オプションセットネーム: "+item.optionset_name);
-                                    ////console.log("料金計算：オプション（タイプ別に値段が設定してある、タイプ"+masterNo+"）："+item["price"+masterNo]);
+                                    ////// console.log("料金計算：オプションセットネーム: "+item.optionset_name);
+                                    ////// console.log("料金計算：オプション（タイプ別に値段が設定してある、タイプ"+masterNo+"）："+item["price"+masterNo]);
                                     if (item["price" + masterNo] != null) {
                                         totalPrice = totalPrice + parseInt(item["price" + masterNo]);
                                         Vue.set(app.selected, 'optionCoursePrice', item["price" + masterNo]);
                                     } else {
-                                        ////console.log("注意：オプションセットネーム: "+item.optionset_name+"はオプション価格が設定されていない可能性");
+                                        ////// console.log("注意：オプションセットネーム: "+item.optionset_name+"はオプション価格が設定されていない可能性");
                                     }
                                 }
 
@@ -1996,18 +1998,18 @@ var app = new Vue({
                 var pleatPrice = targetPartsGender + '_price2_' + targetPartsName;
                 var odaibaPrice = targetPartsGender + '_price3_' + targetPartsName;
                 if (this.selected.sessions.ordersheet.washable == 1) {
-                    ////console.log('料金計算：ウォッシャブル価格追加');
-                    ////console.log(this.masters.other[washablePrice]);
+                    ////// console.log('料金計算：ウォッシャブル価格追加');
+                    ////// console.log(this.masters.other[washablePrice]);
                     totalPrice = totalPrice + parseInt(this.masters.other[washablePrice]);
                 }
                 if (this.selected.sessions.ordersheet.pleats_sta == 1) {
-                    ////console.log('料金計算：プリーツ価格追加');
-                    ////console.log(this.masters.other[pleatPrice]);
+                    ////// console.log('料金計算：プリーツ価格追加');
+                    ////// console.log(this.masters.other[pleatPrice]);
                     totalPrice = totalPrice + parseInt(this.masters.other[pleatPrice]);
                 }
                 if (this.selected.sessions.ordersheet.daiba == 1) {
-                    ////console.log('料金計算：お台場価格追加');
-                    ////console.log(this.masters.other[odaibaPrice]);
+                    ////// console.log('料金計算：お台場価格追加');
+                    ////// console.log(this.masters.other[odaibaPrice]);
                     totalPrice = totalPrice + parseInt(this.masters.other[odaibaPrice]);
                 }
             }
@@ -2020,10 +2022,10 @@ var app = new Vue({
                 });
                 totalPrice = totalPrice + selectparts.gbPrice;
             }
-            ////console.log("料金計算：税金");
-            ////console.log(totalPrice * (window.taxrate /100));
-            ////console.log("料金計算：合計金額：");
-            ////console.log((totalPrice * (window.taxrate /100)) +totalPrice);
+            ////// console.log("料金計算：税金");
+            ////// console.log(totalPrice * (window.taxrate /100));
+            ////// console.log("料金計算：合計金額：");
+            ////// console.log((totalPrice * (window.taxrate /100)) +totalPrice);
             var totalpricer = (totalPrice * (window.taxrate / 100)) + totalPrice;
             if (Number.isNaN(totalpricer)) {
                 totalpricer = 0;
@@ -2132,16 +2134,16 @@ var app = new Vue({
             }
             var thista = this;
             $.each(apiSakujoTarget, function (key, item) {
-                // console.log(item+'をnullにします');
+                // // console.log(item+'をnullにします');
                 Vue.set(thista.selected.sessions.ordersheet, item, null);
             });
-            //console.log(thista.selected.sessions.ordersheet);
+            //// console.log(thista.selected.sessions.ordersheet);
             this.optionInit();
         },
         //コースを選択しなおした際などにオプションをリセットする用(全リセット)
         optionReseter: function () {
             var shiwake = this.optionsShiwakeOptiondake;
-            ////console.log('オプション選択内容をリセットします');
+            ////// console.log('オプション選択内容をリセットします');
             $.each(shiwake, function (key, item) {
                 $.each(item, function (key2, item2) {
                     Vue.set(app.selected.sessions.ordersheet, item2, null);
@@ -2152,7 +2154,7 @@ var app = new Vue({
         //オプション型紙サイズ全部リセットする
         optionKatagamiSizeReseter: function () {
             var shiwake = this.optionsShiwake;
-            ////console.log('オプション選択内容をリセットします');
+            ////// console.log('オプション選択内容をリセットします');
             $.each(shiwake, function (key, item) {
                 $.each(item, function (key2, item2) {
                     Vue.set(app.selected.sessions.ordersheet, item2, null);
@@ -2178,8 +2180,8 @@ var app = new Vue({
             };
             var thista = this;
             axios.get("/sandbox/ajaxTool/getKatagami.php", query).then(res => {
-                // //console.log('初期の型紙の情報');
-                //   //console.log(res.data);
+                // //// console.log('初期の型紙の情報');
+                //   //// console.log(res.data);
             })
         },
         //最初にGBなんかを調べる用
@@ -2196,11 +2198,11 @@ var app = new Vue({
             };
             var thista = this;
             axios.get("/sandbox/ajaxTool/isGB.php", query).then(res => {
-                // //console.log('GBなのか');
-                //   //console.log(res.data);
+                // //// console.log('GBなのか');
+                //   //// console.log(res.data);
                 if (res.data == true) {
                     Vue.set(app.firstCheckers, 'gb', true);
-                    // //console.log(app.firstCheckers);
+                    // //// console.log(app.firstCheckers);
                 }
             })
         },
@@ -2217,15 +2219,15 @@ var app = new Vue({
                     wo_sk_d1: app.selected.sessions.ordersheet.wo_sk_d1,
                 }
             };
-            // console.log('isKataFacChecker', query)
+            // // console.log('isKataFacChecker', query)
             var thista = this;
             axios.get("/sandbox/ajaxTool/getKataFac.php", query).then(res => {
-                // //console.log('型紙ふぁくとり');
-                // //console.log(res.data);
+                // //// console.log('型紙ふぁくとり');
+                // //// console.log(res.data);
 
 
                 Vue.set(app.firstCheckers, 'katafactory', res.data.toString());
-                // console.log('app.firstCheckers', app.firstCheckers);
+                // // console.log('app.firstCheckers', app.firstCheckers);
 
             })
         },
@@ -2241,13 +2243,13 @@ var app = new Vue({
         katagamiKoukeiChecker: function (katagami, target_dno, name) {
             return new Promise((resolve, reject) => {
                 if (this.katagamiLimitChecker(katagami)) {
-                    ////console.log('既に選択されている'+name+'型紙は期限内もしくは期限なし');
+                    ////// console.log('既に選択されている'+name+'型紙は期限内もしくは期限なし');
                     resolve(katagami);
                 } else {
-                    ////console.log('既に選択されている'+name+'型紙は期限が切れている');
+                    ////// console.log('既に選択されている'+name+'型紙は期限が切れている');
                     if (katagami.after_num != '' && katagami.after_num != null) {
 
-                        ////console.log('jacket 後継ナンバーがある:'+katagami.after_num);
+                        ////// console.log('jacket 後継ナンバーがある:'+katagami.after_num);
                         const query = {
                             headers: {
                                 "content-Type": "application/json;charset=UTF-8"
@@ -2258,16 +2260,16 @@ var app = new Vue({
                         };
                         var thista = this;
                         axios.get("/sandbox/ajaxTool/getKatagami.php", query).then(res => {
-                            ////console.log('後継機の型紙');
-                            ////console.log(res.data);
+                            ////// console.log('後継機の型紙');
+                            ////// console.log(res.data);
                             if (app.katagamiLimitChecker(res.data)) {
-                                ////console.log('後継機の型紙をセットします');
+                                ////// console.log('後継機の型紙をセットします');
                                 alert('既に選択されている' + name + '型紙は期限が切れていて、後継となる型紙（' + res.data.pattern_num + '）がありますのでそちらを使用します。');
                                 Vue.set(app.selected.sessions.ordersheet, target_dno, res.data.pattern_num);
                                 resolve(res.data);
                             } else {
                                 if (res.data.after_num != '' && res.data.after_num != null) {
-                                    ////console.log(''+name+' 後継ナンバーがある:'+res.data.after_num);
+                                    ////// console.log(''+name+' 後継ナンバーがある:'+res.data.after_num);
                                     const query = {
                                         headers: {
                                             "content-Type": "application/json;charset=UTF-8"
@@ -2278,10 +2280,10 @@ var app = new Vue({
                                     };
                                     var thista = this;
                                     axios.get("/sandbox/ajaxTool/getKatagami.php", query).then(res => {
-                                        ////console.log('後継機の型紙');
-                                        ////console.log(res.data);
+                                        ////// console.log('後継機の型紙');
+                                        ////// console.log(res.data);
                                         if (this.katagamiLimitChecker(res.data)) {
-                                            ////console.log('後継機の型紙をセットします');
+                                            ////// console.log('後継機の型紙をセットします');
                                             alert('既に選択されている' + name + '型紙は期限が切れていて、後継となる型紙（' + res.data.pattern_num + '）がありますのでそちらを使用します。');
                                             Vue.set(app.selected.sessions.ordersheet, target_dno, res.data.pattern_num);
                                             resolve(res.data);
@@ -2301,9 +2303,9 @@ var app = new Vue({
             if (target.end_date != null && target.end_date != '') {
                 var limitDate = new Date(target.end_date);
                 var nowDate = new Date();
-                ////console.log(target.end_date);
-                ////console.log(limitDate.getTime());
-                ////console.log(nowDate.getTime());
+                ////// console.log(target.end_date);
+                ////// console.log(limitDate.getTime());
+                ////// console.log(nowDate.getTime());
                 if (limitDate.getTime() < nowDate.getTime()) {
                     return false;
                 } else {
@@ -2332,9 +2334,9 @@ var app = new Vue({
                 }
             };
             axios.get("/sandbox/ajaxTool/getOptionSyokiti.php", query).then(res => {
-                // //console.log("オプション初期値取得。セットします");
-                // //console.log(res.data);
-                // //console.log(app.selected.sessions.ordersheet);
+                // //// console.log("オプション初期値取得。セットします");
+                // //// console.log(res.data);
+                // //// console.log(app.selected.sessions.ordersheet);
                 var defaulter = res.data;
                 var thista = this;
                 $.each(defaulter, function (key, item) {
@@ -2343,17 +2345,17 @@ var app = new Vue({
                         if (thista.selected.gender == 'women') {
                             targetGenderNum = 5;
                         }
-                        // //console.log('型紙の裏仕様');
-                        // //console.log(thista.selected.katagami);
+                        // //// console.log('型紙の裏仕様');
+                        // //// console.log(thista.selected.katagami);
                         if (Object.keys(thista.selected.katagami[targetGenderNum]).length > 0) {
-                            // //console.log('実際のチェック');
-                            // //console.log(Object.keys(thista.selected.katagami[targetGenderNum]).length);
-                            // //console.log(thista.selected.katagami[targetGenderNum]);
+                            // //// console.log('実際のチェック');
+                            // //// console.log(Object.keys(thista.selected.katagami[targetGenderNum]).length);
+                            // //// console.log(thista.selected.katagami[targetGenderNum]);
                             $.each(thista.selected.katagami[targetGenderNum], function (key, item) {
                                 if (item['urashiyo'].length > 0) {
                                     if (thista.selected.sessions.ordersheet.specification == null || thista.selected.sessions.ordersheet.specification == "") {
-                                        // //console.log('裏仕様');
-                                        // //console.log(thista.selected.sessions.ordersheet.specification);
+                                        // //// console.log('裏仕様');
+                                        // //// console.log(thista.selected.sessions.ordersheet.specification);
                                         Vue.set(thista.selected.sessions.ordersheet, 'ext_specification_normal', item['urashiyo'][0]);
                                     }
                                 } else {
@@ -2408,8 +2410,8 @@ var app = new Vue({
                         }
                     }
                 });
-                // //console.log("オプション初期値セット完了");
-                // //console.log(app.selected.sessions);
+                // //// console.log("オプション初期値セット完了");
+                // //// console.log(app.selected.sessions);
                 if (Object.keys(this.selected.katagami[1]).length > 0 || Object.keys(this.selected.katagami[5]).length > 0) {
                     var eriFlg = false;
                     if (this.selected.gender == 'men') {
@@ -2428,15 +2430,15 @@ var app = new Vue({
                     if (eriFlg == false) {
                         Vue.set(this.selected.sessions.ordersheet, 'sh_eri', null);
                     }
-                    // //console.log('衿判定は');
-                    // //console.log(eriFlg);
+                    // //// console.log('衿判定は');
+                    // //// console.log(eriFlg);
                 }
                 app.getSelectedOption();
             });
         },
         //各種変更した際の初期化
         syokika: function (level) {
-            // //console.log('初期化');
+            // //// console.log('初期化');
             var deleter = [];
             if (level == 'genderfirst') {
                 deleter.push("kitake");
@@ -2603,8 +2605,8 @@ var app = new Vue({
             var resdata = "";
             var thista = this;
             axios.post("/sandbox/ajaxTool/getSelectedOption.php", formdata).then(res => {
-                // //console.log('selectedoption');
-                // //console.log(res.data);
+                // //// console.log('selectedoption');
+                // //// console.log(res.data);
                 resdata = res.data;
                 // $.each(resdata,function(key,item){
                 //   if(Object.keys(thista.optionData.mazemaze).indexOf(item.option_id) == -1){
@@ -2612,9 +2614,9 @@ var app = new Vue({
                 //   }
                 // });
 
-                // //console.log(this.selected.sessions);
+                // //// console.log(this.selected.sessions);
                 // $.each(resdata,function(key,item){
-                //   //console.log(item.disp_name);
+                //   //// console.log(item.disp_name);
                 // })
                 //選択されていないパーツは消す
                 var shiwake = thista.optionsShiwakeOptiondake;
@@ -2712,7 +2714,7 @@ var app = new Vue({
             var katagami = {};
             $.each(this.selected.katagami, function (key, item) {
                 if (Object.keys(item).length > 0) {
-                    ////console.log("型紙検知："+key);
+                    ////// console.log("型紙検知："+key);
                     $.each(item, function (key2, item2) {
                         katagami[key] = item2.pattern_id;
                     })
@@ -2734,10 +2736,10 @@ var app = new Vue({
             };
             var thista = this;
             axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query).then(res => {
-                // ////console.log(res.data);
+                // ////// console.log(res.data);
                 thista.optionData = res.data;
-                // //console.log("暫定のオプション組み合わせ：");
-                // //console.log(thista.optionData);
+                // //// console.log("暫定のオプション組み合わせ：");
+                // //// console.log(thista.optionData);
                 thista.checkOptionCourse();
             })
         },
@@ -2747,10 +2749,10 @@ var app = new Vue({
                 gb = 1;
             }
             var katagami = {};
-            // console.log('COURSE', this.selected.course);
+            // // console.log('COURSE', this.selected.course);
             $.each(this.selected.course, function (key, item) {
                 if (Object.keys(item).length > 0) {
-                    // console.log("型紙検知："+key, item);
+                    // // console.log("型紙検知："+key, item);
                     $.each(item, function (key2, item2) {
                         if (item2) {
                             katagami[key] = item2.pattern_id;
@@ -2775,7 +2777,7 @@ var app = new Vue({
             var thista = this;
             return new Promise(function (resolve, reject) {
                 axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query).then(res => {
-                    // ////console.log(res.data);
+                    // ////// console.log(res.data);
                     thista.optionData = res.data;
                     thista.optionLoad = true;
                     resolve('ok');
@@ -2790,8 +2792,8 @@ var app = new Vue({
 
             this.getOptions(kumiawaseIds, this.selected.gender).then(res => {
                 var thista = app;
-                ////console.log("checkOptionCourse");
-                // //console.log(app.optionData);
+                ////// console.log("checkOptionCourse");
+                // //// console.log(app.optionData);
                 var fabricOptionSetId = '';
                 if ('optionData' in thista) {
                     if ('fabricOptionSetId' in thista.optionData) {
@@ -2814,17 +2816,17 @@ var app = new Vue({
                 };
                 var thista = thista;
                 axios.get("/sandbox/ajaxTool/getOptionCourse.php", query).then(res => {
-                    ////console.log(res.data);
-                    // //console.log('工場は：'+thista.selectedProductData.factory);
-                    // //console.log(thista.selected.gender);
-                    // //console.log(thista.selected.gb);
-                    // //console.log(fabricOptionSetId);
-                    // //console.log(thista.selectedProductData.specification);
+                    ////// console.log(res.data);
+                    // //// console.log('工場は：'+thista.selectedProductData.factory);
+                    // //// console.log(thista.selected.gender);
+                    // //// console.log(thista.selected.gb);
+                    // //// console.log(fabricOptionSetId);
+                    // //// console.log(thista.selectedProductData.specification);
                     var data = res.data;
                     Vue.set(thista.selected.code, "optionCourse", data);
                     Vue.set(thista.selected.sessions.ordersheet, 'course_no', data);
-                    // //console.log('オプションコース特定：'+thista.selected.sessions.ordersheet.course_no);
-                    // //console.log("オプションコース特定した selected.code.optionCourse："+thista.selected.code.optionCourse);
+                    // //// console.log('オプションコース特定：'+thista.selected.sessions.ordersheet.course_no);
+                    // //// console.log("オプションコース特定した selected.code.optionCourse："+thista.selected.code.optionCourse);
                     if (thista.selected.sessions.ordersheet.course_no != 'none' && thista.selected.sessions.ordersheet.course_no != '' && thista.selected.sessions.ordersheet.course_no != null) {
                         thista.getOptionCourseDetail(thista.selected.sessions.ordersheet.course_no);
                     }
@@ -2846,16 +2848,16 @@ var app = new Vue({
             };
             axios.get("/sandbox/ajaxTool/getOptionCourseDetail.php", query).then(res => {
                 var data = res.data;
-                // //console.log('オプションコース詳細');
-                // //console.log(id);
-                // //console.log(data);
+                // //// console.log('オプションコース詳細');
+                // //// console.log(id);
+                // //// console.log(data);
                 app.selected.optionCourseDetails = data;
             });
         },
         //サイズのセット
         setSizer: function (targetJunle, thista, targetParts, maisu) {
             //ジャケット
-            // //console.log(targetParts+':desuyo');
+            // //// console.log(targetParts+':desuyo');
             $.each(this.masters.compen, function (key, item) {
                 var itemInterfaceArray = [];
                 if (item.interface.indexOf("__") >= 0) {
@@ -2903,9 +2905,9 @@ var app = new Vue({
                             }
                         })
                     } else {
-                        ////console.log("枚数"+(maisu-1));
-                        ////console.log(itemInterfaceArray);
-                        ////console.log(thista.sessions.ordersheet);
+                        ////// console.log("枚数"+(maisu-1));
+                        ////// console.log(itemInterfaceArray);
+                        ////// console.log(thista.sessions.ordersheet);
                         if (item.junle == targetJunle && parseInt(item.sex) == parseInt(thista.getSex)) {
                             Vue.set(thista.size.adj, itemInterfaceArray[maisu - 1], {
                                 name: item.name,
@@ -2919,17 +2921,17 @@ var app = new Vue({
                     }
                 }
             })
-            // //console.log(this.size.adj);
+            // //// console.log(this.size.adj);
         },
         //03で親スタイル選択時
         partsClicker03: function (target) {
             this.selected.styleTarget = target;
             if (this.katagamiNaiUser == false) {
                 Vue.set(this.selected, "targetCourseData", {});
-                ////console.log("ここまでOK");
+                ////// console.log("ここまでOK");
                 Vue.set(this.selected, "targetCourseData", this.masters.style[target]);
-                ////console.log("選択されたパーツ↓");
-                ////console.log(this.selected.targetCourseData);
+                ////// console.log("選択されたパーツ↓");
+                ////// console.log(this.selected.targetCourseData);
             } else {
                 Vue.set(this.selected.course, this.c3Category + this.sub, {});
                 Vue.set(this.selected.course[this.c3Category + this.sub], this.selected.styleTarget, this.masters.style[this.selected.styleTarget]);
@@ -2939,19 +2941,19 @@ var app = new Vue({
         partsChangers: function (target) {
             Vue.set(this.selected, "parts", {});
             Vue.set(this.selected.parts, target, this.selectparts[this.selected.gender][target]);
-            ////console.log("スタイルが変更された");
-            ////console.log("スタイルNO"+this.selectparts[this.selected.gender][target].styleNo);
+            ////// console.log("スタイルが変更された");
+            ////// console.log("スタイルNO"+this.selectparts[this.selected.gender][target].styleNo);
             Vue.set(this.selected, "quantity", this.targetNagasa(this.selectparts[this.selected.gender][target].styleNo));
-            ////console.log(this.selected);
+            ////// console.log(this.selected);
             Vue.set(this.selected.code, "course", this.selectparts[this.selected.gender][target]["code"]);
             Vue.set(this.selected.sessions.ordersheet, "course_combi", this.selectparts[this.selected.gender][target]["masterNo"]);
             if (this.selected.sessions.ordersheet.sex == 2) {
                 Vue.set(this.selected.sessions.ordersheet, "suit_combi", this.selectparts[this.selected.gender][target]["masterValue"]);
             }
-            ////console.log("jan特定用 course 変更");
-            ////console.log(this.selected.code);
-            ////console.log('選択された買う組み合わせコース↓');
-            ////console.log(this.selected.parts);
+            ////// console.log("jan特定用 course 変更");
+            ////// console.log(this.selected.code);
+            ////// console.log('選択された買う組み合わせコース↓');
+            ////// console.log(this.selected.parts);
             if (this.selectparts[this.selected.gender][target].styleNo == 4 || this.selectparts[this.selected.gender][target].styleNo == 5 || this.selectparts[this.selected.gender][target].styleNo == 6 || this.selectparts[this.selected.gender][target].styleNo == 1) {
                 this.c3Category = 1;
             } else if (this.selectparts[this.selected.gender][target].styleNo == 3) {
@@ -2959,6 +2961,8 @@ var app = new Vue({
             } else if (this.selectparts[this.selected.gender][target].styleNo == 2) {
                 this.c3Category = 2;
             }
+
+            console.log('SELECTED:::::', JSON.parse(JSON.stringify(this.selected)));
         },
         defaultSelectedRe: function () {
             var data = {
@@ -3041,11 +3045,11 @@ var app = new Vue({
                 var data = res.data;
 
                 Vue.set(thista.selected, "sessions", data);
-                ////console.log("セッションリローディングOK");
-                ////console.log(thista.selected);
+                ////// console.log("セッションリローディングOK");
+                ////// console.log(thista.selected);
             });
-            ////console.log("セーブされているセッション↓");
-            ////console.log(this.saveData);
+            ////// console.log("セーブされているセッション↓");
+            ////// console.log(this.saveData);
             Vue.set(this, "step", 1);
         },
         sizeTouroku: function (v, targetParts, dno) {
@@ -3057,8 +3061,8 @@ var app = new Vue({
                 numList[0] = 1;
                 numList[1] = this.size.ladysNums[v];
             }
-            ////console.log("numList[1]:"+numList[1]);
-            ////console.log(v);
+            ////// console.log("numList[1]:"+numList[1]);
+            ////// console.log(v);
             if (this.selected.sessions.ordersheet[dno] != '' && this.selected.sessions.ordersheet[dno] != null) {
                 const query = {
                     headers: {
@@ -3072,16 +3076,16 @@ var app = new Vue({
                 };
                 var thista = this;
                 axios.get("/sandbox/ajaxTool/getKihonSize.php", query).then(res => {
-                    // ////console.log(res.data);
+                    // ////// console.log(res.data);
                     Vue.set(this.selected.size, targetParts, res.data);
-                    ////console.log("対象基本データ("+targetParts+")を取得しselectedに格納");
-                    ////console.log(this.selected.size[targetParts]);
-                    ////console.log(this.selected.size);
-                    ////console.log("↑↑↑↑↑↑");
-                    ////console.log("↑↑↑↑↑↑");
-                    ////console.log("↑↑↑↑↑↑");
-                    ////console.log("↑↑↑↑↑↑");
-                    ////console.log("↑↑↑↑↑↑");
+                    ////// console.log("対象基本データ("+targetParts+")を取得しselectedに格納");
+                    ////// console.log(this.selected.size[targetParts]);
+                    ////// console.log(this.selected.size);
+                    ////// console.log("↑↑↑↑↑↑");
+                    ////// console.log("↑↑↑↑↑↑");
+                    ////// console.log("↑↑↑↑↑↑");
+                    ////// console.log("↑↑↑↑↑↑");
+                    ////// console.log("↑↑↑↑↑↑");
                     if ("sodetake_left" in this.selected.size[targetParts]) {
                         Vue.set(this.selected.size[targetParts], "sodetake_right", this.selected.size[targetParts].sodetake_left);
                     }
@@ -3100,20 +3104,20 @@ var app = new Vue({
                     if ("wo_waist_1" in this.selected.size[targetParts]) {
                         Vue.set(this.selected.size[targetParts], "wo_waist_2", this.selected.size[targetParts].wo_waist_1);
                     }
-                    ////console.log(this.selected.size);
+                    ////// console.log(this.selected.size);
 
-                    ////console.log(res.data);
+                    ////// console.log(res.data);
                 })
-                ////console.log(v);
-                ////console.log("size base:"+this.size.baseNum);
-                ////console.log("size target:"+this.size.targetNum);
+                ////// console.log(v);
+                ////// console.log("size base:"+this.size.baseNum);
+                ////// console.log("size target:"+this.size.targetNum);
             }
         },
         getJan: function () {
             // if(this.katagamiNaiUser == false){
-            // //console.log("getJan 現在の状況↓");
-            // //console.log(this.selected.code);
-            // //console.log(this.selectedProductData);
+            // //// console.log("getJan 現在の状況↓");
+            // //// console.log(this.selected.code);
+            // //// console.log(this.selectedProductData);
             if (this.selected.code.line != "" && this.selected.code.course != "" && this.selected.code.optionSonota != "" && this.selected.code.optionCourse != "") {
 
                 const query = {
@@ -3129,7 +3133,7 @@ var app = new Vue({
                 };
                 var thista = this;
                 axios.get("/sandbox/ajaxTool/getJan.php", query).then(res => {
-                    // ////console.log(res.data);
+                    // ////// console.log(res.data);
 
                     //ここ変更した　1001 コメントアウト
                     // thista.optionData = res.data;
@@ -3139,25 +3143,39 @@ var app = new Vue({
 
                     Vue.set(this.selected.code, "result", res.data);
                     Vue.set(this.selected.sessions.ordersheet, "jan_result", res.data);
-                    // //console.log("jancode算出しました");
-                    // //console.log(this.selected.code);
+                    // //// console.log("jancode算出しました");
+                    // //// console.log(this.selected.code);
                 })
             }
             // }else{
-            ////console.log("jancode 算出無し");
+            ////// console.log("jancode 算出無し");
             // }
-            // //console.log('jan code');
-            // //console.log(this.selected.code);
+            // //// console.log('jan code');
+            // //// console.log(this.selected.code);
         },
         testSetter: function () {
             this.selected.parts[0] = this.selectparts["men"][0];
             this.selected.course[1][1] = this.masters["style"][1];
         },
+        onFabricLoad() {
+            const fabrigImg = $(".simulator__preloader").find("img");
+            const suitModal = document.querySelector(".suitmodel");
+
+            if (fabrigImg && suitModal) {
+                const target = suitModal.contentDocument;
+                const [src, width, height] = [fabrigImg.attr("src"), fabrigImg.width(), fabrigImg.height()];
+
+                console.log(src, width, height);
+
+                $(target).find("pattern").not("#buttons").find("image").attr("xlink:href", src).attr("width", width).attr("height", height);
+                $(target).find("pattern").not("#buttons").attr("width", width).attr("height", height);
+            }
+        },
         texChanger: function (firstflg = false) {
             var isIOS = /[ \(]iP/.test(navigator.userAgent);
 
             setTimeout(function () {
-                ////console.log('texchanger');
+                ////// console.log('texchanger');
                 if ($('.simulator__preloader').length > 0 && $(".suitmodel").length > 0) {
                     $('.simulator__preloader img').imagesLoaded(function () {
                         if (firstflg == true && isIOS) {
@@ -3177,7 +3195,6 @@ var app = new Vue({
 
                         }
                     });
-
                 }
 
             }, 500);
@@ -3192,7 +3209,7 @@ var app = new Vue({
                 delete res.data.narabi;
                 app.productData = res.data;
                 app.dataload = true;
-                ////console.log(res.data);
+                ////// console.log(res.data);
             });
         },
         //選択されたパーツの長さ計算
@@ -3258,8 +3275,8 @@ var app = new Vue({
     },
     mounted: function () {
         Vue.nextTick(() => {
-            ////console.log(this.token);
-            ////console.log("mounted");
+            ////// console.log(this.token);
+            ////// console.log("mounted");
             app.loading = true;
             this.defaultSelected = this.selected;
             if (getUrlVars()['renzoku'] == '1') {

@@ -62,19 +62,26 @@
 							{{ styleNames[styleId] }}<small>から選ぶ</small>
 						</h4>
 						<ul class="design-list">
-							<li
-								class="design-card"
-								v-for="(parts, partIndex) in orderList(styleId, design.categoryId, design.categoryKatagamiId, design.sub)"
-								:key="'desing-item:' + design.id + styleId + partIndex"
-							>
-								<button class="design-button" @click="partsClicker(parts, design)" :class="{'active':parts.style_id in isSelect(design)}">
-									<img :src="$parent.uploadPass + parts.images" alt="Design Image">
-									<div class="design-detail">
-										<div class="name">{{ parts.name }}</div>
-										<button class="style-button icon-end">写真で見る</button>
-									</div>
-								</button>
-							</li>
+							<template v-for="(parts, partIndex) in orderList(styleId, design.categoryId, design.categoryKatagamiId, design.sub)">
+								<li
+									class="design-card"
+									:key="'desing-item:' + design.id + styleId + partIndex"
+									v-if="!hideWishable(parts.style_id)"
+								>
+									<button class="design-button" @click.self="partsClicker(parts, design)" :class="{'active':parts.style_id in isSelect(design)}">
+										<img :src="$parent.uploadPass + parts.images" alt="Design Image">
+										<div class="design-detail">
+											<div class="name">{{ parts.name }}</div>
+											<button class="style-button icon-end"
+												v-if="parts.detail_images !== null"
+												@click.self="ivModalOpen(uploadpass + parts.detail_images,'image')"
+											>
+												写真で見る
+											</button>
+										</div>
+									</button>
+								</li>
+							</template>
 						</ul>
 					</div>
 				</template>
@@ -249,8 +256,8 @@ module.exports = {
 		},
 		sub: function (v, ov) {
 			Vue.set(this.$parent.selected, 'c3sub', v);
-			//console.log('c3sub 変更');
-			//console.log(this.$parent.selected.c3sub);
+			//// console.log('c3sub 変更');
+			//// console.log(this.$parent.selected.c3sub);
 		},
 		disp: function (v, ov) {
 			Vue.set(this.$parent.selected, 'step3disp', v);
@@ -340,8 +347,8 @@ module.exports = {
 			} else {
 				courses[0] = course;
 			}
-			console.log("courseNos:::", courses);
-			//console.log(courses);
+			// console.log("courseNos:::", courses);
+			//// console.log(courses);
 			return courses;
 		},
 		gender: function () {
@@ -355,7 +362,7 @@ module.exports = {
 		},
 		selectedSelectKatagami: function () {
 			var target = this.$parent.c3Category + this.sub;
-			//console.log("selectedSelectKatagami:"+this.$parent.selected.sessions.ordersheet[this.session_himoduke[target]]);
+			//// console.log("selectedSelectKatagami:"+this.$parent.selected.sessions.ordersheet[this.session_himoduke[target]]);
 			return this.$parent.selected.sessions.ordersheet[this.session_himoduke[target]];
 
 		},
@@ -364,40 +371,43 @@ module.exports = {
 		},
 		selectedParts: function () {
 			var no = "";
-			//console.log("selectedParts");
+			//// console.log("selectedParts");
 			$.each(this.$parent.selected.parts, function (key, item) {
-				//console.log("対象のstyleNo:"+item.masterNo);
+				//// console.log("対象のstyleNo:"+item.masterNo);
 				no = item.masterNo;
 			});
 			return no;
 		},
 		selectedCourseInPatterns: function () {
 			var katagami = "";
-			// //console.log(this.$parent.selected.targetCourseData);
-			// //console.log("test");
+			// //// console.log(this.$parent.selected.targetCourseData);
+			// //// console.log("test");
 			// $.each(this.targetCourseData,function(key,item){
-			// //console.log(item);
-			// //console.log("↑");
+			// //// console.log(item);
+			// //// console.log("↑");
 			// if("katagami_pattern" in item){
 			if ("katagami_pattern" in this.$parent.selected.targetCourseData) {
 				katagami = this.ordedkatagamiReverse;
 			}
 			// }
 			// });
-			// console.log("型紙");
-			//console.log(this.$parent.selected.targetCourseData);
-			// console.log(katagami);
+			// // console.log("型紙");
+			//// console.log(this.$parent.selected.targetCourseData);
+			// // console.log(katagami);
 			return katagami;
 		}
 	},
 	methods: {
+		hideWishable(id) {
+			return this.$parent.selected.sessions.ordersheet.washable == '1' && ['6', '43'].includes(id);
+		},
 		orderList(style, cateogry, categoryKatagami, sub) {
 			const c3Style = String(style);
 			// const c3Cateogry = String(cateogry)
 			const c3CategoryKatagami = String(categoryKatagami);
 			const list = Object.values(this.$parent.masters.style).filter((parts) => {
 
-				// console.log('parts', JSON.parse(JSON.stringify(parts)));
+				// // console.log('parts', JSON.parse(JSON.stringify(parts)));
 
 				return (
 					parts.style.includes(c3Style)
@@ -415,8 +425,9 @@ module.exports = {
 					)
 				);
 			});
-			// console.log('targetCourseData', JSON.parse(JSON.stringify(this.$parent.selected.targetCourseData)));
-			// console.log('DESIGN_LIST', JSON.parse(JSON.stringify(_.orderBy(list, 'rank', 'desc'))));
+			// // console.log('targetCourseData', JSON.parse(JSON.stringify(this.$parent.selected.targetCourseData)));
+			console.log('firstCheckers', JSON.parse(JSON.stringify(this.$parent.firstCheckers)));
+			console.log('DESIGN_LIST', JSON.parse(JSON.stringify(_.orderBy(list, 'rank', 'desc'))));
 			return _.orderBy(list, 'rank', 'desc');
 		},
 		patternList(style, styleId, category) {
@@ -455,7 +466,7 @@ module.exports = {
 				);
 			});
 
-			// console.log('STYLE_LIST', JSON.parse(JSON.stringify(_.orderBy(list, 'rank', 'desc'))));
+			// // console.log('STYLE_LIST', JSON.parse(JSON.stringify(_.orderBy(list, 'rank', 'desc'))));
 			return _.orderBy(list, 'rank', 'desc');
 		},
 		firstkatagamiGBChecker: function () {
@@ -486,8 +497,8 @@ module.exports = {
 						})
 					}
 				});
-				// console.log('GBかどうかのリスト');
-				// console.log(gbs);
+				// // console.log('GBかどうかのリスト');
+				// // console.log(gbs);
 				var finalFlg = false;
 				$.each(gbs, function (key, item) {
 					if (item == "1") {
@@ -531,8 +542,8 @@ module.exports = {
 						})
 					}
 				});
-				// console.log('GBかどうかのリスト');
-				// console.log(gbs);
+				// // console.log('GBかどうかのリスト');
+				// // console.log(gbs);
 				var gbser = '';
 				var finalFlg = true;
 				$.each(gbs, function (key, item) {
@@ -550,7 +561,7 @@ module.exports = {
 			}
 		},
 		newChecker: function (parts) {
-			// console.log(parts);
+			// // console.log(parts);
 			if (this.$parent.sinki == true) {
 				if (parts.new_flg == 1) {
 					return true;
@@ -606,8 +617,8 @@ module.exports = {
 					})
 				}
 			})
-			//console.log('カテゴリ内全スタイル');
-			//console.log(targetKatagamis);
+			//// console.log('カテゴリ内全スタイル');
+			//// console.log(targetKatagamis);
 			return targetKatagamis
 		},
 		categoryZen2(categoryKatagami) {
@@ -627,8 +638,8 @@ module.exports = {
 					})
 				}
 			})
-			//console.log('カテゴリ内全スタイル');
-			//console.log(targetKatagamis);
+			//// console.log('カテゴリ内全スタイル');
+			//// console.log(targetKatagamis);
 			return targetKatagamis
 		},
 
@@ -688,16 +699,16 @@ module.exports = {
 			Vue.set(this, 'sorterstext', '');
 		},
 		partsClicker: function (parts, design) {
-			console.log('SELECTED_COURCES_BEFORE::', JSON.parse(JSON.stringify(this.$parent.selected.course)));
+			// console.log('SELECTED_COURCES_BEFORE::', JSON.parse(JSON.stringify(this.$parent.selected.course)));
 			this.c3CateChanger(design.categoryId, design.sub, design.categoryKatagamiId);
 
 			const target = parts.style_id;
 
-			console.log(this.$parent.c3Category, this.sub);
-			console.log('TARGET::', target, target in this.$parent.selected.targetCourseData);
+			// console.log(this.$parent.c3Category, this.sub);
+			// console.log('TARGET::', target, target in this.$parent.selected.targetCourseData);
 
 			if (!(target in this.$parent.selected.targetCourseData)) {
-				console.log('INSIDE');
+				// console.log('INSIDE');
 				this.$parent.partsClicker03(target);
 				if (this.$parent.katagamiNaiUser) {
 					//遊びだけできるユーザーの挙動
@@ -706,7 +717,7 @@ module.exports = {
 				}
 			}
 
-			console.log('SELECTED_COURCES_AFTER::', JSON.parse(JSON.stringify(this.$parent.selected.course)));
+			console.log('SELECTED_AFTER::', JSON.parse(JSON.stringify(this.$parent.selected)));
 		},
 		katagamiPreClicker: function (selectedCourse, design, target) {
 			const type = 'normal';
@@ -733,8 +744,8 @@ module.exports = {
 
 			var zenKatagami = this.categoryZen2(categoryKatagami);
 			targetDom = $(event.target);
-			// console.log(this.$parent.c3Category);
-			// console.log(this.$parent.c3Style);
+			// // console.log(this.$parent.c3Category);
+			// // console.log(this.$parent.c3Style);
 
 			Vue.set(this.$parent.selected.course, c3Category + sub, {});
 			// Vue.set(this.$parent.selected.course[this.$parent.c3Category+this.sub],this.$parent.selected.styleTarget,this.$parent.masters.style[this.$parent.selected.styleTarget]);
@@ -744,8 +755,8 @@ module.exports = {
 			} else {
 				Vue.set(this.$parent.selected.course[c3Category + sub], this.$parent.selected.styleTarget, selectedCourse);
 			}
-			//console.log("this.$parent.selected.course");
-			//console.log(this.$parent.selected.course);
+			//// console.log("this.$parent.selected.course");
+			//// console.log(this.$parent.selected.course);
 			// Vue.set(this.$parent.selected,'katagami',{});
 			Vue.set(this.$parent.selected.katagami, c3Category + sub, {});
 			if (type == 'zen') {
@@ -754,10 +765,10 @@ module.exports = {
 				Vue.set(this.$parent.selected.katagami[c3Category + sub], target, selectedCourse);
 			}
 			//オプション選択内容をリセット
-			// console.log('あなたが選択した型紙↓');
-			// console.log(this.$parent.selected.course[this.$parent.c3Category+this.sub][this.$parent.selected.styleTarget]);
+			// // console.log('あなたが選択した型紙↓');
+			// // console.log(this.$parent.selected.course[this.$parent.c3Category+this.sub][this.$parent.selected.styleTarget]);
 			if ((this.$parent.selected.sessions.ordersheet.air_fit != '' && this.$parent.selected.sessions.ordersheet.air_fit != null && this.$parent.selected.sessions.ordersheet.air_fit != "0") && (c3Category == "1" || c3Category == "5") && !(43 in this.$parent.selected.course[c3Category + sub][this.$parent.selected.styleTarget].option_id)) {
-				// console.log('エアーフィットがついとるのに型紙は対応してない');
+				// // console.log('エアーフィットがついとるのに型紙は対応してない');
 				alert('エアーフィットに対応していない型紙なので、エアーフィットを解除します。');
 				Vue.set(this.$parent.selected.sessions.ordersheet, 'air_fit', null);
 			}
@@ -783,18 +794,18 @@ module.exports = {
 			} else if (c3Category == "7" && sub == "skirt2") {
 				Vue.set(this.$parent.selected.sessions.ordersheet, "wo_sk_d2", pattern_nums);
 			}
-			//console.log("現在のselected session↓");
-			//console.log(this.$parent.selected.sessions.ordersheet);
-			//console.log("現在のselected katagami");
-			//console.log(this.$parent.selected.katagami);
+			//// console.log("現在のselected session↓");
+			//// console.log(this.$parent.selected.sessions.ordersheet);
+			//// console.log("現在のselected katagami");
+			//// console.log(this.$parent.selected.katagami);
 			Vue.set(this.$parent, "selectedKatagamiId", pattern_ids);
 			var thista = this;
 			Vue.nextTick(function () {
 				if (c3Category != 2) {
-					// console.log("TYPE::::::", type);
-					// console.log(thista.selectedCourseInPatterns);
-					// console.log(thista.categoryZen());
-					// console.log(target);
+					// // console.log("TYPE::::::", type);
+					// // console.log(thista.selectedCourseInPatterns);
+					// // console.log(thista.categoryZen());
+					// // console.log(target);
 					// var zenKatagami = thista.categoryZen();
 					// // if(thista.selectedCourse.gb == "1"){
 					// var targetKatagamiList = selectedCourseInPatterns;
@@ -831,9 +842,9 @@ module.exports = {
 			// }
 
 			if (c3Category == 1 || c3Category == 5) {
-				// console.log('裏仕様チェック');
+				// // console.log('裏仕様チェック');
 				if (type == 'zen') {
-					// console.log(zenKatagami[target]['urashiyo']);
+					// // console.log(zenKatagami[target]['urashiyo']);
 					if (zenKatagami[target]['urashiyo'].length > 0) {
 						if (zenKatagami[target]['urashiyo'].indexOf(this.$parent.selected.sessions.ordersheet.ext_specification_normal)) {
 
@@ -841,11 +852,11 @@ module.exports = {
 							Vue.set(this.$parent.selected.sessions.ordersheet, 'ext_specification_normal', zenKatagami[target]['urashiyo'][0]);
 						}
 					} else {
-						// console.log('ひとつもチェックされていない');
+						// // console.log('ひとつもチェックされていない');
 						Vue.set(this.$parent.selected.sessions.ordersheet, 'ext_specification_normal', null);
 					}
 				} else {
-					// console.log(this.selectedCourse['urashiyo']);
+					// // console.log(this.selectedCourse['urashiyo']);
 					if (selectedCourse['urashiyo'].length > 0) {
 						if (selectedCourse['urashiyo'].indexOf(this.$parent.selected.sessions.ordersheet.ext_specification_normal)) {
 
@@ -853,19 +864,19 @@ module.exports = {
 							Vue.set(this.$parent.selected.sessions.ordersheet, 'ext_specification_normal', selectedCourse['urashiyo'][0]);
 						}
 					} else {
-						// console.log('ひとつもチェックされていない');
+						// // console.log('ひとつもチェックされていない');
 						Vue.set(this.$parent.selected.sessions.ordersheet, 'ext_specification_normal', null);
 					}
 				}
-				// console.log(this.$parent.selected.sessions.ordersheet);
+				// // console.log(this.$parent.selected.sessions.ordersheet);
 			}
 			Vue.set(this.$parent, "sizeSelectModalFlg", true);
 			// this.$parent.selected.parts[target] = this.$parent.selectparts[this.gender][target];
 
 			if (this.$parent.firstCheckers.ResetedFlg == false || this.$parent.tantouFlg == true) {
 				this.$parent.isKataFacChecker();
-				// console.log('firstCheckersの型紙ファクトリをセットし直す');
-				// console.log(this.$parent.firstCheckers);
+				// // console.log('firstCheckersの型紙ファクトリをセットし直す');
+				// // console.log(this.$parent.firstCheckers);
 			}
 
 			//パワストチェック
@@ -880,7 +891,7 @@ module.exports = {
 						}
 					})
 				})
-				// console.log(powerTaiouFlg);
+				// // console.log(powerTaiouFlg);
 				var parts = this.$parent.selected.parts;
 				var styleNo = '';
 				var thista = this;
@@ -890,14 +901,14 @@ module.exports = {
 				if (styleNo == 4 || styleNo == 5 || styleNo == 6 || styleNo == 1 || styleNo == 10 || styleNo == 11 || styleNo == 15 || styleNo == 17 || styleNo == 16 || styleNo == 7) {
 					if ((thista.$parent.selected.gender == 'men' && 1 in powerTaiouFlg) || (thista.$parent.selected.gender == 'women' && 5 in powerTaiouFlg)) {
 						if ((thista.$parent.selected.gender == 'men' && powerTaiouFlg[1] == true) || (thista.$parent.selected.gender == 'women' && powerTaiouFlg[5] == true)) {
-							// console.log('パワストOK');
+							// // console.log('パワストOK');
 						} else {
-							// console.log('パワストだめ1');
+							// // console.log('パワストだめ1');
 							alert('パワーストレッチに対応していないため、パワーストレッチを解除します。');
 							Vue.set(this.$parent.selected.sessions.ordersheet, "ext_specification", null);
 						}
 					} else {
-						// console.log('パワストだめ2');
+						// // console.log('パワストだめ2');
 						alert('パワーストレッチに対応していないため、パワーストレッチを解除します。');
 						Vue.set(this.$parent.selected.sessions.ordersheet, "ext_specification", null);
 					}
@@ -905,21 +916,21 @@ module.exports = {
 				else if (styleNo == 3) {
 					if (3 in powerTaiouFlg) {
 						if (powerTaiouFlg[3] == true) {
-							// console.log('パワストOK');
+							// // console.log('パワストOK');
 						} else {
-							// console.log('パワストだめ3');
+							// // console.log('パワストだめ3');
 							alert('パワーストレッチに対応していないため、パワーストレッチを解除します。');
 							Vue.set(this.$parent.selected.sessions.ordersheet, "ext_specification", null);
 						}
 					} else {
-						// console.log('パワストだめ4');
+						// // console.log('パワストだめ4');
 						alert('パワーストレッチに対応していないため、パワーストレッチを解除します。');
 						Vue.set(this.$parent.selected.sessions.ordersheet, "ext_specification", null);
 					}
 				}
 			}
 
-			// console.log('SELECTED_DESIGN', JSON.parse(JSON.stringify(this.$parent.selected)));
+			// // console.log('SELECTED_DESIGN', JSON.parse(JSON.stringify(this.$parent.selected)));
 		},
 		ivModalOpen: function (target, type) {
 			Vue.set(this.$parent, "imageAndVideoModalFlg", true);
@@ -944,26 +955,26 @@ module.exports = {
 				Vue.set(this, 'sub', sub);
 				Vue.set(this.$parent, 'sub', sub);
 				// this.$parent.sub = sub;
-				//console.log("２枚目のものを選択");
-				//console.log(this.sub);
+				//// console.log("２枚目のものを選択");
+				//// console.log(this.sub);
 			} else {
 				Vue.set(this, 'sub', "");
 				Vue.set(this.$parent.selected, 'c3sub', "");
 				Vue.set(this.$parent, 'sub', "");
 				// this.$parent.sub = "";
-				//console.log("1枚目のものを選択");
-				//console.log(this.sub);
+				//// console.log("1枚目のものを選択");
+				//// console.log(this.sub);
 			}
 			this.disp = 1;
 			Vue.set(this.$parent, "c3Category", target);
 			Vue.set(this.$parent, "c3CategoryKatagami", katagaminoNo);
 
-			// console.log("c3Category", this.$parent.c3Category);
-			// console.log("c3CategoryKatagami", this.$parent.c3CategoryKatagami);
-			// console.log("c3Style", this.$parent.c3Style);
+			// // console.log("c3Category", this.$parent.c3Category);
+			// // console.log("c3CategoryKatagami", this.$parent.c3CategoryKatagami);
+			// // console.log("c3Style", this.$parent.c3Style);
 
-			// console.log("targetCourseData", this.$parent.selected.targetCourseData);
-			// console.log(this.$parent.masters);
+			// // console.log("targetCourseData", this.$parent.selected.targetCourseData);
+			// // console.log(this.$parent.masters);
 
 			switch (target) {
 				case 1:
@@ -993,13 +1004,13 @@ module.exports = {
 			// if(this.$parent.c3Category == 2){
 			// 	this.partsClicker(2,"");
 			// }
-			//console.log("コースで表示する箇所が変更されました:"+this.$parent.c3Category);
-			//console.log("コースで表示するスタイルが変更されました:"+this.$parent.c3Style);
+			//// console.log("コースで表示する箇所が変更されました:"+this.$parent.c3Category);
+			//// console.log("コースで表示するスタイルが変更されました:"+this.$parent.c3Style);
 		}
 	},
 	mounted: function () {
 		this.firstkatagamiGBChecker();
-		console.log('SELECTED::DESIGN', JSON.parse(JSON.stringify(this.$parent.selected)));
+		// console.log('SELECTED::DESIGN', JSON.parse(JSON.stringify(this.$parent.selected)));
 		// Vue.nextTick(function(){
 		// 	$('.selector_design__category').find('ul').eq(0).find('li').eq(0).click();
 		// });

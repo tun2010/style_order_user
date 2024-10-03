@@ -208,9 +208,9 @@ module.exports = {
 			$.each(this.$parent.selected.parts,function(key,item){
 				result = item;
 			})
-			//console.log('parts');
-			//console.log(result.designParts);
-			// console.log('DESIGN_PARTS', JSON.parse(JSON.stringify(result.designParts)));
+			//// console.log('parts');
+			//// console.log(result.designParts);
+			// // console.log('DESIGN_PARTS', JSON.parse(JSON.stringify(result.designParts)));
 			return result.designParts;
 		},
 		gender:function(){
@@ -221,8 +221,8 @@ module.exports = {
 			}
 		},
 		sizeAdjs:function(){
-			// console.log('SIZE_ADJS', JSON.parse(JSON.stringify(this.$parent.size.adj)));
-			// console.log('SELECTED_SIZES', JSON.parse(JSON.stringify(this.$parent.selected.size)));
+			// // console.log('SIZE_ADJS', JSON.parse(JSON.stringify(this.$parent.size.adj)));
+			// // console.log('SELECTED_SIZES', JSON.parse(JSON.stringify(this.$parent.selected.size)));
 			return this.$parent.size.adj;
 		},
 		//men 1 women 2 gb 3
@@ -282,13 +282,13 @@ module.exports = {
 		// 		});
 		// });
 		// }
-		//console.log(this.getSex);
-		//console.log("調整可能なサイズ部分取得");
+		//// console.log(this.getSex);
+		//// console.log("調整可能なサイズ部分取得");
         // Vue.nextTick(function () {
         //     thista.sliderInits();
         // });
 
-		// console.log('SELECTED::SIZE', JSON.parse(JSON.stringify(this.$parent.selected)));
+		// // console.log('SELECTED::SIZE', JSON.parse(JSON.stringify(this.$parent.selected)));
     },
     methods: {
 		openSelect(event) {
@@ -344,7 +344,7 @@ module.exports = {
 
 		},
 		getListFromSize(size, value) {
-			// console.log('SIZE', JSON.parse(JSON.stringify(size)), value);
+			// // console.log('SIZE', JSON.parse(JSON.stringify(size)), value);
 			const list = [];
 			const min = Number(size.min);
 			const max = Number(size.max);
@@ -364,7 +364,7 @@ module.exports = {
 				});
 			}
 
-			// console.log(list, value);
+			// // console.log(list, value);
 
 			return list
 		},
@@ -377,12 +377,12 @@ module.exports = {
 			}
 		},
 		sliderMinus:function(target,thista){
-			// console.log(parseFloat(this.$parent.size.adj[target].value));
-			// console.log(parseFloat(this.$parent.size.adj[target].step));
-			// console.log(this.$parent.size.adj[target].min);
-			// console.log((parseFloat(this.$parent.size.adj[target].value) - parseFloat(this.$parent.size.adj[target].step)).toFixed(1));
+			// // console.log(parseFloat(this.$parent.size.adj[target].value));
+			// // console.log(parseFloat(this.$parent.size.adj[target].step));
+			// // console.log(this.$parent.size.adj[target].min);
+			// // console.log((parseFloat(this.$parent.size.adj[target].value) - parseFloat(this.$parent.size.adj[target].step)).toFixed(1));
 			if(parseFloat(this.$parent.size.adj[target].value) > parseFloat(this.$parent.size.adj[target].min)){
-				// console.log('ここは通過');
+				// // console.log('ここは通過');
 			this.$parent.size.adj[target].value = (parseFloat(this.$parent.size.adj[target].value) - parseFloat(this.$parent.size.adj[target].step)).toFixed(1);
 			this.$parent.sessions.ordersheet[target] = this.$parent.size.adj[target].value;
 			$(thista.target).closest(".simulator__size__item__slider__wrap").find(".simulator__size__item__slider").slider("value",this.$parent.size.adj[target].value);

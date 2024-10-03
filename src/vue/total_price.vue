@@ -18,11 +18,17 @@
 				<span class="price">{{ totalPrice | pricer }}</span>
 				円（税込）
 			</div>
-			<div class="extra-price">
-				スーツ上下の価格
+			<div class="extra-price" v-if='"optionset_name" in optionCourseDetails && $parent.step >= 4 && isOptionPrice' v-on:click='optionsetModalOpen'>
+				<span>{{optionCourseDetails.optionset_name}}</span>
+				<span>￥{{addTax($parent.selected.optionCoursePrice)}}</span>
+				<small>円（税込）</small>
 			</div>
 		</div>
 		<div class="action-container">
+			<div class="prodcts-explain">
+				<div class="explain wishable" v-if="$parent.step == 1">ウォッシャブル</div>
+				<div class="explain pleats" v-if="$parent.step == 1">プリーツ</div>
+			</div>
 			<button class="style-button icon-end" @click="optionsetModalOpen">注文内容を確認</button>
 		</div>
 	</div>
@@ -38,11 +44,20 @@ module.exports = {
 		},
 		optionCourseDetails:function(){
 			return this.$parent.selected.optionCourseDetails;
+		},
+		isOptionPrice() {
+			return !!parseFloat(this.$parent.selected.optionCoursePrice);
 		}
 	},
 	methods:{
+		addTax(data, rate = 10) {
+			const amount = parseFloat(data);
+			const taxRate = rate * 0.01;
+			const totalAmount = amount + (amount * taxRate);
+			return totalAmount;
+		},
 		optionsetModalOpen:function(){
-			Vue.set(this.$parent,'optionsetModalFlg',true);
+			Vue.set(this.$parent,'optionModalFlg',true);
 		}
 	}
 };

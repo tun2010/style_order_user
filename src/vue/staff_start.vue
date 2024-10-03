@@ -1,4 +1,4 @@
-<template lang="pug">
+<!-- <template lang="pug">
 div.simulator__start_container
 	div.simulator_order__media
 		figure
@@ -183,124 +183,249 @@ div.simulator__start_container
 					div.data_value.data_value__center(v-if='item.input_type == "2"') {{item.selectedOption}}
 					div.data_value.data_value__center(v-else) {{item.selectedOptionDetail.option_field}}
 
+</template> -->
+
+<template>
+	<div class="confirm-container">
+		<div class="confirm-scroll vertical-scroll">
+
+			<div class="sticky-title">
+				<h3>過去選択仕様確認</h3>
+			</div>
+
+			<div class="option-confirm-group">
+				<h4>サイズ</h4>
+
+				<div class="table-group-container">
+					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.jacket_dno">
+						<div class="table-row table-row--header">
+							<div class="header header--title">
+								ジャケット
+								<strong>{{$parent.selected.sessions.ordersheet.jacket_size}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+							</div>
+							<div class="header">基準値</div>
+							<div class="header">補正値</div>
+							<div class="header">上がり値</div>
+						</div>
+						<template v-for="(item,key) in sizeAdjs">
+							<div class="table-row" v-if="item.junle == 'jacket'" :key="key">
+								<div class="value value--title">{{item.name}}</div>
+								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+							</div>
+						</template>
+					</div>
+
+					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.best_dno">
+						<div class="table-row table-row--header">
+							<div class="header header--title">
+								ベスト
+								<strong>{{$parent.selected.sessions.ordersheet.best_size}}</strong>
+							</div>
+							<div class="header">基準値</div>
+							<div class="header">補正値</div>
+							<div class="header">上がり値</div>
+						</div>
+						<template v-for="(item,key) in sizeAdjs">
+							<div class="table-row" v-if="item.junle == 'vest'" :key="key">
+								<div class="value value--title">{{item.name}}</div>
+								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+							</div>
+						</template>
+					</div>
+
+					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.slacks_dno1">
+						<div class="table-row table-row--header">
+							<div class="header header--title">
+								スラックス
+								<strong>{{$parent.selected.sessions.ordersheet.slacks_size1}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+							</div>
+							<div class="header">基準値</div>
+							<div class="header">補正値</div>
+							<div class="header">上がり値</div>
+						</div>
+						<template v-for="(item,key) in sizeAdjs">
+							<div class="table-row" v-if="item.junle == 'pants'" :key="key">
+								<div class="value value--title">{{item.name}}</div>
+								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+							</div>
+						</template>
+						<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_main1 != '' && $parent.selected.sessions.ordersheet.crotch_main1 != null">
+							<div class="value value--title">股下(左)</div>
+							<div class="value" data-title="基準値">-</div>
+							<div class="value" data-title="補正値">-</div>
+							<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_main1}}cm</div>
+						</div>
+						<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_right1 != '' && $parent.selected.sessions.ordersheet.crotch_right1 != null">
+							<div class="value value--title">股下(右)</div>
+							<div class="value" data-title="基準値">-</div>
+							<div class="value" data-title="補正値">-</div>
+							<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_right1}}cm</div>
+						</div>
+					</div>
+
+					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.slacks_dno2">
+						<div class="table-row table-row--header">
+							<div class="header header--title">
+								スラックス(２本目)
+								<strong>{{$parent.selected.sessions.ordersheet.slacks_size2}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+							</div>
+							<div class="header">基準値</div>
+							<div class="header">補正値</div>
+							<div class="header">上がり値</div>
+						</div>
+						<template v-for="(item,key) in sizeAdjs">
+							<div class="table-row" v-if="item.junle == 'pants2'" :key="key">
+								<div class="value value--title">{{item.name}}</div>
+								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+							</div>
+						</template>
+						<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_main2 != '' && $parent.selected.sessions.ordersheet.crotch_main2 != null">
+							<div class="value value--title">股下(左)</div>
+							<div class="value" data-title="基準値">-</div>
+							<div class="value" data-title="補正値">-</div>
+							<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_main2}}cm</div>
+						</div>
+						<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_right2 != '' && $parent.selected.sessions.ordersheet.crotch_right2 != null">
+							<div class="value value--title">股下(右)</div>
+							<div class="value" data-title="基準値">-</div>
+							<div class="value" data-title="補正値">-</div>
+							<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_right2}}cm</div>
+						</div>
+					</div>
+
+					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.wo_sk_d1">
+						<div class="table-row table-row--header">
+							<div class="header header--title">
+								スカート
+								<strong>{{$parent.selected.sessions.ordersheet.wo_sk_d1}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+							</div>
+							<div class="header">基準値</div>
+							<div class="header">補正値</div>
+							<div class="header">上がり値</div>
+						</div>
+						<template v-for="(item,key) in sizeAdjs">
+							<div class="table-row" v-if="item.junle == 'skirt'" :key="key">
+								<div class="value value--title">{{item.name}}</div>
+								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+							</div>
+						</template>
+					</div>
+
+					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.wo_sk_d2">
+						<div class="table-row table-row--header">
+							<div class="header header--title">
+								スカート(２本目)
+								<strong>{{$parent.selected.sessions.ordersheet.wo_sk_d2}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+							</div>
+							<div class="header">基準値</div>
+							<div class="header">補正値</div>
+							<div class="header">上がり値</div>
+						</div>
+						<template v-for="(item,key) in sizeAdjs">
+							<div class="table-row" v-if="item.junle == 'skirt2'" :key="key">
+								<div class="value value--title">{{item.name}}</div>
+								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+							</div>
+						</template>
+					</div>
+				</div>
+
+				<div class="action-container"></div>
+			</div>
+
+			<div class="sticky-title">
+				<h3>注文内容確認</h3>
+			</div>
+
+			<div class="option-confirm-group">
+				<h4>生地</h4>
+				<div class="label-group">
+					<div class="label-row">
+						<div class="label">生地</div>
+						<div class="value">{{$parent.firstCheckers.cloth_no}}</div>
+					</div>
+					<div class="label-row">
+						<div class="label">生地特性</div>
+						<div class="value">{{kizitokusei}}</div>
+					</div>
+				</div>
+				<div class="action-container"></div>
+			</div>
+
+			<div class="option-confirm-group">
+				<h4>コース</h4>
+				<div class="label-group">
+					<div class="label-row">
+						<div class="label">コース</div>
+						<div class="value">{{selected02}}</div>
+					</div>
+				</div>
+				<div class="action-container"></div>
+			</div>
+
+			<div class="option-confirm-group" v-if="!this.$parent.katagamiNaiUser">
+				<h4>デザイン</h4>
+				<div class="label-group">
+					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.jacket_dno">
+						<div class="label">ジャケット</div>
+						<div class="value">{{$parent.selected.sessions.ordersheet.jacket_dno}}</div>
+					</div>
+					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.slacks_dno1">
+						<div class="label">スラックス</div>
+						<div class="value">{{$parent.selected.sessions.ordersheet.slacks_dno1}}</div>
+					</div>
+					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.slacks_dno2">
+						<div class="label">スラックス(２本目)</div>
+						<div class="value">{{$parent.selected.sessions.ordersheet.slacks_dno2}}</div>
+					</div>
+					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.best_dno">
+						<div class="label">ベスト</div>
+						<div class="value">{{$parent.selected.sessions.ordersheet.best_dno}}</div>
+					</div>
+					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.wo_sk_d1">
+						<div class="label">スカート</div>
+						<div class="value">{{$parent.selected.sessions.ordersheet.wo_sk_d1}}</div>
+					</div>
+					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.wo_sk_d2">
+						<div class="label">スカート(２枚目)</div>
+						<div class="value">{{$parent.selected.sessions.ordersheet.wo_sk_d2}}</div>
+					</div>
+				</div>
+				<div class="action-container"></div>
+			</div>
+
+			<div class="sticky-title">
+				<h3>オプション内容確認</h3>
+			</div>
+
+			<template v-for="design in optionList">
+				<div class="option-confirm-group" v-if="design.options.length" :key="design.id">
+					<h4>{{ design.name }}</h4>
+					<div class="label-group">
+						<div class="label-row" v-for="item in design.options" :key="item.disp_name">
+							<div class="label">{{item.disp_name}}</div>
+							<div class="value" v-if="item.input_type == '2'">{{item.selectedOption}}</div>
+							<div class="value" v-else>{{item.selectedOptionDetail.option_field}}</div>
+						</div>
+					</div>
+					<div class="action-container"></div>
+				</div>
+			</template>
+		</div>
+	</div>
 </template>
-
-<style scoped>
-.simulator__start_container {
-	width: 100%;
-	height: calc(100% - 70px);
-	background-color: #fff;
-}
-
-.simulator_order__detail .confirm_scroll_container .option_modal__group .label_value_group:nth-child(odd) {
-	background-color: rgb(237, 240, 240);
-}
-
-.simulator_order__detail .confirm_scroll_container .option_modal__group .size_table_group .size_table_row:nth-child(even) {
-	background-color: rgb(237, 240, 240);
-}
-
-.simulator_order__media {
-	display: grid;
-	place-items: center;
-	padding: 20px;
-}
-
-.simulator_order__media figure {
-	width: 100%;
-	max-width: 400px;
-	aspect-ratio: 1 / 1;
-}
-
-.simulator_order__media img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-@media (min-width: 992px) {
-	.simulator__start_container {
-		display: flex;
-	}
-
-	.simulator_order__media {
-		max-width: 400px;
-		flex: .7;
-	}
-
-	.simulator_order__detail {
-		flex: 1;
-	}
-
-	.simulator_order__detail {
-		background-color: #e2e6e6;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
-		overflow-scrolling: touch;
-	}
-	.simulator_order__detail::-webkit-scrollbar {
-		width: 24px;
-	}
-
-	.simulator_order__detail::-webkit-scrollbar-track {
-		background: #fff;
-		padding: 4px;
-	}
-
-	.simulator_order__detail::-webkit-scrollbar-thumb {
-		background: #999;
-		border-radius: 24px;
-		border: 4px solid #fff;
-	}
-
-	.confirm_scroll_container {
-		padding-inline: 20px;
-	}
-
-	.simulator_order__detail .confirm_scroll_container .option_modal__group .size_table_group .size_table_row {
-		grid-template-columns: 220px minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr);
-	}
-
-	.simulator_order__detail .confirm_scroll_container .option_modal__group .label_value_group {
-        grid-template-columns: 220px minmax(0, 1fr);
-    }
-}
-
-@media (max-width: 991.9px) {
-	.simulator__start_container {
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
-		overflow-scrolling: touch;
-	}
-	.simulator__start_container::-webkit-scrollbar {
-		width: 24px;
-	}
-
-	.simulator__start_container::-webkit-scrollbar-track {
-		background: #fff;
-		padding: 4px;
-	}
-
-	.simulator__start_container::-webkit-scrollbar-thumb {
-		background: #999;
-		border-radius: 24px;
-		border: 4px solid #fff;
-	}
-
-	.simulator_order__media {
-		width: 100%;
-		position: sticky;
-		z-index: 0;
-		top: 0;
-	}
-
-	.simulator_order__detail {
-		background-color: #e2e6e6;
-		position: relative;
-		z-index: 1;
-	}
-}
-</style>
 
 <script>
 // コンポーネントのtemplateは、一つのタグですべて囲われていなければならん。注意。
@@ -439,16 +564,31 @@ module.exports = {
 		},
 		'$parent.selected.selectedOptions': function(v) {
 			this.updateDesignList(v);
+		},
+		'$parent.optionData.mazemaze': function (v) {
+			if (v) {
+				this.updateDesignList(this.$parent.selected.selectedOptions);
+			}
 		}
 	},
 	computed:{
+		courseNos: function () {
+			var course = this.$parent.selected.code.course;
+			var courses = [];
+			if (course.indexOf(",") > -1) {
+				courses = course.split(",");
+			} else {
+				courses[0] = course;
+			}
+			return courses;
+		},
 
 		selectedProduct:function(){
 			var target = '';
 			var thista = this;
 			$.each(this.$parent.productData,function(key,item){
 				if(item.product_code_min == thista.$parent.firstCheckers.cloth_no){
-					console.log(item);
+					// console.log(item);
 					target = item;
 					return false;
 				}
@@ -459,10 +599,10 @@ module.exports = {
 
 			// var list = _.orderBy(this.$parent.selected.selectedOptions, 'option_rank');
 			var list = _.sortBy(this.$parent.selected.selectedOptions,[function(o) { return ("0" + o.option_rank).slice(-2) * -1; }]);
-			// console.log('並べ替えたオプションリスト');
-			// console.log(list);
+			// // console.log('並べ替えたオプションリスト');
+			// // console.log(list);
 			// $.each(list,function(key,item){
-			// 	console.log(item.disp_name);
+			// 	// console.log(item.disp_name);
 			// });
 			// list = _.reverse(list);
 			return list;
@@ -535,6 +675,7 @@ module.exports = {
 							&& option.disp_name != "チェンジポケット"
 							&& this.hiddenChecker(option, design.categoryId)
 							&& this.checkDoubleStyle(option, design.categoryId, design.sub)
+							&& this.checkAitFit(option)
 							// && !selected.includes(option.target_api_field)
 						) {
 							// selected.push(option.target_api_field);
@@ -546,9 +687,18 @@ module.exports = {
 				}
 			});
 
-			// console.log('SELECTED_OPTIONS', JSON.parse(JSON.stringify(this.$parent.selected.selectedOptions)));
-			// console.log('DESIGNS', JSON.parse(JSON.stringify(designs)));
+			// // console.log('SELECTED_OPTIONS', JSON.parse(JSON.stringify(this.$parent.selected.selectedOptions)));
+			// // console.log('DESIGNS', JSON.parse(JSON.stringify(designs)));
 			this.optionList = designs;
+		},
+		checkAitFit(option) {
+			// console.log('mazemaze', JSON.parse(JSON.stringify(this.$parent.optionData?.mazemaze || {})));
+			if (this.$parent.optionData?.mazemaze && ["43", "69"].includes(option.option_id)) {
+				const mOption = this.$parent.optionData.mazemaze[option.option_id];
+				if (!mOption) return false;
+				return mOption.option_shiwake == "katagami";
+			}
+			return true;
 		},
 		optionHiddenChecker: function (items) {
 			//工場チェック
@@ -560,7 +710,7 @@ module.exports = {
 
 				} else {
 					checker = false;
-					// console.log('工場だめ：' + items.option_id);
+					// // console.log('工場だめ：' + items.option_id);
 				}
 			}
 			return checker;
@@ -578,7 +728,10 @@ module.exports = {
 			return true;
 		},
 		checkDoubleStyle(option, category, sub) {
-			if ([ 4, 6, 7].includes(category)) {
+			const endsWithOneOrTwo = (str) => {
+				return str.endsWith('1') || str.endsWith('2');
+			}
+			if ([ 4, 6, 7].includes(category) && endsWithOneOrTwo(option.target_api_field)) {
 				const endNum = sub ? '2' : '1';
 				return option.api_field.concat(endNum) == option.target_api_field;
 			}
@@ -619,8 +772,8 @@ module.exports = {
 					}
 				}
 			}else if(target == 'pants'){
-				// console.log('courses');
-				// console.log(courses);
+				// // console.log('courses');
+				// // console.log(courses);
 				if(this.gender == 'men'){
 					var result ='';
 					$.each(courses["3"],function(key,item){
@@ -729,7 +882,7 @@ module.exports = {
 			}
 		},
 		typeChecker(item,type){
-			// console.log(type);
+			// // console.log(type);
 			if(this.shiwake[type].indexOf(item.target_api_field) > -1){
 				return true;
 			}
@@ -745,10 +898,10 @@ module.exports = {
 
 	},
 	mounted:function(){
-		// console.log('sessiondata', this.selectedFabricer);
-		// console.log(this.$parent.selected.sessions.ordersheet);
-		// console.log(this.sizeAdjs);
-		// console.log(this.$parent.selected.course);
+		// // console.log('sessiondata', this.selectedFabricer);
+		// // console.log(this.$parent.selected.sessions.ordersheet);
+		// // console.log(this.sizeAdjs);
+		// // console.log(this.$parent.selected.course);
 		this.$parent.getSelectedOption();
 		var thista = this;
 
@@ -772,12 +925,12 @@ module.exports = {
 			Vue.set(this,'targetImage','/images/noimage.png');
 		}
 		Vue.set(this,'selectedInfo',"cloth_no");
-		//console.log("現在のselected");
-		//console.log(this.$parent.selected);
-		//console.log("sizeadj");
-		//console.log(this.$parent.size.adj);
+		//// console.log("現在のselected");
+		//// console.log(this.$parent.selected);
+		//// console.log("sizeadj");
+		//// console.log(this.$parent.size.adj);
 
-		this.updateDesignList(this.$parent.selected.selectedOptions);
+		// this.updateDesignList(this.$parent.selected.selectedOptions);
 	},
 	beforeDestroy:function(){
 		var thista = this;

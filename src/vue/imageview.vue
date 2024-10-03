@@ -1,51 +1,21 @@
-<!-- <template lang="pug">
-	div.simulator__image_view
-		p(style="display:none;") {{targetCourser}}
-		p(style="display:none;") {{targetSrc}}
-		div.zentai(v-if='courseNo != ""')
-
-			img(class="torso" :src="targetSrc+'torso.png'" v-on:load="imageloaded($event)")
-			object( :onload='$parent.texChanger()' v-on:load="imageloaded($event)" class="suitmodel model1" type="image/svg+xml" v-bind:data="targetSrc+'svg.svg'" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-			img(class="shadow" :src="targetSrc+'shadow.png'" v-on:load="imageloaded($event)")
-		div.sample(v-else)
-			img(class="torso" :src="sampletorsosrc" v-on:load="imageloaded($event)")
-			object(:onload='$parent.texChanger()' v-on:load="imageloaded($event)" class="suitmodel model2" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-			img(class="shadow" :src="sampleshadowsrc" v-on:load="imageloaded($event)")
-		div.options
-			img.button(v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/button/"+buttons+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder')
-
-			img.button(v-else :src='optionSrcer+optionTarget+"/button/"+buttons+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder')
-			img.button(v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/flower/"+flowerF+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder')
-			img.button(v-else :src='optionSrcer+optionTarget+"/flower/"+flowerF+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder')
-		// div.jacket(v-else-if='$parent.view == "jacket"')
-		// 	p {{targetSvgSrc}} {{targetSvg}}
-		// 	img(class="torso" :src="imageDirUrl+svg+'-body.png'")
-		// 	object(v-if='svg != ""' class="suitmodel" type="image/svg+xml" v-bind:data="targetSvgSrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-		// 	img(class="shadow" :src='imageDirUrl+shadow')
-		// div.pants(v-else-if='$parent.view == "pants"')
-		// 	p pants
-		// 	img(class="torso" src="/images/simulator/etc/torso.png")
-		// 	object(class="suitmodel" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-		// 	img(class="shadow" src="/images/simulator/etc/shadow.png")
-		// div.vest(v-else-if='$parent.view == "vest"')
-		// 	p vest
-		// 	img(class="torso" src="/images/simulator/etc/torso.png")
-		// 	object(class="suitmodel" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-		// 	img(class="shadow" src="/images/simulator/etc/shadow.png")
-		// div.skirt(v-else-if='$parent.view == "skirt"')
-		// 	p skirt
-		// 	img(class="torso" src="/images/simulator/etc/torso.png")
-		// 	object(class="suitmodel" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated; ")
-		// 	img(class="shadow" src="/images/simulator/etc/shadow.png")
-</template> -->
-
 <template>
-	<div class="simulator__image_view">
+	<div class="simulator__image_view" :class="$parent.selected.gender || ''">
+		<div class="simulator__product_view" v-if="$parent.staffstartFlg">
+				<figure class="fabric-image">
+					<img :src="fabric" alt="Fabric">
+				</figure>
+		</div>
 		<div class="simulator__fabric_view" v-if="$parent.step == 5">
 			<div class="fabric-container">
 				<div class="fabric-label">表地</div>
-				<div class="child-fabric-container">
+				<div class="fabric-image">
+					<img :src="fabric" alt="Fabric">
+				</div>
+				<div class="child-fabric-container" v-if="lining">
 					<div class="fabric-label">裏地</div>
+					<div class="fabric-image fabric-image--lining">
+						<img :src="lining" alt="Lining">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -53,21 +23,28 @@
 		<p style="display:none;">{{ targetSrc }}</p>
 		<div class="zentai" v-if='courseNo != ""'>
 			<img :src="targetSrc + 'torso.png'" alt="Troso" class="torso" v-on:load="imageloaded($event)">
-			<object :onload='$parent.texChanger()' v-on:load="imageloaded($event)" class="suitmodel model1" type="image/svg+xml" v-bind:data="targetSrc+'svg.svg'" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated;"></object>
+			<object :onload='$parent.texChanger()' v-on:load="imageloaded($event)" @load="$parent.onFabricLoad" class="suitmodel model1" type="image/svg+xml" v-bind:data="targetSrc+'svg.svg'" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated;"></object>
 			<img class="shadow" :src="targetSrc+'shadow.png'" v-on:load="imageloaded($event)">
 		</div>
 		<div class="sample" v-else>
 			<img class="torso" :src="sampletorsosrc" v-on:load="imageloaded($event)">
-			<object :onload='$parent.texChanger()' v-on:load="imageloaded($event)" class="suitmodel model2" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated;"></object>
+			<object :onload='$parent.texChanger()' v-on:load="imageloaded($event)" @load="$parent.onFabricLoad" class="suitmodel model2" type="image/svg+xml" v-bind:data="modelsrc" style="-ms-interpolation-mode: bicubic;image-rendering: pixelated;"></object>
 			<img class="shadow" :src="sampleshadowsrc" v-on:load="imageloaded($event)">
 		</div>
 		<div class="options">
-			<img v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/button/"+buttons+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
-			<img v-else :src='optionSrcer+optionTarget+"/button/"+buttons+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
+			<img data-id="1" v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/button/"+buttons+".png"' :data-image-url='optionSrcer+optionTargetResult+"/button/"+buttons+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
+			<img data-id="2" v-else :src='optionSrcer+optionTarget+"/button/"+buttons+".png"' :data-iamge-url='optionSrcer+optionTarget+"/button/"+buttons+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
 
-			<img v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/flower/"+flowerF+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
-			<img v-else :src='optionSrcer+optionTarget+"/flower/"+flowerF+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
+			<img data-id="3" v-if='optionTargetResult != ""' :src='optionSrcer+optionTargetResult+"/flower/"+flowerF+".png"' :data-image-url='optionSrcer+optionTargetResult+"/flower/"+flowerF+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
+			<img data-id="4" v-else :src='optionSrcer+optionTarget+"/flower/"+flowerF+".png"' :data-image-url='optionSrcer+optionTarget+"/flower/"+flowerF+".png"' v-on:load="imageloaded($event)" v-on:error='notfounder'>
 		</div>
+
+		<!-- <div class="actions-group" v-if="$parent.step > 4">
+			<button class="simu-button simu-button--primary" @click="optionsetModalOpen()">
+				選択オプションを確認
+			</button>
+		</div> -->
+
 	</div>
 </template>
 
@@ -94,39 +71,223 @@ module.exports = {
 		return {
 			svg: '',
 			shadow: '',
-			imageDirUrl: '/images/simulator/svg_shadow/',
-			optionDirUrl: '/images/simulator/options/',
+			imageDirUrl: '/sandbox/images/simulator/svg_shadow/',
+			optionDirUrl: '/sandbox/images/simulator/options/',
 			optionTargetResult: '',
+			designList: [
+				{
+					id: 1,
+					gender: 'men',
+					name: 'ジャケット',
+					styles: [1, 2, 3],
+					categoryId: 1,
+					categoryKatagamiId: 14,
+					sub: '',
+					is: (courseNo) => {
+						return courseNo == '001' || courseNo == '002' || courseNo == '003' || courseNo == '004'
+					}
+				},
+				{
+					id: 4,
+					gender: 'men',
+					name: 'ベスト',
+					styles: [1],
+					categoryId: 2,
+					categoryKatagamiId: 15,
+					sub: '',
+					is: (courseNo) => {
+						return courseNo == '003' || courseNo == '005'
+					}
+				},
+				{
+					id: 2,
+					gender: 'men',
+					name: 'スラックス',
+					styles: [1, 2, 3],
+					categoryId: 3,
+					categoryKatagamiId: 16,
+					sub: '',
+					is: (courseNo) => {
+						return courseNo == '001' || courseNo == '002' || courseNo == '003' || courseNo == '006'
+					}
+				},
+				{
+					id: 3,
+					gender: 'men',
+					name: 'スラックス2',
+					styles: [1, 2, 3],
+					categoryId: 3,
+					categoryKatagamiId: 16,
+					sub: 'pants2',
+					is: (courseNo) => {
+						return courseNo == '002' || courseNo == '2'
+					}
+				},
+				{
+					id: 6,
+					gender: 'women',
+					name: 'ジャケット',
+					styles: [1],
+					categoryId: 5,
+					categoryKatagamiId: 31,
+					sub: '',
+					is: (courseNos) => {
+						return courseNos.indexOf('011') > -1
+					}
+				},
+				{
+					id: 7,
+					gender: 'women',
+					name: 'スラックス',
+					styles: [1],
+					categoryId: 6,
+					categoryKatagamiId: 32,
+					sub: '',
+					is: (courseNos) => {
+						return courseNos.indexOf('012') > -1
+					}
+				},
+				{
+					id: 8,
+					gender: 'women',
+					name: 'スラックス2',
+					styles: [1],
+					categoryId: 6,
+					categoryKatagamiId: 32,
+					sub: 'pants2',
+					is: (courseNos) => {
+						return courseNos[2] == '012' || (courseNos[0] == '012' && courseNos[1] == '012')
+					}
+				},
+				{
+					id: 9,
+					gender: 'women',
+					name: 'スカート',
+					styles: [1],
+					categoryId: 7,
+					categoryKatagamiId: 33,
+					sub: '',
+					is: (courseNos) => {
+						return courseNos.indexOf('013') > -1
+					}
+				},
+				{
+					id: 10,
+					gender: 'women',
+					name: 'スカート2',
+					styles: [1],
+					categoryId: 7,
+					categoryKatagamiId: 33,
+					sub: 'skirt2',
+					is: (courseNos) => {
+						return (courseNos[2] == '013' && courseNos[1] == '013') || (courseNos[0] == '013' && courseNos[1] == '013')
+					}
+				},
+			],
 		}
 	},
 	methods: {
+		objectLoaded() {
+			console.log('OBJECT_LOADED');
+		},
+		optionsetModalOpen: function () {
+			Vue.set(this.$parent, 'optionsetModalFlg', true);
+		},
 		notfounder: function (e) {
-			e.target.src = '/images/notfounder.png';
+			e.target.src = '/sandbox/images/notfounder.png';
 		},
 		imageloaded: function (event) {
-			//console.log('imageloaded');
+			//// console.log('imageloaded');
 			var target = $(event.target);
 			setTimeout(function () {
 				target.addClass('loaded');
 			}, 1000);
-			//console.log(target);
-		}
+			//// console.log(target);
+		},
+		log(title, data) {
+			console.log(title.toUpperCase().concat('::::::::::::::'), JSON.parse(JSON.stringify(data)));
+		},
+		orderList(style, cateogry, categoryKatagami, sub) {
+			const c3Style = String(style);
+			// const c3Cateogry = String(cateogry)
+			const c3CategoryKatagami = String(categoryKatagami);
+			const list = Object.values(this.$parent.masters.style).filter((parts) => {
+
+				// // console.log('parts', JSON.parse(JSON.stringify(parts)));
+
+				return (
+					parts.style.includes(c3Style)
+					&& (
+						parts.pattern != false
+						&& parts.pattern.includes(c3CategoryKatagami)
+						&& (
+							(this.$parent.selected.gender == 'women' || cateogry == 2)
+							|| (this.$parent.selected.gender != 'women' && cateogry != 2)
+						)
+						&& parts.pattern.includes(String(this.selectedParts))
+					) && (
+						(this.$parent.selected.gender == 'men' && parts.gender.men == 'true')
+						|| (this.$parent.selected.gender == 'women' && parts.gender.women == 'true')
+					)
+				);
+			});
+			// // console.log('targetCourseData', JSON.parse(JSON.stringify(this.$parent.selected.targetCourseData)));
+			// // console.log('DESIGN_LIST', JSON.parse(JSON.stringify(_.orderBy(list, 'rank', 'desc'))));
+			return _.orderBy(list, 'rank', 'desc');
+		},
 	},
 	watch: {
 		targetSrc: function (v) {
 			$('.simulator__image_view .zentai img,.simulator__image_view .zentai object').removeClass('loaded');
 		},
 		optionTarget: function (v, ov) {
-			// console.log(this.optionSrcer+v+"/button/"+this.buttons+".png");
-			// console.log(this.optionSrcer+v+"/flower/"+this.flowerF+".png");
+			// // console.log(this.optionSrcer+v+"/button/"+this.buttons+".png");
+			// // console.log(this.optionSrcer+v+"/flower/"+this.flowerF+".png");
 			// $('.simulator__image_view .options img,.simulator__image_view .options object').removeClass('loaded');
-			// console.log('option chang3e');
+			// // console.log('option chang3e');
 		},
 		sampletorsosrc: function (v) {
 			$('.simulator__image_view .sample img,.simulator__image_view  .sample object').removeClass('loaded');
 		},
 	},
 	computed: {
+		// selectedProduct:function(){
+		// 	var target = '';
+		// 	var thista = this;
+		// 	$.each(this.$parent.productData,function(key,item){
+		// 		if(item.product_code_min == thista.$parent.firstCheckers.cloth_no){
+		// 			// console.log(item);
+		// 			target = item;
+		// 			return false;
+		// 		}
+		// 	})
+		// 	return target;
+		// },
+		fabric: function () {
+			if (!this.$parent.productData) return '';
+
+			const fabricData = Object.values(this.$parent.productData).find(item => item.product_code_min == this.$parent.selected.sessions.ordersheet.cloth_no);
+			if (fabricData) {
+				return fabricData.main_image ? this.uploadpass + fabricData.main_image : '/sandbox/images/noimage.png';
+			}
+			return '';
+		},
+		lining: function () {
+			if (this.$parent.optionData && this.$parent.optionData.mazemaze && this.$parent.selected.sessions.ordersheet.ura_cno) {
+				this.$parent.selected.selectedOptions
+				const optionId = 48;
+				const liningOption = Object.values(this.$parent.optionData.mazemaze).find(item => item.option_id == optionId);
+				if (liningOption) {
+					const itemValue = this.$parent.selected.sessions.ordersheet.ura_cno;
+					const lineingItem = Object.values(liningOption.optionitems).find(item => item.option_code == itemValue);
+
+					if (lineingItem) {
+						return lineingItem.option_image ? this.uploadpass + lineingItem.option_image : '/sandbox/images/noimage.png';
+					}
+				}
+			}
+			return '';
+		},
 		flowerF: function () {
 			var flower = this.$parent.selected.sessions.ordersheet.colorcustoms_flower_hall;
 			if (flower != '' && flower != null && flower != '00' && flower != '0') {
@@ -150,19 +311,17 @@ module.exports = {
 			}
 		},
 		targetSrc: function () {
-			var thista = this;
-			//console.log('targetsrc');
-			//console.log(thista.imageDirUrl+thista.courseNo);
-			return thista.imageDirUrl + thista.courseNo + '/';
+			// console.log('COURSE_NO', this.courseNo);
+			return this.imageDirUrl + this.courseNo + '/';
 		},
 		targetView: function () {
 			var thista = this;
 			var view = this.$parent.view;
-			//console.log('viewは'+view);
-			if (this.$parent.step >= 5) {
+			//// console.log('viewは'+view);
+			// if (this.$parent.step >= 5) {
 
-				view = this.$parent.view2;
-			}
+			// 	view = this.$parent.view2;
+			// }
 
 
 			var selectparts = '';
@@ -170,13 +329,13 @@ module.exports = {
 				selectparts = item;
 			});
 			var parts = selectparts.designParts;
-			//console.log(parts);
+			//// console.log(parts);
 			if (parts != void 0 && parts.length > 1 && selectparts.masterNo != 36 && selectparts.masterNo != 37 && selectparts.masterNo != 38 && this.$parent.step >= 6) {
 				view = this.$parent.view;
-				//console.log('全体を表示');
+				//// console.log('全体を表示');
 			}
-			//console.log('viewは'+view);
-			return view;
+			//// console.log('viewは'+view);
+			return view.replace('_all', '');
 		},
 		defaultCategoryNo: function () {
 			var targetc3;
@@ -202,161 +361,55 @@ module.exports = {
 			targetc = this.$parent.optionC3Category;
 			return targetc;
 		},
+		selectedParts: function () {
+			var no = "";
+			//// console.log("selectedParts");
+			$.each(this.$parent.selected.parts, function (key, item) {
+				//// console.log("対象のstyleNo:"+item.masterNo);
+				no = item.masterNo;
+			});
+			return no;
+		},
+		design: function () {
+			const courseNo = this.$parent.selected.code.course;
+			if (!courseNo) return null;
+			return this.designList.find(item => item.is(item.gender == 'men' ? courseNo : courseNo.split(',')));
+		},
 		targetCourser: function () {
-			var nums = {};
-			var thista = this;
-			//console.log('targetCourser');
-			//console.log('targetCourser');
-			//console.log('targetCourser');
-			//console.log('targetCourser');
-			if (this.$parent.step >= 5) {
-				var targetc3 = this.targetOptionCategoryNo + this.$parent.selected.optionSub;
-				$.each(this.$parent.selected.course[targetc3], function (key, item) {
-					nums = thista.$parent.masters.style[key];
-				});
-				//console.log(this.targetOptionCategoryNo);
-				//console.log(this.$parent.selected.optionSub);
-				//console.log(this.$parent.selected.course);
-				//console.log(nums);
-				//console.log('↑↑');
+			let category = null;
+			if (this.$parent.step === 3) {
+				category = (this.targetCategoryNo || this.defaultCategoryNo) + this.$parent.selected.c3sub;
+			} else if (this.design) {
+				category = this.design.categoryId;
 			} else {
-				var targetc3 = this.targetCategoryNo + this.$parent.selected.c3sub;
-
-				//console.log(this.targetOptionCategoryNo);
-				//console.log(this.$parent.selected.optionSub);
-				//console.log('↑↑');
-				//対象カテゴリでスタイルが選ばれているか、一時的にスタイルを選択している
-				//console.log('koko2');
-				//console.log(this.$parent.selected.course);
-				//console.log(targetc3);
-				if (targetc3 != '' && (Object.keys(this.$parent.selected.course[targetc3]).length > 0 || 'style_id' in thista.$parent.selected.targetCourseData)) {
-					//console.log('koko');
-					//一時的に選択されているスタイルがあり、型紙選択画面である
-					if ('style_id' in thista.$parent.selected.targetCourseData && thista.$parent.selected.step3disp == 2) {
-
-						var targetc3 = this.targetCategoryNo + this.$parent.selected.c3sub;
-						//一時的に選択されているスタイルがあり、型紙選択画面で、表示が全体表示であり、確定されているスタイルがある
-						if (thista.targetView == this.$parent.checkSkPt && Object.keys(this.$parent.selected.course[targetc3]).length > 0 && thista.$parent.selected.step3disp != 2) {
-							targetc3 = this.defaultCategoryNo;
-							$.each(this.$parent.selected.course[targetc3], function (key, item) {
-								nums = thista.$parent.masters.style[key];
-
-							})
-							//console.log(this.$parent.selected.course[targetc3]);
-							//console.log(targetc3);
-							//console.log('targetCourser 1');
-						} else {
-							//一時的に選択されているスタイルがあり、型紙選択画面で、表示が全体表示であり
-							if (thista.targetView == thista.$parent.checkSkPt) {
-
-								targetc3 = this.defaultCategoryNo;
-								//一時的に選択されているスタイルがあり、型紙選択画面で、表示が全体表示であり、確定されているジャケットのスタイルがある,なおかつ　選択しているかてごりーがジャケットではない
-								if (Object.keys(this.$parent.selected.course[targetc3]).length > 0 && this.targetCategoryNo != 1 && this.targetCategoryNo != 5) {
-									$.each(this.$parent.selected.course[targetc3], function (key, item) {
-										nums = thista.$parent.masters.style[key];
-										//console.log('2.1');
-									})
-								} else {
-									//一時的に選択されているスタイルがあり、型紙選択画面で、表示が全体表示であり、確定されているスタイルがない そして選んでいるカテゴリーがジャケットではない
-									nums['style_id'] = thista.$parent.selected.targetCourseData.style_id;
-									//console.log('2.2');
-								}
-							} else {
-								//一時的に選択されているスタイルがあり、型紙選択画面で、表示が拡大表示
-								nums['style_id'] = thista.$parent.selected.targetCourseData.style_id;
-								//console.log('2.3');
-							}
-							//console.log(thista.targetView);
-							//console.log(this.$parent.checkSkPt);
-						}
-					} else {
-						//スタイル選択画面です
-						var targetc3 = this.targetCategoryNo + this.$parent.selected.c3sub;
-						//スタイル選択画面で、全体表示
-						if (thista.targetView == this.$parent.checkSkPt) {
-							targetc3 = this.defaultCategoryNo;
-						}
-						//スタイル選択画面で、確定されているスタイルが無い
-						if (Object.keys(this.$parent.selected.course[targetc3]).length == 0) {
-							targetc3 = this.defaultCategoryNo;
-							// Vue.set(this.$parent,'view',this.$parent.checkSkPt);
-						}
-						$.each(this.$parent.selected.course[targetc3], function (key, item) {
-							nums = thista.$parent.masters.style[key];
-							//console.log(key);
-						})
-						//console.log('targetc3:'+targetc3);
-						//console.log(this.$parent.selected.course);
-						//console.log('targetCourser 3');
-					}
-					//console.log(this.$parent.selected.course[this.targetCategoryNo+this.$parent.selected.c3sub]);
-
-				} else {
-					//console.log('koko3');
-					//対象カテゴリで、まったくなにも選択されていない
-					Vue.set(thista.$parent, 'view', this.$parent.checkSkPt);
-					var targetc3 = 1;
-					targetc3 = this.defaultCategoryNo;
-					$.each(this.$parent.selected.course[targetc3], function (key, item) {
-						nums = thista.$parent.masters.style[key];
-
-					})
-					//console.log('4');
-				}
+				category = this.defaultCategoryNo;
 			}
-			return nums;
+
+			const getCourse = (category) => {
+				const item = Object.values(this.$parent.selected.course[category]).find(value => !!value);
+				this.log('item', item || {});
+				if (!item && this.design) {
+					const courses = this.orderList(1, this.design.categoryId, this.design.categoryKatagamiId, this.design.sub);
+					return courses[0] || {}
+				}
+				return item || {};
+			}
+			return getCourse(category);
 		},
 		optionTarget: function () {
-			var targetstyle = this.targetStyleNo;
-			var views = this.targetView;
-			var ts = this.targetSrc;
-			// console.log('optiontarget');
-			// console.log(views);
-			var result = 'up';
-			switch (views) {
-				case '_all':
-					if (this.$parent.selected.gender == 'women') {
-						result = 'all_pants';
-					} else {
-						result = 'all';
-					}
-					break;
-				case '_skirt':
-					result = 'all_skirt';
-					break;
-				case '':
-					result = 'up';
-					break;
-				default:
-					result = 'up';
-					break;
-
-			}
-			var thista = this;
-			setTimeout(function () {
-				// console.log('checker');
-				if ($('.sample').length > 0) {
-					if (thista.$parent.selected.gender == 'women') {
-						if (result != 'all_skirt') {
-							result = 'all_pants';
-						}
-					} else {
-						result = 'all';
-					}
-					Vue.set(thista, 'optionTargetResult', result);
-				}
-				// console.log(thista.optionTargetResult);
-			}, 500);
-			Vue.set(thista, 'optionTargetResult', '');
-			return result;
-
-
+			Vue.set(this, 'optionTargetResult', 'up');
+			return 'up';
 		},
 		optionSrcer: function () {
 			var targetView = this.targetView;
 			if (this.targetCourser != '' && this.targetCourser != void 0) {
 				if (this.targetCourser.style_id != void 0) {
 					var src = this.optionDirUrl + this.targetCourser.style_id + '/';
+					if (targetView != "" && this.$parent.step >= 5) {
+						src = this.optionDirUrl + this.$parent.zentaiNo + '/';
+					}
+				} else if (this.targetCourser.style_option != void 0) {
+					var src = this.optionDirUrl + this.targetCourser.style_option + '/';
 					if (targetView != "" && this.$parent.step >= 5) {
 						src = this.optionDirUrl + this.$parent.zentaiNo + '/';
 					}
@@ -379,65 +432,52 @@ module.exports = {
 			return src;
 		},
 		courseNo: function () {
-
-			var thista = this;
-			//console.log('現在のコースデータ');
-			//console.log(thista.$parent.selected.targetCourseData);
-			// //console.log(thista.targetCourser.style_id+thista.targetView);
-
-
-
-			if (thista.targetCourser != '' && thista.targetCourser != void 0) {
-				//console.log(thista.targetCourser);
-				if ('style_id' in thista.targetCourser) {
-					var nums = '';
-					var targetView = thista.targetView;
-					$.each(window.svgList, function (key, item) {
-						if (thista.targetCourser.style_id + targetView == item) {
-							nums = item;
-						}
-					})
-					if (targetView != "" && thista.$parent.step >= 5) {
-						nums = thista.$parent.zentaiNo + targetView;
-					}
-					//console.log(thista.targetCourser.style_id+targetView);
-					//console.log('courseNoは'+nums+'です');
+			if ('style_id' in this.targetCourser) {
+				const nums = this.targetCourser.style_id;
+				this.log('nums', nums);
+				if (Object.values(window.svgList).includes(nums)) {
 					return nums;
-				} else {
-					return '';
 				}
-			} else {
-				return '';
+			} else if ('style_option' in this.targetCourser) {
+				const nums = this.targetCourser.style_option;
+				this.log('nums', nums);
+				if (Object.values(window.svgList).includes(nums)) {
+					return nums;
+				}
 			}
-			return nums;
+			return '';
 		},
 		modelsrc: function () {
 			var model = this.$parent.model;
 			var view = this.$parent.view;
-
 			var gender = this.$parent.selected.gender;
+
+			// console.log('GENDER', gender);
+			// console.log('MODAL', model);
+			// console.log('VIEW', view);
+
 			if (view == '_all' && gender == 'women') {
-				return "/images/simulator/model/" + gender + "/sample_pants/svg.svg";
+				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/svg.svg";
 			} else {
-				return "/images/simulator/model/" + gender + "/" + model + "/model.svg";
+				return "/sandbox/images/simulator/model/" + gender + "/" + model + "/model.svg";
 			}
 		},
 		sampleshadowsrc: function () {
 			var gender = this.$parent.selected.gender;
 			var view = this.$parent.view;
 			if (view == '_all' && gender == 'women') {
-				return "/images/simulator/model/" + gender + "/sample_pants/shadow.png";
+				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/shadow.png";
 			} else {
-				return "/images/simulator/model/" + gender + "/sample/shadow.png";
+				return "/sandbox/images/simulator/model/" + gender + "/sample/shadow.png";
 			}
 		},
 		sampletorsosrc: function () {
 			var gender = this.$parent.selected.gender;
 			var view = this.$parent.view;
 			if (view == '_all' && gender == 'women') {
-				return "/images/simulator/model/" + gender + "/sample_pants/torso.png";
+				return "/sandbox/images/simulator/model/" + gender + "/sample_pants/torso.png";
 			} else {
-				return "/images/simulator/model/" + gender + "/sample/torso.png";
+				return "/sandbox/images/simulator/model/" + gender + "/sample/torso.png";
 			}
 		},
 		targetSvgSrc: function () {
@@ -447,8 +487,8 @@ module.exports = {
 			return this.imageDirUrl + this.shadow;
 		},
 		targetSvg: function () {
-			//console.log('現在のコースデータ');
-			//console.log(this.$parent.selected.targetCourseData);
+			//// console.log('現在のコースデータ');
+			//// console.log(this.$parent.selected.targetCourseData);
 			var target = '';
 			var targetShadow = '';
 			if ('svg' in this.$parent.selected.targetCourseData) {
@@ -472,7 +512,7 @@ module.exports = {
 
 	},
 	mounted: function () {
-		//console.log("imageview mounted");
+		//// console.log("imageview mounted");
 		var thista = this;
 		Vue.set(this.$parent, 'view', this.$parent.checkSkPt);
 		// this.$parent.view = this.$parent.checkSkPt;

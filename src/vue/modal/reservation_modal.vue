@@ -29,7 +29,7 @@ module.exports = {
 	},
 	computed: {
 		kakuhoTarget: function () {
-			// console.log(this.$parent.kakuhoTarget);
+			// // console.log(this.$parent.kakuhoTarget);
 			return this.$parent.kakuhoTarget;
 			// return this.$parent.kakuhoTarget;
 		}
@@ -65,7 +65,7 @@ module.exports = {
 								location.reload();
 							}, 0);
 						}
-					console.log(res.data);
+					// console.log(res.data);
 				});
 			} else {
 				alert("数を入力してください");

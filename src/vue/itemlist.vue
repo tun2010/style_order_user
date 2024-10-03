@@ -76,7 +76,12 @@ div.simulator__selector
 
 <template>
 	<div class="products-container">
-		<div class="products-controls"></div>
+		<div class="products-controls">
+			<button class="simu-button simu-button--filter" @click="sortOpen">
+				<div class="small">絞り込み</div>
+				<div class="large">絞り込み検索</div>
+			</button>
+		</div>
 		<ul class="products-list vertical-scroll" @scroll="handleScroll">
 			<li class="product" v-for="product in productList" :key="product.product_id" :class="{'active':selectedFabric == product.product_code_min}">
 				<button class="product-card" @click="itemClick(product.product_id)">
@@ -85,9 +90,9 @@ div.simulator__selector
 						<div class="icon pleats" v-if="product.check_pleats"></div>
 					</div>
 					<figure>
-						<img v-if="product.kiji_image" :src="uploadpass + product.kiji_image" alt="Frabic">
+						<img v-if="product.main_image" :src="uploadpass + product.main_image" alt="Frabic">
 						<img v-else src="/images/noimage.png" alt="Frabic">
-						<figcaption>生地名</figcaption>
+						<figcaption>{{product.name}}</figcaption>
 					</figure>
 					<div class="product-detail">
 						<div class="product-code">{{ product.product_code_min }}</div>
@@ -106,7 +111,10 @@ div.simulator__selector
 			<div class="arrow arrow--prev" v-if="prevIcon"></div>
 			<div class="arrow arrow--next" v-if="nextIcon"></div>
 		</div>
-		<div class="prodcts-explain"></div>
+		<div class="prodcts-explain">
+			<div class="explain wishable">ウォッシャブル</div>
+			<div class="explain pleats">プリーツ</div>
+		</div>
 	</div>
 </template>
 
@@ -152,37 +160,37 @@ module.exports = {
 		}
 	},
 	mounted: function () {
-		// console.log('SELECTED_ITEMLIST', JSON.parse(JSON.stringify(this.$parent.selected)));
+		// // console.log('SELECTED_ITEMLIST', JSON.parse(JSON.stringify(this.$parent.selected)));
 		if (this.selectedFabric && this.productdata) {
 			const product = Object.values(this.productdata).find(item => item.product_code_min === this.selectedFabric);
 			if (product) {
 				this.itemClick(product.product_id);
 			}
 		}
-		// console.log('PRODUCT_DATA', JSON.parse(JSON.stringify(this.productdata)));
-		// console.log('MASTER_LINE', JSON.parse(JSON.stringify(this.mastersLine)));
-		// console.log('LINE_CHECKER', JSON.parse(JSON.stringify(this.lineChecker)));
-		// console.log('SELECTED_ITEMLIST_STRING', JSON.stringify(this.$parent.selected));
-		// console.log('PRODUCT_DATA', this.productdata);
+		// // console.log('PRODUCT_DATA', JSON.parse(JSON.stringify(this.productdata)));
+		// // console.log('MASTER_LINE', JSON.parse(JSON.stringify(this.mastersLine)));
+		// // console.log('LINE_CHECKER', JSON.parse(JSON.stringify(this.lineChecker)));
+		// // console.log('SELECTED_ITEMLIST_STRING', JSON.stringify(this.$parent.selected));
+		// // console.log('PRODUCT_DATA', this.productdata);
 		// 	$('.lazyitemlister').lazy({
 		// 		appendScroll: $('.itemlistlazy'),
 
 		//     effect: 'fadeIn',
 		// 	effectTime:5000,
 		// 	onLoad:function(){
-		// 		//console.log('lazy loadddddd');
+		// 		//// console.log('lazy loadddddd');
 		// 	},
 		//     onError: function(element) {
-		//         //console.log('error loading ' + element.data('src'));
+		//         //// console.log('error loading ' + element.data('src'));
 		//     }
 		// });
-		// //console.log('laaaaaaaaaaazyyyyyyyyyyy');
+		// //// console.log('laaaaaaaaaaazyyyyyyyyyyy');
 
 	},
 	props: ["productdata", "tantouflg", "uploadpass"],
 	computed: {
 		targetParent: function () {
-			// //console.log($('.itemlistlazy')[0]);
+			// //// console.log($('.itemlistlazy')[0]);
 			return $('.itemlistlazy')[0];
 		},
 		stocktani: function () {
@@ -352,10 +360,10 @@ module.exports = {
 			});
 		},
 		init: function () {
-			//console.log('loaded');
+			//// console.log('loaded');
 		},
 		beforeInit: function () {
-			//console.log('loaded2');
+			//// console.log('loaded2');
 		},
 		optionCreater: function (num) {
 			var count = num;
@@ -363,7 +371,7 @@ module.exports = {
 			for (i = count; i >= 0; i--) {
 				countList.push(i);
 			}
-			//console.log(countList);
+			//// console.log(countList);
 			return countList;
 		},
 		guestChecker: function (product) {
@@ -380,7 +388,7 @@ module.exports = {
 			}
 		},
 		kakuhoKazuChange: function (product, event) {
-			//console.log(product);
+			//// console.log(product);
 			var productJson = JSON.stringify(product);
 			var value = parseInt(event.target.value);
 			var sa = parseInt(product.kazu) - value;
@@ -389,9 +397,9 @@ module.exports = {
 			formdata.append('product', productJson);
 			formdata.append('sa', sa);
 
-			//console.log('sa '+ sa);
+			//// console.log('sa '+ sa);
 			axios.post("/sandbox/ajaxTool/kazuHerasuKakuhoItems.php", formdata).then(res => {
-				//console.log(res.data);
+				//// console.log(res.data);
 				if (res.data == 'ok') {
 					alert('対象生地の確保数を変更しました。画面をリロードします。');
 					window.location.reload();
@@ -422,19 +430,19 @@ module.exports = {
 			}
 		},
 		katagamiFactoryChecker: function (product) {
-			// console.log('======================================');
-			// console.log(product);
+			// // console.log('======================================');
+			// // console.log(product);
 			if (this.$parent.tantouFlg) {
 				//仕様変更により店舗はいらなくなったのでtrue
 				return true;
 			} else {
 				var kizifactory = product.factory;
 				var katagamifactory = '';
-				// console.log(kizifactory);
+				// // console.log(kizifactory);
 				var factorys = [];
 				$.each(this.$parent.selected.katagami, function (key, item) {
 					$.each(item, function (key2, item2) {
-						// console.log(item2);
+						// // console.log(item2);
 						factoryArray = [];
 						if (item2.factory.indexOf(',') > -1) {
 							factoryArray = item2.factory.split(',');
@@ -448,8 +456,8 @@ module.exports = {
 							selectedArray[0] = katagamifactory;
 						}
 						if (katagamifactory != '') {
-							// console.log(selectedArray);
-							// console.log(factoryArray);
+							// // console.log(selectedArray);
+							// // console.log(factoryArray);
 							if (selectedArray.length > factoryArray.length) {
 								katagamifactory = item2.factory;
 							} else if (selectedArray.length == factoryArray.length) {
@@ -462,8 +470,8 @@ module.exports = {
 						// factorys.push(item2);
 					});
 				})
-				// console.log('対象の型紙ふぁくとり');
-				// console.log(katagamifactory);
+				// // console.log('対象の型紙ふぁくとり');
+				// // console.log(katagamifactory);
 				if (katagamifactory != "") {
 					if (katagamifactory.indexOf(kizifactory) > -1) {
 						return true;
@@ -481,9 +489,9 @@ module.exports = {
 			if (product == void 0) {
 				return false;
 			} else {
-				// //console.log(product);
+				// //// console.log(product);
 				if (this.$parent.selected.suitist && product.factory == "4423") {
-					//console.log("スーティスト＋中国工場なので排除"+product.product_id);
+					//// console.log("スーティスト＋中国工場なので排除"+product.product_id);
 					return false;
 				}
 				return true;
@@ -506,7 +514,7 @@ module.exports = {
 				}
 			};
 
-			console.log(JSON.parse(JSON.stringify(this.$parent.selected.sessions)));
+			// console.log(JSON.parse(JSON.stringify(this.$parent.selected.sessions)));
 			try {
 				axios.get("/sandbox/ajaxTool/getKakuhoItems.php", query).then(res => {
 					this.kakuhoProduct = res.data;
@@ -514,7 +522,7 @@ module.exports = {
 			} catch(error) {
 				this.kakuhoProduct = [];
 			}
-			console.log('kakuhoProduct', this.kakuhoProduct);
+			// console.log('kakuhoProduct', this.kakuhoProduct);
 		},
 		kakuhoOpen: function (productid) {
 			this.$parent.kakuhoTarget = this.$parent.productData[productid];
@@ -526,14 +534,14 @@ module.exports = {
 
 			Vue.set(this.$parent.selected, "kakuhokizi", "");
 			Vue.set(this.$parent.selected, "fabric", product_id);
-			//console.log(this.$parent.selected.fabric);
+			//// console.log(this.$parent.selected.fabric);
 			Vue.set(this.$parent.selected.sessions.ordersheet, "cloth_no", this.$parent.productData[product_id].product_code_min);
 			Vue.set(this.$parent.selected.sessions.ordersheet, "deliv_flg", this.$parent.productData[product_id].deliv_flg);
 			Vue.set(this.$parent, "selectedProductData", this.$parent.productData[product_id]);
-			//console.log('this.$parent.selectedProductData');
-			// console.log(this.$parent.selected.sessions.ordersheet);
-			// console.log(this.$parent.productData[product_id]);
-			//console.log(this.$parent.selectedProductData);
+			//// console.log('this.$parent.selectedProductData');
+			// // console.log(this.$parent.selected.sessions.ordersheet);
+			// // console.log(this.$parent.productData[product_id]);
+			//// console.log(this.$parent.selectedProductData);
 			// this.$parent.selected.fabric = product_id;
 			this.$parent.checkOptionCourse();
 
@@ -544,7 +552,7 @@ module.exports = {
 			var product_id = orderData.productdata.product_id;
 			Vue.set(this.$parent.selected.sessions.ordersheet, "cloth_no", this.$parent.productData[product_id].product_code_min);
 			Vue.set(this.$parent, "selectedProductData", this.$parent.productData[product_id]);
-			//console.log(this.$parent.selected.fabric);
+			//// console.log(this.$parent.selected.fabric);
 			// this.$parent.selected.fabric = product_id;
 			this.$parent.checkOptionCourse();
 			// this.$parent.productSelectFlg = true;
@@ -560,7 +568,7 @@ module.exports = {
 		// 	Vue.set(this.$parent, 'firstCheckers', { ResetedFlg: false, jacket_dno: '', cloth_no: '', cloth_image: '', gb: false, washable: false, daiba: false, w_adjuster: false, factory: null, katafactory: "", allReseter: false, waistReseterFlg: false, daibaReseter: false });
 		// 	Vue.set(this.$parent.selected, "gender", gender);
 		// 	Vue.set(this.$parent.selected.sessions.ordersheet, "sex", master_no);
-		// 	//console.log("パラメータリセット");
+		// 	//// console.log("パラメータリセット");
 		// 	Vue.set(this.$parent.selected, "parts", {});
 		// 	Vue.set(this.$parent.selected.code, "course", "");
 		// 	Vue.set(this.$parent.selected.sessions.ordersheet, "course_no", "");
@@ -621,22 +629,22 @@ module.exports = {
 				formdata.append('ordersheet', sessionJson);
 				formdata.append('kakuhokizi', this.$parent.selected.kakuhokizi);
 				axios.post("/sandbox/ajaxTool/stepper_order_regist.php", formdata).then(res => {
-					//console.log(res.data);
+					//// console.log(res.data);
 					if (res.data == "no stock") {
-						//console.log("在庫確保失敗");
+						//// console.log("在庫確保失敗");
 						alert("指定した生地の在庫がないようです。別の生地を選択してください。");
 						this.$parent.step = 1;
 						this.$parent.loading = false;
 						// Vue.set(this.$parent,"loading",false);
 					} else {
-						//console.log("在庫確保OK");
+						//// console.log("在庫確保OK");
 						this.$parent.loading = false;
 						// Vue.set(this.$parent,"step",2);
 						// Vue.set(this.$parent,"loading",false);
 					}
 				});
 			} else {
-				//console.log('在庫の確保が必要ないユーザーなので確保しません');
+				//// console.log('在庫の確保が必要ないユーザーなので確保しません');
 			}
 		} else {
 			if (this.$parent.step == 0) return;

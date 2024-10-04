@@ -186,243 +186,250 @@ div.simulator__start_container
 </template> -->
 
 <template>
-	<div class="confirm-container">
-		<div class="confirm-scroll vertical-scroll">
+	<div class="simulator-start--container">
+		<div class="simulator__product_view">
+			<figure class="fabric-image">
+				<img :src="targetImage" alt="Fabric">
+			</figure>
+		</div>
+		<div class="confirm-container">
+			<div class="confirm-scroll vertical-scroll">
 
-			<div class="sticky-title">
-				<h3>過去選択仕様確認</h3>
-			</div>
-
-			<div class="option-confirm-group">
-				<h4>サイズ</h4>
-
-				<div class="table-group-container">
-					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.jacket_dno">
-						<div class="table-row table-row--header">
-							<div class="header header--title">
-								ジャケット
-								<strong>{{$parent.selected.sessions.ordersheet.jacket_size}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
-							</div>
-							<div class="header">基準値</div>
-							<div class="header">補正値</div>
-							<div class="header">上がり値</div>
-						</div>
-						<template v-for="(item,key) in sizeAdjs">
-							<div class="table-row" v-if="item.junle == 'jacket'" :key="key">
-								<div class="value value--title">{{item.name}}</div>
-								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
-								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
-								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
-							</div>
-						</template>
-					</div>
-
-					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.best_dno">
-						<div class="table-row table-row--header">
-							<div class="header header--title">
-								ベスト
-								<strong>{{$parent.selected.sessions.ordersheet.best_size}}</strong>
-							</div>
-							<div class="header">基準値</div>
-							<div class="header">補正値</div>
-							<div class="header">上がり値</div>
-						</div>
-						<template v-for="(item,key) in sizeAdjs">
-							<div class="table-row" v-if="item.junle == 'vest'" :key="key">
-								<div class="value value--title">{{item.name}}</div>
-								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
-								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
-								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
-							</div>
-						</template>
-					</div>
-
-					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.slacks_dno1">
-						<div class="table-row table-row--header">
-							<div class="header header--title">
-								スラックス
-								<strong>{{$parent.selected.sessions.ordersheet.slacks_size1}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
-							</div>
-							<div class="header">基準値</div>
-							<div class="header">補正値</div>
-							<div class="header">上がり値</div>
-						</div>
-						<template v-for="(item,key) in sizeAdjs">
-							<div class="table-row" v-if="item.junle == 'pants'" :key="key">
-								<div class="value value--title">{{item.name}}</div>
-								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
-								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
-								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
-							</div>
-						</template>
-						<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_main1 != '' && $parent.selected.sessions.ordersheet.crotch_main1 != null">
-							<div class="value value--title">股下(左)</div>
-							<div class="value" data-title="基準値">-</div>
-							<div class="value" data-title="補正値">-</div>
-							<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_main1}}cm</div>
-						</div>
-						<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_right1 != '' && $parent.selected.sessions.ordersheet.crotch_right1 != null">
-							<div class="value value--title">股下(右)</div>
-							<div class="value" data-title="基準値">-</div>
-							<div class="value" data-title="補正値">-</div>
-							<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_right1}}cm</div>
-						</div>
-					</div>
-
-					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.slacks_dno2">
-						<div class="table-row table-row--header">
-							<div class="header header--title">
-								スラックス(２本目)
-								<strong>{{$parent.selected.sessions.ordersheet.slacks_size2}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
-							</div>
-							<div class="header">基準値</div>
-							<div class="header">補正値</div>
-							<div class="header">上がり値</div>
-						</div>
-						<template v-for="(item,key) in sizeAdjs">
-							<div class="table-row" v-if="item.junle == 'pants2'" :key="key">
-								<div class="value value--title">{{item.name}}</div>
-								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
-								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
-								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
-							</div>
-						</template>
-						<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_main2 != '' && $parent.selected.sessions.ordersheet.crotch_main2 != null">
-							<div class="value value--title">股下(左)</div>
-							<div class="value" data-title="基準値">-</div>
-							<div class="value" data-title="補正値">-</div>
-							<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_main2}}cm</div>
-						</div>
-						<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_right2 != '' && $parent.selected.sessions.ordersheet.crotch_right2 != null">
-							<div class="value value--title">股下(右)</div>
-							<div class="value" data-title="基準値">-</div>
-							<div class="value" data-title="補正値">-</div>
-							<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_right2}}cm</div>
-						</div>
-					</div>
-
-					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.wo_sk_d1">
-						<div class="table-row table-row--header">
-							<div class="header header--title">
-								スカート
-								<strong>{{$parent.selected.sessions.ordersheet.wo_sk_d1}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
-							</div>
-							<div class="header">基準値</div>
-							<div class="header">補正値</div>
-							<div class="header">上がり値</div>
-						</div>
-						<template v-for="(item,key) in sizeAdjs">
-							<div class="table-row" v-if="item.junle == 'skirt'" :key="key">
-								<div class="value value--title">{{item.name}}</div>
-								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
-								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
-								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
-							</div>
-						</template>
-					</div>
-
-					<div class="table-group" v-if="$parent.selected.sessions.ordersheet.wo_sk_d2">
-						<div class="table-row table-row--header">
-							<div class="header header--title">
-								スカート(２本目)
-								<strong>{{$parent.selected.sessions.ordersheet.wo_sk_d2}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
-							</div>
-							<div class="header">基準値</div>
-							<div class="header">補正値</div>
-							<div class="header">上がり値</div>
-						</div>
-						<template v-for="(item,key) in sizeAdjs">
-							<div class="table-row" v-if="item.junle == 'skirt2'" :key="key">
-								<div class="value value--title">{{item.name}}</div>
-								<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
-								<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
-								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
-							</div>
-						</template>
-					</div>
+				<div class="sticky-title">
+					<h3>過去選択仕様確認</h3>
 				</div>
 
-				<div class="action-container"></div>
-			</div>
+				<div class="option-confirm-group">
+					<h4>サイズ</h4>
 
-			<div class="sticky-title">
-				<h3>注文内容確認</h3>
-			</div>
+					<div class="table-group-container">
+						<div class="table-group" v-if="$parent.selected.sessions.ordersheet.jacket_dno">
+							<div class="table-row table-row--header">
+								<div class="header header--title">
+									ジャケット
+									<strong>{{$parent.selected.sessions.ordersheet.jacket_size}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+								</div>
+								<div class="header">基準値</div>
+								<div class="header">補正値</div>
+								<div class="header">上がり値</div>
+							</div>
+							<template v-for="(item,key) in sizeAdjs">
+								<div class="table-row" v-if="item.junle == 'jacket'" :key="key">
+									<div class="value value--title clickable" @click="imageChanger(key, 'size')">{{item.name}}</div>
+									<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+									<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+									<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+								</div>
+							</template>
+						</div>
 
-			<div class="option-confirm-group">
-				<h4>生地</h4>
-				<div class="label-group">
-					<div class="label-row">
-						<div class="label">生地</div>
-						<div class="value">{{$parent.firstCheckers.cloth_no}}</div>
+						<div class="table-group" v-if="$parent.selected.sessions.ordersheet.best_dno">
+							<div class="table-row table-row--header">
+								<div class="header header--title">
+									ベスト
+									<strong>{{$parent.selected.sessions.ordersheet.best_size}}</strong>
+								</div>
+								<div class="header">基準値</div>
+								<div class="header">補正値</div>
+								<div class="header">上がり値</div>
+							</div>
+							<template v-for="(item,key) in sizeAdjs">
+								<div class="table-row" v-if="item.junle == 'vest'" :key="key">
+									<div class="value value--title clickable" @click="imageChanger(key, 'size')">{{item.name}}</div>
+									<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+									<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+									<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+								</div>
+							</template>
+						</div>
+
+						<div class="table-group" v-if="$parent.selected.sessions.ordersheet.slacks_dno1">
+							<div class="table-row table-row--header">
+								<div class="header header--title">
+									スラックス
+									<strong>{{$parent.selected.sessions.ordersheet.slacks_size1}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+								</div>
+								<div class="header">基準値</div>
+								<div class="header">補正値</div>
+								<div class="header">上がり値</div>
+							</div>
+							<template v-for="(item,key) in sizeAdjs">
+								<div class="table-row" v-if="item.junle == 'pants'" :key="key">
+									<div class="value value--title clickable" @click="imageChanger(key, 'size')">{{item.name}}</div>
+									<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+									<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+									<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+								</div>
+							</template>
+							<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_main1 != '' && $parent.selected.sessions.ordersheet.crotch_main1 != null">
+								<div class="value value--title clickable" @click="imageChanger('crotch_main', 'size')">股下(左)</div>
+								<div class="value" data-title="基準値">-</div>
+								<div class="value" data-title="補正値">-</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_main1}}cm</div>
+							</div>
+							<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_right1 != '' && $parent.selected.sessions.ordersheet.crotch_right1 != null">
+								<div class="value value--title clickable" @click="imageChanger('crotch_right', 'size')">股下(右)</div>
+								<div class="value" data-title="基準値">-</div>
+								<div class="value" data-title="補正値">-</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_right1}}cm</div>
+							</div>
+						</div>
+
+						<div class="table-group" v-if="$parent.selected.sessions.ordersheet.slacks_dno2">
+							<div class="table-row table-row--header">
+								<div class="header header--title">
+									スラックス(２本目)
+									<strong>{{$parent.selected.sessions.ordersheet.slacks_size2}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+								</div>
+								<div class="header">基準値</div>
+								<div class="header">補正値</div>
+								<div class="header">上がり値</div>
+							</div>
+							<template v-for="(item,key) in sizeAdjs">
+								<div class="table-row" v-if="item.junle == 'pants2'" :key="key">
+									<div class="value value--title clickable" @click="imageChanger(key, 'size')">{{item.name}}</div>
+									<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+									<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+									<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+								</div>
+							</template>
+							<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_main2 != '' && $parent.selected.sessions.ordersheet.crotch_main2 != null">
+								<div class="value value--title clickable" @click="imageChanger('crotch_main', 'size')">股下(左)</div>
+								<div class="value" data-title="基準値">-</div>
+								<div class="value" data-title="補正値">-</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_main2}}cm</div>
+							</div>
+							<div class="table-row" v-if="$parent.selected.sessions.ordersheet.crotch_right2 != '' && $parent.selected.sessions.ordersheet.crotch_right2 != null">
+								<div class="value value--title clickable" @click="imageChanger('crotch_right', 'size')">股下(右)</div>
+								<div class="value" data-title="基準値">-</div>
+								<div class="value" data-title="補正値">-</div>
+								<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet.crotch_right2}}cm</div>
+							</div>
+						</div>
+
+						<div class="table-group" v-if="$parent.selected.sessions.ordersheet.wo_sk_d1">
+							<div class="table-row table-row--header">
+								<div class="header header--title">
+									スカート
+									<strong>{{$parent.selected.sessions.ordersheet.wo_sk_d1}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+								</div>
+								<div class="header">基準値</div>
+								<div class="header">補正値</div>
+								<div class="header">上がり値</div>
+							</div>
+							<template v-for="(item,key) in sizeAdjs">
+								<div class="table-row" v-if="item.junle == 'skirt'" :key="key">
+									<div class="value value--title clickable" @click="imageChanger(key, 'size')">{{item.name}}</div>
+									<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+									<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+									<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+								</div>
+							</template>
+						</div>
+
+						<div class="table-group" v-if="$parent.selected.sessions.ordersheet.wo_sk_d2">
+							<div class="table-row table-row--header">
+								<div class="header header--title">
+									スカート(２本目)
+									<strong>{{$parent.selected.sessions.ordersheet.wo_sk_d2}} {{ $parent.selected.gender == "women" ? '号' : '' }}</strong>
+								</div>
+								<div class="header">基準値</div>
+								<div class="header">補正値</div>
+								<div class="header">上がり値</div>
+							</div>
+							<template v-for="(item,key) in sizeAdjs">
+								<div class="table-row" v-if="item.junle == 'skirt2'" :key="key">
+									<div class="value value--title clickable" @click="imageChanger(key, 'size')">{{item.name}}</div>
+									<div class="value" data-title="基準値">{{$parent.selected.size[item.junle][key]}}cm</div>
+									<div class="value" data-title="補正値">{{$parent.selected.sessions.ordersheet[key] - $parent.selected.size[item.junle][key] | round}}cm</div>
+									<div class="value" data-title="上がり値">{{$parent.selected.sessions.ordersheet[key]}}cm</div>
+								</div>
+							</template>
+						</div>
 					</div>
-					<div class="label-row">
-						<div class="label">生地特性</div>
-						<div class="value">{{kizitokusei}}</div>
-					</div>
+
+					<div class="action-container"></div>
 				</div>
-				<div class="action-container"></div>
-			</div>
 
-			<div class="option-confirm-group">
-				<h4>コース</h4>
-				<div class="label-group">
-					<div class="label-row">
-						<div class="label">コース</div>
-						<div class="value">{{selected02}}</div>
-					</div>
+				<div class="sticky-title">
+					<h3>注文内容確認</h3>
 				</div>
-				<div class="action-container"></div>
-			</div>
 
-			<div class="option-confirm-group" v-if="!this.$parent.katagamiNaiUser">
-				<h4>デザイン</h4>
-				<div class="label-group">
-					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.jacket_dno">
-						<div class="label">ジャケット</div>
-						<div class="value">{{$parent.selected.sessions.ordersheet.jacket_dno}}</div>
-					</div>
-					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.slacks_dno1">
-						<div class="label">スラックス</div>
-						<div class="value">{{$parent.selected.sessions.ordersheet.slacks_dno1}}</div>
-					</div>
-					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.slacks_dno2">
-						<div class="label">スラックス(２本目)</div>
-						<div class="value">{{$parent.selected.sessions.ordersheet.slacks_dno2}}</div>
-					</div>
-					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.best_dno">
-						<div class="label">ベスト</div>
-						<div class="value">{{$parent.selected.sessions.ordersheet.best_dno}}</div>
-					</div>
-					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.wo_sk_d1">
-						<div class="label">スカート</div>
-						<div class="value">{{$parent.selected.sessions.ordersheet.wo_sk_d1}}</div>
-					</div>
-					<div class="label-row" v-if="$parent.selected.sessions.ordersheet.wo_sk_d2">
-						<div class="label">スカート(２枚目)</div>
-						<div class="value">{{$parent.selected.sessions.ordersheet.wo_sk_d2}}</div>
-					</div>
-				</div>
-				<div class="action-container"></div>
-			</div>
-
-			<div class="sticky-title">
-				<h3>オプション内容確認</h3>
-			</div>
-
-			<template v-for="design in optionList">
-				<div class="option-confirm-group" v-if="design.options.length" :key="design.id">
-					<h4>{{ design.name }}</h4>
+				<div class="option-confirm-group">
+					<h4>生地</h4>
 					<div class="label-group">
-						<div class="label-row" v-for="item in design.options" :key="item.disp_name">
-							<div class="label">{{item.disp_name}}</div>
-							<div class="value" v-if="item.input_type == '2'">{{item.selectedOption}}</div>
-							<div class="value" v-else>{{item.selectedOptionDetail.option_field}}</div>
+						<div class="label-row">
+							<div class="label clickable" @click="imageChanger('cloth_no', 'cloth_no')">生地</div>
+							<div class="value">{{$parent.firstCheckers.cloth_no}}</div>
+						</div>
+						<div class="label-row">
+							<div class="label">生地特性</div>
+							<div class="value">{{kizitokusei}}</div>
 						</div>
 					</div>
 					<div class="action-container"></div>
 				</div>
-			</template>
+
+				<div class="option-confirm-group">
+					<h4>コース</h4>
+					<div class="label-group">
+						<div class="label-row">
+							<div class="label">コース</div>
+							<div class="value">{{selected02}}</div>
+						</div>
+					</div>
+					<div class="action-container"></div>
+				</div>
+
+				<div class="option-confirm-group" v-if="!this.$parent.katagamiNaiUser">
+					<h4>デザイン</h4>
+					<div class="label-group">
+						<div class="label-row" v-if="$parent.selected.sessions.ordersheet.jacket_dno">
+							<div class="label">ジャケット</div>
+							<div class="value">{{$parent.selected.sessions.ordersheet.jacket_dno}}</div>
+						</div>
+						<div class="label-row" v-if="$parent.selected.sessions.ordersheet.slacks_dno1">
+							<div class="label">スラックス</div>
+							<div class="value">{{$parent.selected.sessions.ordersheet.slacks_dno1}}</div>
+						</div>
+						<div class="label-row" v-if="$parent.selected.sessions.ordersheet.slacks_dno2">
+							<div class="label">スラックス(２本目)</div>
+							<div class="value">{{$parent.selected.sessions.ordersheet.slacks_dno2}}</div>
+						</div>
+						<div class="label-row" v-if="$parent.selected.sessions.ordersheet.best_dno">
+							<div class="label">ベスト</div>
+							<div class="value">{{$parent.selected.sessions.ordersheet.best_dno}}</div>
+						</div>
+						<div class="label-row" v-if="$parent.selected.sessions.ordersheet.wo_sk_d1">
+							<div class="label">スカート</div>
+							<div class="value">{{$parent.selected.sessions.ordersheet.wo_sk_d1}}</div>
+						</div>
+						<div class="label-row" v-if="$parent.selected.sessions.ordersheet.wo_sk_d2">
+							<div class="label">スカート(２枚目)</div>
+							<div class="value">{{$parent.selected.sessions.ordersheet.wo_sk_d2}}</div>
+						</div>
+					</div>
+					<div class="action-container"></div>
+				</div>
+
+				<div class="sticky-title">
+					<h3>オプション内容確認</h3>
+				</div>
+
+				<template v-for="design in optionList">
+					<div class="option-confirm-group" v-if="design.options.length" :key="design.id">
+						<h4>{{ design.name }}</h4>
+						<div class="label-group">
+							<div class="label-row" v-for="item in design.options" :key="item.disp_name">
+								<div class="label" :class="{clickable: !notuseChecker(item.api_field)}" @click="imageChanger(item.api_field, 'option')">{{item.disp_name}}</div>
+								<div class="value" v-if="item.input_type == '2'">{{item.selectedOption}}</div>
+								<div class="value" v-else>{{item.selectedOptionDetail.option_field}}</div>
+							</div>
+						</div>
+						<div class="action-container"></div>
+					</div>
+				</template>
+			</div>
 		</div>
 	</div>
 </template>

@@ -22,14 +22,7 @@
 
  css,js は　nodedirディレクトリの中で管理されています。
  *}-->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QM0PHVXNQX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-QM0PHVXNQX');
-</script>
+
 <style>
 
 .slideup-enter-active {
@@ -111,6 +104,9 @@
         </div>
         <template v-if="sessionDataLoadFlg">
             <div v-if="staffstartFlg" class="simulator-template simulator-template--start">
+                <div class="simulator-object">
+                    <imageview v-bind:uploadpass="uploadPass"></imageview>
+                </div>
                 <div class="simulator-controls">
                     <staffstart ></staffstart>
                 </div>

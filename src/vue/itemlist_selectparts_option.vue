@@ -917,10 +917,18 @@ module.exports = {
 					&& this.typeChecker(parts)
 				);
 			}
+			const isFabricSpecification = (parts) => {
+				if (parts.option_num == '5000') {
+					const specs = this.$parent.selectedProductData.specification;
+					return specs.includes(parts.option_id);
+				}
+				return true;
+			}
 
 			for (let option of Object.values(this.optionData.mazemaze)) {
 				if (
-					removeButtonAndFabric(option)
+					isFabricSpecification(option)
+					&& removeButtonAndFabric(option)
 					&& (isFabric(option) || isShape(option) || isNotShape(option) || isStandard(option))
 				) {
 					options.push(option);

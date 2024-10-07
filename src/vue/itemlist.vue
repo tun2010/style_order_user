@@ -82,11 +82,11 @@ div.simulator__selector
 				<div class="large">絞り込み検索</div>
 			</button>
 			<div class="products-message-large">
-				<p>生地一覧の生地番号の下に表示されている価格はスーツ上下の値段です</p>
+				<p>生地一覧に価格表示がある場合は、上下スーツの価格です。</p>
 			</div>
 		</div>
 		<div class="products-message-small">
-			<p>生地一覧の生地番号の下に表示されている価格はスーツ上下の値段です</p>
+			<p>生地一覧に価格表示がある場合は、上下スーツの価格です。</p>
 		</div>
 		<ul class="products-list vertical-scroll" @scroll="handleScroll">
 			<li class="product" v-for="product in productList" :key="product.product_id" :class="{'active':selectedFabric == product.product_code_min}">

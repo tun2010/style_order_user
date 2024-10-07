@@ -13,7 +13,7 @@
 <template>
 	<div class="noti-container">
 		<div class="price-container">
-			<div class="main-price">
+			<div class="main-price" v-if="!$parent.katagamiNaiUser || $parent.step != 1">
 				合計金額
 				<span class="price">{{ totalPrice | pricer }}</span>
 				円（税込）

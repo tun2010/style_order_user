@@ -1119,7 +1119,7 @@ var app = new Vue({
                 1: {
                     styleNo: 10,
                     en: "JACKET + SLACKS",
-                    ja: "ジャケット + スラックス",
+                    ja: "ジャケット + パンツ",
                     //jancode 特定用コード
                     code: "011,012",
                     masterNo: 34,
@@ -1133,7 +1133,7 @@ var app = new Vue({
                 2: {
                     styleNo: 15,
                     en: "JACKET + SLACKS + SKIRT",
-                    ja: "ジャケット + スラックス + スカート",
+                    ja: "ジャケット + パンツ + スカート",
                     //jancode 特定用コード
                     code: "011,012,013",
                     masterNo: 39,
@@ -1175,7 +1175,7 @@ var app = new Vue({
                 5: {
                     styleNo: 12,
                     en: "SLACKS + SKIRT",
-                    ja: "スラックス + スカート",
+                    ja: "パンツ + スカート",
                     //jancode 特定用コード
                     code: "012,013",
                     masterNo: 36,
@@ -1245,7 +1245,7 @@ var app = new Vue({
                 10: {
                     styleNo: 8,
                     en: "SLACKS",
-                    ja: "スラックス",
+                    ja: "パンツ",
                     //jancode 特定用コード
                     code: "012",
                     masterNo: 32,

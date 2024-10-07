@@ -21,7 +21,7 @@
 		</div>
 		<p style="display:none;">{{ targetCourser }}</p>
 		<p style="display:none;">{{ targetSrc }}</p>
-		<div class="zentai" v-if='courseNo != ""'>
+		<div class="zentai" :class="{'is-pants': isPants}" v-if='courseNo != ""'>
 			<img :src="targetSrc + 'torso.png'" alt="Troso" class="torso">
 			<object class="suitmodel model1" type="image/svg+xml"
 				@load="$parent.onFabricLoad"
@@ -31,7 +31,7 @@
 			></object>
 			<img class="shadow" :src="targetSrc+'shadow.png'">
 		</div>
-		<div class="sample" v-else>
+		<div class="sample" :class="{'is-pants': isPants}" v-else>
 			<img class="torso" :src="sampletorsosrc">
 			<object class="suitmodel model2" type="image/svg+xml"
 				@load="$parent.onFabricLoad"
@@ -286,6 +286,9 @@ module.exports = {
 		// 	})
 		// 	return target;
 		// },
+		isPants() {
+			return ['28', '29', '30'].includes(this.courseNo);
+		},
 		fabric: function () {
 			if (!this.$parent.productData) return '';
 

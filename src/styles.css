@@ -487,6 +487,7 @@ body {
 
         & img {
             max-width: 100%;
+            max-height: 75vh;
         }
     }
 
@@ -1067,9 +1068,6 @@ body {
         }
 
         .message-group {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
             font-size: .85rem;
         }
 
@@ -1489,7 +1487,7 @@ body {
     overflow: hidden;
 
     @media (max-width: 991.9px) {
-        --tranlate: -50px;
+        --tranlate: -30px;
     }
 
     @media (min-width: 992px) {
@@ -1501,6 +1499,13 @@ body {
     .options {
         --size: -60px;
         --d-size: 120px;
+
+        @media (max-width: 991.9px) {
+            &.is-pants {
+                --size: -30px;
+                --d-size: 60px;
+            }
+        }
 
         @media (min-width: 992px) {
             --size: -100px;
@@ -1741,6 +1746,11 @@ body {
 
 .products-container {
 
+    .products-message-small,
+    .products-message-large {
+        font-size: .8rem;
+    }
+
     @media (max-width: 991.9px) {
         width: 100%;
         position: relative;
@@ -1773,6 +1783,15 @@ body {
                     display: none;
                 }
             }
+        }
+
+        .products-message-small {
+            padding: 20px;
+            padding-block-end: 0;
+        }
+
+        .products-message-large {
+            display: none;
         }
 
         .products-list {
@@ -1912,11 +1931,17 @@ body {
             display: none;
         }
 
+        .products-message-small {
+            display: none;
+        }
+
         .products-controls {
-            display: flex;
+            display: grid;
+            grid-template-columns: 200px 1fr;
             justify-content: flex-start;
             align-items: center;
             padding-inline: 25px;
+            gap: 20px;
 
             position: relative;
 

@@ -801,7 +801,7 @@ var app = new Vue({
         //各種確認用の表示が出る
         debug: false,
         selectImageDisp: "jacket",
-        step: getParam('gender') ? 1 : 0,
+        step: (getParam('gender') || (getParam('guest') == 1 && getParam('email') == 1)) ? 1 : 0,
         stepLimit: 7,
         productDataLoad: false,
         masterDataLoad: false,

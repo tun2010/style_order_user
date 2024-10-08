@@ -426,8 +426,8 @@ module.exports = {
 				);
 			});
 			// // console.log('targetCourseData', JSON.parse(JSON.stringify(this.$parent.selected.targetCourseData)));
-			console.log('firstCheckers', JSON.parse(JSON.stringify(this.$parent.firstCheckers)));
-			console.log('DESIGN_LIST', JSON.parse(JSON.stringify(_.orderBy(list, 'rank', 'desc'))));
+			// console.log('firstCheckers', JSON.parse(JSON.stringify(this.$parent.firstCheckers)));
+			// console.log('DESIGN_LIST', JSON.parse(JSON.stringify(_.orderBy(list, 'rank', 'desc'))));
 			return _.orderBy(list, 'rank', 'desc');
 		},
 		patternList(style, styleId, category) {

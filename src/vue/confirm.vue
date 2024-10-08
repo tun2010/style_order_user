@@ -485,9 +485,6 @@ module.exports = {
 			if (!this.loading) {
 				this.updateDesignList(v);
 			}
-		},
-		'$parent.selected': function(v) {
-			console.log('CHANGE', v);
 		}
 	},
 	computed: {

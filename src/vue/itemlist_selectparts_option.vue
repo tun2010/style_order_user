@@ -920,6 +920,7 @@ module.exports = {
 			const isFabricSpecification = (parts) => {
 				if (parts.option_num == '5000') {
 					const specs = this.$parent.selectedProductData.specification;
+					if (!specs) return false;
 					return specs.includes(parts.option_id);
 				}
 				return true;

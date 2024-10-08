@@ -71,6 +71,12 @@ function getParam(key) {
     return params.get(key) || null;
 }
 
+function getStep() {
+    if (getParam('gender')) return 1;
+    if (getParam('guest') == 1 && getParam('email') == 1) return 7;
+    return 0
+}
+
 axios.get("/sandbox/ajaxTool/getMasters.php", query).then(res => {
     var data = res.data;
     app.masters = data;
@@ -801,7 +807,7 @@ var app = new Vue({
         //各種確認用の表示が出る
         debug: false,
         selectImageDisp: "jacket",
-        step: (getParam('gender') || (getParam('guest') == 1 && getParam('email') == 1)) ? 1 : 0,
+        step: getStep(),
         stepLimit: 7,
         productDataLoad: false,
         masterDataLoad: false,

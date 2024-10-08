@@ -356,7 +356,6 @@ module.exports = {
 	data: function () {
 		return {
 			selected: this.$parent.selected.sessions.ordersheet,
-			selectedFabricer: this.$parent.productData[this.$parent.selected.fabric],
 			productDataLoad: this.$parent.productDataLoad,
 			masterDataLoad: this.$parent.masterDataLoad,
 			sizeAdjs: this.$parent.size.adj,
@@ -487,8 +486,16 @@ module.exports = {
 				this.updateDesignList(v);
 			}
 		},
+		'$parent.selected': function(v) {
+			console.log('CHANGE', v);
+		}
 	},
 	computed: {
+		selectedFabricer: function () {
+			if (!this.$parent.productData) return null;
+
+			return Object.values(this.$parent.productData).find(item => item.product_code_min == this.$parent.selected.sessions.ordersheet.cloth_no);
+		},
 		selectparts: function () {
 			var result = '';
 			$.each(this.$parent.selected.parts, function (key, item) {

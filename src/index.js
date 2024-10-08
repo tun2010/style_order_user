@@ -2605,111 +2605,114 @@ var app = new Vue({
         },
         //選択されているオプションをセッションと照らし合わせ判別する
         getSelectedOption: function () {
-            let formdata = new URLSearchParams();
-            var sessionJson = JSON.stringify(this.selected.sessions);
-            formdata.append('sessions', sessionJson);
-            var resdata = "";
-            var thista = this;
-            axios.post("/sandbox/ajaxTool/getSelectedOption.php", formdata).then(res => {
-                // //// console.log('selectedoption');
-                // //// console.log(res.data);
-                resdata = res.data;
-                // $.each(resdata,function(key,item){
-                //   if(Object.keys(thista.optionData.mazemaze).indexOf(item.option_id) == -1){
-                //     delete resdata[key];
-                //   }
-                // });
+            return new Promise(resolve => {
 
-                // //// console.log(this.selected.sessions);
-                // $.each(resdata,function(key,item){
-                //   //// console.log(item.disp_name);
-                // })
-                //選択されていないパーツは消す
-                var shiwake = thista.optionsShiwakeOptiondake;
-                var selectparts = '';
-                $.each(thista.selected.parts, function (key, item) {
-                    selectparts = item;
+                let formdata = new URLSearchParams();
+                var sessionJson = JSON.stringify(this.selected.sessions);
+                formdata.append('sessions', sessionJson);
+                var resdata = "";
+                var thista = this;
+                axios.post("/sandbox/ajaxTool/getSelectedOption.php", formdata).then(res => {
+                    // //// console.log('selectedoption');
+                    // //// console.log(res.data);
+                    resdata = res.data;
+                    // $.each(resdata,function(key,item){
+                    //   if(Object.keys(thista.optionData.mazemaze).indexOf(item.option_id) == -1){
+                    //     delete resdata[key];
+                    //   }
+                    // });
+
+                    // //// console.log(this.selected.sessions);
+                    // $.each(resdata,function(key,item){
+                    //   //// console.log(item.disp_name);
+                    // })
+                    //選択されていないパーツは消す
+                    var shiwake = thista.optionsShiwakeOptiondake;
+                    var selectparts = '';
+                    $.each(thista.selected.parts, function (key, item) {
+                        selectparts = item;
+                    });
+                    var parts = selectparts.designParts;
+                    if (parts != void 0) {
+                        var esFlg = false;
+                        var esnFlg = false;
+                        if (parts.indexOf('jacket') == -1) {
+                            $.each(shiwake['jacket'], function (key, item) {
+                                $.each(resdata, function (key2, item2) {
+                                    if (item2.target_api_field == item) {
+                                        if (item2.target_api_field == 'ext_specification') {
+                                            esFlg = true;
+                                            if (thista.selected.gender == 'women') {
+                                                delete resdata[key2];
+                                            }
+                                        }
+                                        if (item2.target_api_field == 'ext_specification_normal') {
+                                            esFlg = true;
+                                        }
+                                        if ((parts.indexOf('pants') > -1 && (item2.target_api_field == 'button_cno' || item2.target_api_field == 'ext_specification')) || (parts.indexOf('vest') > -1 && (item2.target_api_field == 'button_cno' || item2.target_api_field == 'colorcustoms_ura_cno_normal' || item2.target_api_field == 'ura_cno'))) {
+
+                                        } else {
+                                            delete resdata[key2];
+                                        }
+                                    }
+                                });
+                            });
+
+                        }
+                        if (parts.indexOf('pants') == -1) {
+                            $.each(shiwake['pants'], function (key, item) {
+                                $.each(resdata, function (key2, item2) {
+                                    if (item2.target_api_field == item) {
+                                        if (item2.target_api_field == 'ext_specification') {
+                                            if (esFlg == true) {
+                                                delete resdata[key2];
+                                            }
+                                        }
+                                        else if (item2.target_api_field == 'ext_specification_normal') {
+                                            if (esnFlg == true) {
+                                                delete resdata[key2];
+                                            }
+                                        } else {
+                                            delete resdata[key2];
+                                        }
+                                    }
+                                });
+
+                            });
+                        }
+                        if (parts.indexOf('pants2') == -1) {
+                            $.each(shiwake['pants2'], function (key, item) {
+                                $.each(resdata, function (key2, item2) {
+                                    if (item2.target_api_field == item) {
+                                        delete resdata[key2];
+                                    }
+                                });
+                            });
+                        }
+                        if (parts.indexOf('skirt') == -1) {
+                            $.each(shiwake['skirt'], function (key, item) {
+                                $.each(resdata, function (key2, item2) {
+                                    if (item2.target_api_field == item) {
+                                        delete resdata[key2];
+                                    }
+                                });
+                            });
+                        }
+                        if (parts.indexOf('skirt2') == -1) {
+                            $.each(shiwake['skirt2'], function (key, item) {
+                                $.each(resdata, function (key2, item2) {
+                                    if (item2.target_api_field == item) {
+                                        delete resdata[key2];
+                                    }
+                                });
+                            });
+                        }
+                    }
+                    thista.selected.selectedOptions = resdata;
+                    resolve(true);
+                    // return resdata;
                 });
-                var parts = selectparts.designParts;
-                if (parts != void 0) {
-                    var esFlg = false;
-                    var esnFlg = false;
-                    if (parts.indexOf('jacket') == -1) {
-                        $.each(shiwake['jacket'], function (key, item) {
-                            $.each(resdata, function (key2, item2) {
-                                if (item2.target_api_field == item) {
-                                    if (item2.target_api_field == 'ext_specification') {
-                                        esFlg = true;
-                                        if (thista.selected.gender == 'women') {
-                                            delete resdata[key2];
-                                        }
-                                    }
-                                    if (item2.target_api_field == 'ext_specification_normal') {
-                                        esFlg = true;
-                                    }
-                                    if ((parts.indexOf('pants') > -1 && (item2.target_api_field == 'button_cno' || item2.target_api_field == 'ext_specification')) || (parts.indexOf('vest') > -1 && (item2.target_api_field == 'button_cno' || item2.target_api_field == 'colorcustoms_ura_cno_normal' || item2.target_api_field == 'ura_cno'))) {
-
-                                    } else {
-                                        delete resdata[key2];
-                                    }
-                                }
-                            });
-                        });
-
-                    }
-                    if (parts.indexOf('pants') == -1) {
-                        $.each(shiwake['pants'], function (key, item) {
-                            $.each(resdata, function (key2, item2) {
-                                if (item2.target_api_field == item) {
-                                    if (item2.target_api_field == 'ext_specification') {
-                                        if (esFlg == true) {
-                                            delete resdata[key2];
-                                        }
-                                    }
-                                    else if (item2.target_api_field == 'ext_specification_normal') {
-                                        if (esnFlg == true) {
-                                            delete resdata[key2];
-                                        }
-                                    } else {
-                                        delete resdata[key2];
-                                    }
-                                }
-                            });
-
-                        });
-                    }
-                    if (parts.indexOf('pants2') == -1) {
-                        $.each(shiwake['pants2'], function (key, item) {
-                            $.each(resdata, function (key2, item2) {
-                                if (item2.target_api_field == item) {
-                                    delete resdata[key2];
-                                }
-                            });
-                        });
-                    }
-                    if (parts.indexOf('skirt') == -1) {
-                        $.each(shiwake['skirt'], function (key, item) {
-                            $.each(resdata, function (key2, item2) {
-                                if (item2.target_api_field == item) {
-                                    delete resdata[key2];
-                                }
-                            });
-                        });
-                    }
-                    if (parts.indexOf('skirt2') == -1) {
-                        $.each(shiwake['skirt2'], function (key, item) {
-                            $.each(resdata, function (key2, item2) {
-                                if (item2.target_api_field == item) {
-                                    delete resdata[key2];
-                                }
-                            });
-                        });
-                    }
-                }
-                thista.selected.selectedOptions = resdata;
-                // return resdata;
             });
-
         },
         //セッションにオプションデータがあるときjancode 出さなあかんので使う
         getOptionsHazime: function (kumiawaseId, gender) {

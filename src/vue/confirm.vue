@@ -28,7 +28,7 @@
 
 <template>
 	<div class="confirm-container">
-		<div class="confirm-scroll vertical-scroll">
+		<div class="confirm-scroll vertical-scroll" v-if="!loading">
 			<div class="main-message-container">
 				<div class="persona"></div>
 				<p>以下の内容で承っております。来店予約を行う場合は、来店予約ボタンより、シミュレーション内容を保存する場合は、メールで送信をクリックしてください。</p>
@@ -53,7 +53,7 @@
 				<h3>注文内容確認</h3>
 			</div>
 
-			<div class="option-confirm-group">
+			<div class="option-confirm-group" v-if="selectedFabricer">
 				<h4>生地</h4>
 				<div class="label-group">
 					<div class="label-row">
@@ -471,6 +471,7 @@ module.exports = {
 				},
 			],
 			optionList: [],
+			loading: true,
 		}
 	},
 	props: ["uploadpass"],
@@ -482,8 +483,10 @@ module.exports = {
 			this.masterDataLoad = v;
 		},
 		'$parent.selected.selectedOptions': function(v) {
-			this.updateDesignList(v);
-		}
+			if (!this.loading) {
+				this.updateDesignList(v);
+			}
+		},
 	},
 	computed: {
 		selectparts: function () {
@@ -730,7 +733,6 @@ module.exports = {
 			});
 
 			// // console.log('SELECTED_OPTIONS', JSON.parse(JSON.stringify(this.$parent.selected.selectedOptions)));
-			console.log('DESIGNS', JSON.parse(JSON.stringify(designs)));
 			this.optionList = designs;
 		},
 		checkAitFit(option) {
@@ -788,9 +790,52 @@ module.exports = {
 			}
 			return true;
 		},
+		getKitagami() {
+			const katagamiData = {};
+			Object.entries(this.$parent.selected.course).forEach(([key, katagami]) => {
+				Object.values(katagami).forEach(value => {
+					katagamiData[key] = value;
+				});
+			});
+
+			return katagamiData;
+		},
+		async getOptionsData() {
+			const katagamiObj = this.getKitagami();
+			const katagami = {};
+			Object.entries(katagamiObj).forEach(([key, value]) => {
+				if (value && value.pattern_id) {
+					katagami[key] = value.pattern_id;
+				}
+			})
+
+			const query = {
+				headers: {
+					"content-Type": "application/json;charset=UTF-8"
+				},
+				params: {
+					kumiawaseId: this.$parent.selectedProductData.type,
+					katagami: katagami,
+					gender: this.$parent.selected.gender,
+					katagamiNaiUser: this.$parent.katagamiNaiUser,
+					parts: this.$parent.selected.parts,
+					factory: this.$parent.selectedProductData.factory,
+					gb: this.$parent.selected.gb ? 1 : '',
+				}
+			};
+			try {
+				const result = await axios.get("/sandbox/ajaxTool/getOptionKumiawase.php", query);
+
+				if (!result.data) throw new Error('Error');
+				this.$parent.optionData = result.data;
+
+				return true;
+			} catch(error) {
+				return false;
+			}
+		},
 	},
-	mounted: function () {
-		// console.log('STEP', this.$parent.step);
+	async mounted () {
 		this.$parent.getJan();
 		if (this.$parent.tantouFlg) {
 			this.janChecker();
@@ -805,10 +850,16 @@ module.exports = {
 		if (this.$parent.productDataLoad) {
 			this.masterDataLoad = true;
 		}
-		this.$parent.getSelectedOption();
-		// console.log('ORDERSHEET::OPTIONS', JSON.parse(JSON.stringify(this.$parent.selected.sessions.ordersheet)));
+		Vue.set(this.$parent, 'loading', true);
+		await this.$parent.getSelectedOption();
+
+		if (!this.$parent.optionData.mazemaze) {
+			await this.getOptionsData();
+		}
+		this.loading = false;
 
 		this.updateDesignList(this.$parent.selected.selectedOptions);
+		Vue.set(this.$parent, 'loading', false);
 	},
 	beforeDestroy: function () {
 		var thista = this;

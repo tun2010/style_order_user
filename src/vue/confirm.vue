@@ -31,7 +31,8 @@
 		<div class="confirm-scroll vertical-scroll" v-if="!loading">
 			<div class="main-message-container">
 				<div class="persona"></div>
-				<p>以下の内容で承っております。来店予約を行う場合は、来店予約ボタンより、シミュレーション内容を保存する場合は、メールで送信をクリックしてください。</p>
+				<p v-if="$parent.katagamiNaiUser">以下の内容で承っております。来店予約を行う場合は、来店予約ボタンより、シミュレーション内容を保存する場合は、メールで送信をクリックしてください。</p>
+				<p v-else>ご注文内容を最終確認いただき、カートへ入れるボタンを押して決算画面にお進みください。</p>
 			</div>
 
 			<div class="actions-group" v-if="$parent.katagamiNaiUser">

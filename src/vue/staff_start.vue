@@ -199,7 +199,7 @@ div.simulator__start_container
 					<h3>過去選択仕様確認</h3>
 				</div>
 
-				<div class="option-confirm-group">
+				<div class="option-confirm-group custon-option-group">
 					<h4>サイズ</h4>
 
 					<div class="table-group-container">
@@ -355,7 +355,7 @@ div.simulator__start_container
 					<h3>注文内容確認</h3>
 				</div>
 
-				<div class="option-confirm-group">
+				<div class="option-confirm-group custon-option-group">
 					<h4>生地</h4>
 					<div class="label-group">
 						<div class="label-row">
@@ -370,7 +370,7 @@ div.simulator__start_container
 					<div class="action-container"></div>
 				</div>
 
-				<div class="option-confirm-group">
+				<div class="option-confirm-group custon-option-group">
 					<h4>コース</h4>
 					<div class="label-group">
 						<div class="label-row">
@@ -381,7 +381,7 @@ div.simulator__start_container
 					<div class="action-container"></div>
 				</div>
 
-				<div class="option-confirm-group" v-if="!this.$parent.katagamiNaiUser">
+				<div class="option-confirm-group custon-option-group" v-if="!this.$parent.katagamiNaiUser">
 					<h4>デザイン</h4>
 					<div class="label-group">
 						<div class="label-row" v-if="$parent.selected.sessions.ordersheet.jacket_dno">
@@ -417,7 +417,7 @@ div.simulator__start_container
 				</div>
 
 				<template v-for="design in optionList">
-					<div class="option-confirm-group" v-if="design.options.length" :key="design.id">
+					<div class="option-confirm-group custon-option-group" v-if="design.options.length" :key="design.id">
 						<h4>{{ design.name }}</h4>
 						<div class="label-group">
 							<div class="label-row" v-for="item in design.options" :key="item.disp_name">

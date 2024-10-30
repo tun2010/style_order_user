@@ -8,7 +8,7 @@
 						:class="{ active: isActive(item.option_code) }"
 						:key="item.option_code">
 						<button class="product-card" @click="selectOptionItem(item)">
-							<figure v-if="item.option_code != 19">
+							<figure>
 								<img v-if="item.option_image" :src="uploadpass + item.option_image" alt="Button">
 								<img v-else src="/images/noimage.png" alt="Button">
 							</figure>

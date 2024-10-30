@@ -2610,6 +2610,12 @@ body {
         padding-block-end: 40px;
     }
 
+    .message {
+        padding: 20px;
+        padding-block-end: 0;
+        font-size: .9rem;
+    }
+
     @media (max-width: 991.9px) {
         .confirm-scroll {
             overflow: initial;

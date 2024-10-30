@@ -199,6 +199,8 @@ div.simulator__start_container
 					<h3>過去選択仕様確認</h3>
 				</div>
 
+				<p class="message">下線部がある項目をクリックすると画面が切り替わり、該当するサイズ部分やオプション内容をイラストでご確認いただけます。</p>
+
 				<div class="option-confirm-group custon-option-group">
 					<h4>サイズ</h4>
 

@@ -2754,7 +2754,7 @@ body {
                             height: 1.2rem;
                             flex-shrink: 0;
 
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/link-white.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/link-white.png);
                             background-size: contain;
                             background-position: center;
                             background-repeat: no-repeat;
@@ -2900,7 +2900,7 @@ body {
                             height: 1.2rem;
                             flex-shrink: 0;
 
-                            background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/link-black.png);
+                            background-image: url(/user_data/packages/default/img/style_order_icons/link-black.png);
                             background-size: contain;
                             background-position: center;
                             background-repeat: no-repeat;
@@ -2986,7 +2986,7 @@ body {
                 width: 1rem;
                 height: 1rem;
 
-                background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/link-white.png);
+                background-image: url(/user_data/packages/default/img/style_order_icons/link-white.png);
                 background-size: contain;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -3004,7 +3004,7 @@ body {
                 width: 1rem;
                 height: 1rem;
 
-                background-image: url(/sandbox/user_data/packages/default/img/style_order_icons/link-black.png);
+                background-image: url(/user_data/packages/default/img/style_order_icons/link-black.png);
                 background-size: contain;
                 background-position: center;
                 background-repeat: no-repeat;
